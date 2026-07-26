@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarbleCraft - Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#474646",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#838484",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-highest": "#e4e2e1",
+                    "secondary-fixed": "#ffe08e",
+                    "tertiary-container": "#1a1c1c",
+                    "on-secondary-fixed": "#241a00",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e4e2e1",
+                    "surface-dim": "#dcd9d9",
+                    "surface-tint": "#5f5e5e",
+                    "background": "#fcf9f8",
+                    "on-background": "#1b1c1c",
+                    "on-secondary-container": "#735a00",
+                    "primary-fixed": "#e5e2e1",
+                    "on-primary-fixed": "#1c1b1b",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "tertiary": "#000000",
+                    "surface-container": "#f0eded",
+                    "secondary-fixed-dim": "#ecc246",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#eae7e7",
+                    "outline": "#747878",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "on-surface-variant": "#444748",
+                    "secondary": "#755b00",
+                    "primary-container": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#584400",
+                    "secondary-container": "#fed255",
+                    "surface": "#fcf9f8",
+                    "inverse-surface": "#303030",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c4c7c7",
+                    "on-surface": "#1b1c1c",
+                    "inverse-primary": "#c8c6c5",
+                    "on-primary-container": "#858383",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0f0",
+                    "primary": "#000000"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "section-gap": "160px",
+                    "margin-desktop": "80px",
+                    "gutter": "32px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                    "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                    "display-lg-mobile": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                    "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                    "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(232, 232, 232, 0.3); /* Marble Gray approximation */
+            box-shadow: 0 40px 60px -15px rgba(17, 17, 17, 0.05); /* Soft Charcoal Black shadow */
+        }
+        .text-balance { text-wrap: balance; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Shared Component -->
+<nav class="fixed top-0 w-full z-50 bg-white/15 dark:bg-black/15 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-2xl shadow-charcoal-black/5">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<!-- Brand -->
+<a class="font-headline-lg text-headline-lg tracking-tight text-primary dark:text-primary-fixed hover:opacity-70 transition-opacity ease-in-out duration-400" href="#">
+                MarbleCraft
+            </a>
+<!-- Navigation Links -->
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Portfolio</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Heritage</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Inquiry</a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/10 dark:hover:bg-black/20 rounded-full transition-all duration-400 flex items-center justify-center text-primary dark:text-primary-fixed" data-icon="dark_mode">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 hover:bg-white/10 dark:hover:bg-black/20 rounded-full transition-all duration-400 flex items-center justify-center text-primary dark:text-primary-fixed" data-icon="search">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="max-w-3xl">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-6 text-balance">
+                Forged by time.<br/>Crafted for eternity.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                MarbleCraft represents the pinnacle of stone heritage, blending centuries-old quarrying traditions with cutting-edge architectural precision. We curate the earth's finest materials for the world's most discerning spaces.
+            </p>
+</div>
+</header>
+<!-- Company Story Split Layout -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop my-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<!-- Text Content -->
+<div class="md:col-span-5 flex flex-col gap-12">
+<div>
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase">Our History</h2>
+<h3 class="font-headline-xl text-headline-xl text-primary mb-6">A legacy etched in stone.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Founded over four decades ago, MarbleCraft began as a modest family endeavor in the heart of Carrara. Today, it stands as a globally recognized atelier of luxury natural stone. Our enduring commitment to quality ensures that every slab we select tells a story of geological majesty and human refinement.
+                    </p>
+</div>
+<div>
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase">Our Vision</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        We envision spaces that transcend fleeting trends. By treating raw stone as a canvas for architectural innovation, we empower designers and homeowners to create environments of quiet, uncompromising luxury.
+                    </p>
+</div>
+<div>
+<button class="bg-primary text-on-primary hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-400 px-8 py-4 font-label-caps text-label-caps tracking-widest uppercase">
+                        Explore Our Quarries
+                    </button>
+</div>
+</div>
+<!-- Imagery offset -->
+<div class="md:col-span-6 md:col-start-7 relative mt-12 md:mt-0">
+<img class="w-full h-auto object-cover rounded-DEFAULT shadow-2xl" data-alt="A highly detailed, ultra-high-resolution photograph of a monumental quarry wall of pristine white Carrara marble. The striking geometric cuts in the rock face contrast with the organic, raw texture of the earth. Soft, diffused natural light accentuates the subtle gray veining, conveying a sense of vast scale, minimalist editorial luxury, and timeless permanence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoGQMAZXR9xZXAmayTfaxAbOURbF4lmRj1dsnLVQuAW-vBv5aXj5Do-KBIou8gjmBzsYBuN26EjgTV4L6dbhm-ndB57pqrfUj6TKnRpIOBt9duSmr3dKbN27XhDjtJleo45MI6nJmkKazaNvCXYns7Vkfk9wS2ueS0LxVHfUNRVOGYRLgYFo-hrMat-FtVblutb4Y76It9Bu38MavLCIQq2pFwzlB7Cw9auw0pzxZ9VDDn2zfQrNc4"/>
+<!-- Floating Glass Card -->
+<div class="absolute -bottom-10 -left-10 md:-left-20 w-64 glass-panel p-6 rounded-lg">
+<p class="font-label-caps text-label-caps text-primary mb-2">Purity Index</p>
+<p class="font-headline-lg text-headline-lg text-primary">99.8%</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mt-2">Unmatched structural integrity across our flagship quartz line.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Sourcing & Sustainability (Glassmorphism over Image) -->
+<section class="relative my-section-gap">
+<div class="absolute inset-0 bg-cover bg-center w-full h-full" data-alt="An expansive, cinematic top-down aerial view of a meticulously maintained, sustainable stone quarry nestled in a lush, green mountainous region. The contrast between the stark, pure white stone and the vibrant surrounding nature highlights a commitment to environmental harmony. High-end editorial aesthetic with sharp, clear lighting and a minimalist composition." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsP2RFct8JN40Pf8W5wuUbiwQxiFROX7kexim8eBleu3ScAdrQLGj1AdANgflCjqo6EsUtfQ6Kx9iJEoFSDlDR92kDqdf0WyvX042Pc_XQbla7VVecuVlh0H6nTR4krfiVSfwTUb0vYoBhbmR2Bj-99zAzsK4Nmq8MF2JqkQp3OcVzc-k_6cQhEYLClmIXqpVJS_YBS_PtgGtf28OqkQA_JzUSUScs9x37RLWS4vfaBXBdjpog7wp7')"></div>
+<div class="absolute inset-0 bg-primary/20"></div> <!-- Slight dark overlay for contrast -->
+<div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32 flex justify-end">
+<div class="w-full md:w-1/2 lg:w-5/12 glass-panel p-12 rounded-xl text-primary">
+<h2 class="font-headline-xl text-headline-xl mb-6">Sustainable Mastery.</h2>
+<p class="font-body-lg text-body-lg mb-8 opacity-90">
+                    True luxury respects its origins. Our extraction processes are engineered to minimize environmental impact, utilizing closed-loop water systems and zero-waste cutting technologies. We restore quarry landscapes to ensure the earth remains as beautiful as the stone it provides.
+                </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1">water_ec</span>
+<div>
+<strong class="block font-label-caps text-label-caps tracking-widest uppercase">100% Water Recycling</strong>
+<span class="font-body-md text-body-md opacity-80">Advanced filtration systems in all facilities.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1">forest</span>
+<div>
+<strong class="block font-label-caps text-label-caps tracking-widest uppercase">Habitat Restoration</strong>
+<span class="font-body-md text-body-md opacity-80">Dedicated funding for regional reforestation.</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Leadership / Team Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop my-section-gap">
+<div class="mb-16 text-center md:text-left">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase">Our Leadership</h2>
+<h3 class="font-headline-xl text-headline-xl text-primary">Architects of permanence.</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Team Member 1 -->
+<div class="group cursor-pointer">
+<div class="overflow-hidden mb-6 bg-surface-container-high aspect-[3/4]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" data-alt="A high-end editorial black-and-white portrait of a visionary female architect looking confidently at the camera. She stands in front of a subtly textured, minimalist marble background. The lighting is soft, directional, and dramatic, casting a gentle shadow that emphasizes depth. She wears sophisticated, modern minimalist attire, embodying a premium luxury brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjrHYLD2R0nBaLfaqu-WwUvRrRL9wlnBSMwPIu8M_skSpuFOtrfcm-5DN99654WkzKQ0dw9WFRxOW187_b9i9iqofzITMKH9kan5s0WHbNM8UYpOClFDISA0wAACs6jvWGPGin4zhoOdAfo93rYbtNW5RqX_670tg3NvVZGM1Rl4dEuweJS6qgBqgNR2LIoZYXrydMChHU4dCnX0ww4bTAmkSXqr4DO7wH5ZbVlAvwTDBPzFd8E3oG"/>
+</div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">Elena Rostova</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Chief Director of Design</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group cursor-pointer">
+<div class="overflow-hidden mb-6 bg-surface-container-high aspect-[3/4]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" data-alt="A sophisticated black-and-white portrait of a mature male master craftsman with a short beard, radiating quiet confidence. He is positioned against an out-of-focus background of pristine stone slabs. The editorial lighting highlights the texture of his sharply tailored blazer. The mood is highly professional, architectural, and aligned with a minimalist luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgKcJtLkLazJZDDhch63sp78fOxHBiPUm0BdveQCdSOBS4Eh3MLMLcfFZmiawz_M0BMKZ6Pg1tm6XDbVIxpr3tWp34yX13HvVHE6AhyQLjfkNIakHP9QX4dR1GM5ZOmksdgr4fDH-2xtoaJM9_-Vmr7hWsvYO_kufoyuoAoH8Ahx_LL027Et-aeOsBzTTr8UjfhOVdaUn1pay8q0oHCIyC60bjOKpvaC2R3uoBRyi7zPlkCVpP1tcg"/>
+</div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">Marcus Vance</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Head of Global Sourcing</p>
+</div>
+<!-- Team Member 3 -->
+<div class="group cursor-pointer">
+<div class="overflow-hidden mb-6 bg-surface-container-high aspect-[3/4]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" data-alt="An elegant black-and-white editorial portrait of a young male sustainability officer. He is standing in a brightly lit, minimalist gallery space with sharp architectural lines. The photograph uses a high-key lighting approach, creating a pristine, light-mode aesthetic with deep charcoal shadows for contrast. The overall tone is modern, thoughtful, and luxurious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-kBT3J40ZSGSUJYyWUKtpwaCo_vGbOdg6pbseyGJGdh0GQ4crAtKl0jN8lTGBP8eREvU3ePVvibFPCQEmuot8CM-WoR3shMxMXbC_6m8dzJ9ZVAO7i5bRp2vCEd143xJVWsthlLLhPkfvmPns0Dm0nLxWIuJg9yZx74G4Tpm_qpS447UlPlh64rdiA7V9uAMUHOKaYVdf-Wn3O99f-Wxk0_sth2jp2oNaYMOLuQWc66yOV7NIYNwf"/>
+</div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">Julian Thorne</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">VP of Environmental Strategy</p>
+</div>
+</div>
+</section>
+<!-- Footer Shared Component -->
+<footer class="w-full pt-section-gap pb-10 border-t border-outline-variant bg-surface-container-lowest dark:bg-tertiary-container mt-section-gap">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-16">
+<!-- Brand Column -->
+<div class="col-span-1 md:col-span-2">
+<a class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed block mb-6" href="#">
+                        MarbleCraft
+                    </a>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                        Elevating architectural spaces through the timeless beauty and enduring strength of premium natural stone.
+                    </p>
+</div>
+<!-- Links Column -->
+<div class="flex flex-col gap-4">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Collections</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Bespoke Design</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Maintenance</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col gap-4">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Sustainability</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-all duration-400" href="#">Privacy Policy</a>
+</div>
+</div>
+<!-- Copyright -->
+<div class="pt-8 border-t border-outline-variant/30 flex justify-between items-center text-on-surface-variant font-body-md text-body-md">
+<p>© 2024 MarbleCraft. Excellence in Stone Heritage.</p>
+</div>
+</div>
+</footer>
+</body></html>

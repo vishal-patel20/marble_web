@@ -1,0 +1,285 @@
+// ── MarbleCraft Collection Data ─────────────────────────────────────
+// Source: Stitch design export — used as mock data for all collection pages
+
+export const collectionItems = [
+  {
+    id: 'calacatta-borghini',
+    name: 'Calacatta Borghini',
+    origin: 'Carrara, Italy',
+    finish: 'Polished',
+    category: 'marble',
+    color: 'white',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHh3Rl666_sKaU8f1QEAX5Eref4Y1yAkYWE9mBDPvRwwCDLqvy2NFWjV7QcbjVX_EU3Qv-fuwqenjp3FqyAa4U1vl4dZMtgaES4yamMJZRDB8ngMJAKSfe7nvJeygRjjytIm9WECdhbSUCWWlRDl3SwVtjtiMilSwK2RSstJ7s-Pf1WO5ph1eptVbB5Z2uG70_mAzulyy_smiUJ0vtRXYPlu-bMSwP0HSBLQpPvBM-B9Vi1OFtprFt',
+    description: 'Quarried from the historic mountains of Carrara, Italy, Calacatta Borghini represents the pinnacle of luxury natural stone. Luminous pure white background with gold veining.',
+  },
+  {
+    id: 'nero-marquina',
+    name: 'Nero Marquina',
+    origin: 'Basque Country, Spain',
+    finish: 'Honed',
+    category: 'marble',
+    color: 'black',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDsDm6fn_Cpa2mfZPXabQBohIn2XdRgg6HBB4Y7q1wjJq2lK7nOPd39Relop92jz-i6wMjOY4OnLWdH5lWetNR8ye80IJ6rOQhkxWC9padFODFoyZPsPNULKhREdozlNQAw-Nw0rmscbhYr1EYn8jZ0MYHctNpC80XZLaCdyfa6tp8RdRyhJlP9_LrH0_kOeLlIg1X-h_rptATxMY1xjvRTfgHYw1cNwQL0nYeIo2bKyYIGOtb0cWI8',
+    description: 'Absolute deep black marble, intensely contrasted by sharp white calcite veining.',
+  },
+  {
+    id: 'verde-guatemala',
+    name: 'Verde Guatemala',
+    origin: 'India',
+    finish: 'Polished',
+    category: 'marble',
+    color: 'green',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop',
+    description: 'Deep forest emerald green marble with dramatic darker green and white calcite filaments.',
+  },
+  {
+    id: 'giallo-siena',
+    name: 'Giallo Siena',
+    origin: 'Siena, Italy',
+    finish: 'Honed',
+    category: 'marble',
+    color: 'yellow',
+    image: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800&auto=format&fit=crop',
+    description: 'Vibrant ochre and buttery yellow marble interwoven with subtle grey and cream veins.',
+  },
+  {
+    id: 'rosso-levanto',
+    name: 'Rosso Levanto',
+    origin: 'Liguria, Italy',
+    finish: 'Polished',
+    category: 'marble',
+    color: 'red',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop',
+    description: 'Rich cherry red marble accented by intense white calcite veining and burgundy undertones.',
+  },
+  {
+    id: 'grey-william',
+    name: 'Grey William',
+    origin: 'Italy',
+    finish: 'Honed',
+    category: 'marble',
+    color: 'grey',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfv4pEhaMiwOUIHrOTmxsfhupVAeWRAFAICwoVBGAWM9DNJNk-zk1BNsDZt9XnNlB67tYNy5oGCBqhimiOhLaRJihl6f-lO5vS_7KgUfhBbgaF-QLy7_DQoWp9yVG9QwMnES5UocEfPZaaNDGla75Nq3ufB4kYjr26PakDNZ1Q4pct4Hg_ZF6sSuzrFcntRQ74dkj-tu9Xw9KNGPHSY0gVjI1S4nDMk6G1vnpp5Bo7LliYAjkeAgIC',
+    description: 'Sophisticated dark grey marble highlighted by sweeping silver-grey veining.',
+  },
+  {
+    id: 'rosa-onyx',
+    name: 'Rosa Onyx',
+    origin: 'Iran',
+    finish: 'Backlit Polished',
+    category: 'onyx',
+    color: 'pink',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCsUcnSKqBVba6BblYxlg7wTmyCQ7UgsiM91JintTF3MbKZMvPvcaEsa-LfAgPe3XEL-LGLPHKjMsUr2TQmB8_Dp4SdzAdfhGPZjNW9KRHwpUSJ5ITZenVdrUDq2xDRWToKqx7GMsXtCqf8ZOHTlkXQUtiihjA97lLZSaKkowb5vilN5horhUCB5n1FyqYVRSqg0Ot-vL3L8Xbzu_MkIcqlNtp4f9Y7eIOtb8MlzYXaqEjNEXD0USXa',
+    description: 'Translucent pink onyx with soft pastel rose layers and crystalline veins.',
+  },
+  {
+    id: 'titanium-black-granite',
+    name: 'Titanium Black Granite',
+    origin: 'Brazil',
+    finish: 'Leathered',
+    category: 'granite',
+    color: 'black',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG',
+    description: 'Dramatic black granite infused with swirling movement in shades of gold, ivory, and slate grey.',
+  },
+  {
+    id: 'honey-onyx',
+    name: 'Honey Onyx',
+    origin: 'Turkey',
+    finish: 'Backlit Polished',
+    category: 'onyx',
+    color: 'yellow',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN',
+    description: 'Luminous amber yellow onyx with rich honey hues and glowing translucent strata.',
+  },
+  {
+    id: 'emerald-quartz',
+    name: 'Emerald Quartz',
+    origin: 'Brazil',
+    finish: 'Polished',
+    category: 'quartz',
+    color: 'green',
+    image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop',
+    description: 'Exotic emerald green quartz with crystal formations and shimmering mineral flakes.',
+  },
+  {
+    id: 'imperial-red-granite',
+    name: 'Imperial Red Granite',
+    origin: 'India',
+    finish: 'Polished',
+    category: 'granite',
+    color: 'red',
+    image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=800&auto=format&fit=crop',
+    description: 'Deep ruby red granite featuring intricate black and dark grey mineral flecks.',
+  },
+  {
+    id: 'cristallo-white-quartz',
+    name: 'Cristallo White Quartz',
+    origin: 'Brazil',
+    finish: 'Polished',
+    category: 'quartz',
+    color: 'white',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3',
+    description: 'Pure translucent white quartz with subtle crystalline depth and icy grey undertones.',
+  },
+  {
+    id: 'silver-grey-quartz',
+    name: 'Silver Grey Quartz',
+    origin: 'Norway',
+    finish: 'Honed',
+    category: 'quartz',
+    color: 'grey',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFI2ywmk9lCpZrJ_vTllGF1mtoPT0Ogo3ZW4b9g3GXUM6TSzffUH7ygWZl9NlsOwrQVGwMxsDp15JDerGrhTzhXL_UeFQTGIrMRWdTbyVFnt4RNK0DcXO7RtAU6Xk6KY7m_pPaC6jtU3Rcbs-HouSQCDSheEFC2Wmu9gpAce_N0D9kYFrtXBEmxech_3aHo5w25IcqsmitAEaqAInK15CGJUzXbAkahXuaywzCzFVnLDXrI5hrXSCy',
+    description: 'Modern silver-grey quartzite with sleek horizontal linear veining and satin luster.',
+  },
+  {
+    id: 'pink-norwegian-marble',
+    name: 'Pink Norwegian Marble',
+    origin: 'Norway',
+    finish: 'Polished',
+    category: 'marble',
+    color: 'pink',
+    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=800&auto=format&fit=crop',
+    description: 'Exquisite blush pink marble with soft rose cloud patterns and white veins.',
+  },
+];
+
+export const categories = [
+  { id: 'all',     label: 'All Collections' },
+  { id: 'marble',  label: 'Marble' },
+  { id: 'granite', label: 'Granite' },
+  { id: 'quartz',  label: 'Quartz' },
+  { id: 'onyx',    label: 'Onyx' },
+];
+
+export const colorOptions = [
+  { id: 'all',    label: 'All Colours', hex: 'linear-gradient(135deg, #f8fafc, #1e293b)' },
+  { id: 'black',  label: 'Black',       hex: '#18181b' },
+  { id: 'green',  label: 'Green',       hex: '#15803d' },
+  { id: 'yellow', label: 'Yellow',      hex: '#eab308' },
+  { id: 'white',  label: 'White',       hex: '#ffffff' },
+  { id: 'red',    label: 'Red',         hex: '#dc2626' },
+  { id: 'grey',   label: 'Grey',        hex: '#6b7280' },
+  { id: 'pink',   label: 'Pink',        hex: '#ec4899' },
+];
+
+// ── Bento grid collections for Home page ──────────────────────────────
+export const bentoCollections = [
+  {
+    id: 'italian-marble',
+    name: 'Italian Marble',
+    tagline: 'The pinnacle of classical elegance.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGn_m5W-ORAuoblicMxz9c9Aq4dWV897SGVAqVj_eK1gsCiaAVs559K0WZ83Cg9vNaTY-iJdVJxSeR7G3DxP38lEZuhc_qG7KaboS6sz0J9zovA_x4uFth4YV6P8-U-JiBmHFydehhtDbPXz3o2P5pxmmNZbaDpMfVka6QAxA58z0ZLk5bFOHwzLZcHW2HLFtW7x8gEZYg6j6aVA58DEIaPKvlqStYkZAgmi2ot3lDrT5MySSIhFgQ',
+    size: 'large', // md:col-span-2 md:row-span-2
+    slug: 'italian-marble',
+  },
+  {
+    id: 'granite',
+    name: 'Granite',
+    tagline: '',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG',
+    size: 'small',
+    slug: 'granite',
+  },
+  {
+    id: 'quartz',
+    name: 'Quartz',
+    tagline: '',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3',
+    size: 'small',
+    slug: 'quartz',
+  },
+  {
+    id: 'onyx',
+    name: 'Onyx',
+    tagline: 'Backlit brilliance.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN',
+    size: 'wide', // md:col-span-2
+    slug: 'onyx',
+  },
+];
+
+// ── Masterwork listing (Italian Marble products) ──────────────────────
+export const italianMarbleProducts = [
+  {
+    id: 'calacatta-lincoln',
+    name: 'Calacatta Lincoln',
+    origin: 'Italy',
+    finish: 'Polished',
+    category: 'marble',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuASCY2OGfmLZBlky4VUXoc5U60zqx6wlCfdGRMch0A6Ooaatcncrm3nXUTRpgwU9Bwp6Ll4SgF8bRm10EgmArG7nIzs678ygnRjK-Zsh6umImW7-B3zzGW8gCerdQ3LVjndpMZ4yq6HyBROIpGVzEthX8rxUu5Mei6lwdKbqrklKHeD7_gggxF200P0Ew2iws7sw8M3KHKTLcb0Jv3XocsIudhc6PrZGxFlKdwAvh5gF4KIz4-n7o5g',
+    slug: 'calacatta-lincoln',
+  },
+  {
+    id: 'statuario-extra',
+    name: 'Statuario Extra',
+    origin: 'Italy',
+    finish: 'Honed',
+    category: 'marble',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuASip6TTiaCk4xnL7JaGcsFDKwFRDnjEMu9WX4RtGq3joxM7_satHy3U7EgHho2MNU_Qo3lD-G6VEJt0jfFufBSiA9-yiQHjMoTmTeOXEiejYKItFPlGnkoBl6aIicZUhg58HV1MJbvf_kiKiP1iskfeadBv7FEtXzBhLao0sbNSFHfvVadAuMVbXCaHKNzB62TJ4LwPNzi62VlM-M8hSRd25URqoElafIbgERJTFxyf4hdXsZAPNet',
+    slug: 'statuario-extra',
+  },
+  {
+    id: 'grey-william',
+    name: 'Grey William',
+    origin: 'Italy',
+    finish: 'Honed',
+    category: 'marble',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfv4pEhaMiwOUIHrOTmxsfhupVAeWRAFAICwoVBGAWM9DNJNk-zk1BNsDZt9XnNlB67tYNy5oGCBqhimiOhLaRJihl6f-lO5vS_7KgUfhBbgaF-QLy7_DQoWp9yVG9QwMnES5UocEfPZaaNDGla75Nq3ufB4kYjr26PakDNZ1Q4pct4Hg_ZF6sSuzrFcntRQ74dkj-tu9Xw9KNGPHSY0gVjI1S4nDMk6G1vnpp5Bo7LliYAjkeAgIC',
+    slug: 'grey-william',
+  },
+  {
+    id: 'black-marquina',
+    name: 'Black Marquina',
+    origin: 'Spain',
+    finish: 'Polished',
+    category: 'marble',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBc8GoheiL5WVFZzr2tdKW43QranjsXPaKqK8rsCu2ND9_s3U5e9m_ZqkznG-_pKTbCHYwB28Sl3fvkFBoKlSevoh2MrX4KxhVAOqGXSht5B7Hufaaqww9UgndvddeA-CzSqV-8VOU1t5oOoBvP_Cn57c7XD_xJ2qiH7bkU9kSwhKOWd2v-WsaAp7HpLSm_BlL615t1M86f-H1LVZvRRGG-4aL5JgC6xL6pHCpmq7-ygl7yFyKeO3iV',
+    slug: 'black-marquina',
+  },
+];
+
+// ── Team members ──────────────────────────────────────────────────────
+export const teamMembers = [
+  {
+    id: 'elena-rostova',
+    name: 'Elena Rostova',
+    title: 'Chief Director of Design',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjrHYLD2R0nBaLfaqu-WwUvRrRL9wlnBSMwPIu8M_skSpuFOtrfcm-5DN99654WkzKQ0dw9WFRxOW187_b9i9iqofzITMKH9kan5s0WHbNM8UYpOClFDISA0wAACs6jvWGPGin4zhoOdAfo93rYbtNW5RqX_670tg3NvVZGM1Rl4dEuweJS6qgBqgNR2LIoZYXrydMChHU4dCnX0ww4bTAmkSXqr4DO7wH5ZbVlAvwTDBPzFd8E3oG',
+  },
+  {
+    id: 'marcus-vance',
+    name: 'Marcus Vance',
+    title: 'Head of Global Sourcing',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgKcJtLkLazJZDDhch63sp78fOxHBiPUm0BdveQCdSOBS4Eh3MLMLcfFZmiawz_M0BMKZ6Pg1tm6XDbVIxpr3tWp34yX13HvVHE6AhyQLjfkNIakHP9QX4dR1GM5ZOmksdgr4fDH-2xtoaJM9_-Vmr7hWsvYO_kufoyuoAoH8Ahx_LL027Et-aeOsBzTTr8UjfhOVdaUn1pay8q0oHCIyC60bjOKpvaC2R3uoBRyi7zPlkCVpP1tcg',
+  },
+  {
+    id: 'julian-thorne',
+    name: 'Julian Thorne',
+    title: 'VP of Environmental Strategy',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-kBT3J40ZSGSUJYyWUKtpwaCo_vGbOdg6pbseyGJGdh0GQ4crAtKl0jN8lTGBP8eREvU3ePVvibFPCQEmuot8CM-WoR3shMxMXbC_6m8dzJ9ZVAO7i5bRp2vCEd143xJVWsthlLLhPkfvmPns0Dm0nLxWIuJg9yZx74G4Tpm_qpS447UlPlh64rdiA7V9uAMUHOKaYVdf-Wn3O99f-Wxk0_sth2jp2oNaYMOLuQWc66yOV7NIYNwf',
+  },
+];
+
+// ── Product detail data (Calacatta Borghini) ──────────────────────────
+export const calacattaBorghiniDetail = {
+  id: 'calacatta-borghini',
+  name: 'Calacatta Borghini',
+  categoryLabel: 'Collections / White Marble',
+  breadcrumb: ['Collections', 'White Marble', 'Calacatta Borghini'],
+  origin: 'Carrara, Italy',
+  primaryColor: 'Pure White / Gold',
+  description: 'Quarried from the historic mountains of Carrara, Italy, Calacatta Borghini represents the pinnacle of luxury natural stone. Distinguished by its luminous pure white background and striking, thick gold and grey veining, it offers an unparalleled statement of elegance for the most exclusive architectural projects.',
+  finishes: ['Polished', 'Honed', 'Satin'],
+  specs: [
+    { label: 'Density',             value: '2710 kg/m³' },
+    { label: 'Water Absorption',    value: '0.12 %'     },
+    { label: 'Compressive Strength',value: '135 MPa'    },
+  ],
+  images: {
+    main: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZafm9KlDcfyOtIFk4s3acZcIaI2a-mXToo4gFcFG_vfnpDREJByxrLnNpPydLssvSFXWgReqHoPG_amfAaLhZ3CirAIs4fI3MyDQcMzgrhsdigf2OyZrCamvuLAB-CaCB4odE2HzrGyf73PRw9m-o-EDFZEVpMKPCqAONKtSZ_Tcg899JDPU88xIMNCbXnndJg5lG5F7Pha-KyQ1TXc7iMP3V56DAgEpoS9opuc9XjUHNuHRw9eDl',
+    thumb1: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCwWCg1JYWh8TPgKYtka53wRW4f75hqVQLpwFRWeHNY5HKXI4dykltTWrSXkjCLsJ9Dq7F7obfofh5Zu-aXyEZa1c6mlVKwZ9FfAA879mq93VX-tuT03sfPRSomVisDMPUojTGqqmZbcC9n41NU4Z4WkZqHhjEJk4gmIoOYDKNCzeEEpo7pnQCoew_WP3bgeL-FJxsKgxhcc1EkVTnN2ZSb0ZAleVj-xBOdMy9-ANK6d8j3G_qGIJea',
+    thumb2: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCheUHAIkicuKV1W3Ze5N147tt64kDrrAMLuXgZ3vp4FPDbKqEjDbx3cDQ5LnN_uws9oY35qB6nlyxeD-bafLDGpmTnliCyVRsFZJv_GqARTlC5Kc8H2chDgP10KpnmVtIeOU8PPGul540tbobQcv7XRyI6Yxwfvzk6f1wRxw_ii_mU1lRFl3XMSm_W-J1mGGrYGzlVz5XxCXdtNo8Kr5JiniJVeuQ3V5fDsYp4bOybwa9NFL9otKr2',
+    application: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAik8Q4qqfqEHWG8Htc6xqW1PQ_8ZBsLZ0IM2nyw9KoQFHPw79uBEs8RvGHZY0qqhGu2CGLU-rgSmiA2hf0XTakqVJ-zrnYGV1KP-WBS3rT50sXZZRX8Pb64w7PNoycmK3ibjBCw2pOqbV_AGOWk66D0WnfhdgPTpwGrd9WnfUq9_Yuh6AYa43HBp6EGtkhf-UctOsZ4Yse-YIMGdV4VM4d3XL1O1thITdgEPCHy8WitaZ2xSdBYBHN',
+  },
+};

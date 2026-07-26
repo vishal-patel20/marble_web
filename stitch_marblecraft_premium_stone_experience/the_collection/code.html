@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarbleCraft - Collections</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f6f3f2",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#474646",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#838484",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-container-highest": "#e4e2e1",
+                      "secondary-fixed": "#ffe08e",
+                      "tertiary-container": "#1a1c1c",
+                      "on-secondary-fixed": "#241a00",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e4e2e1",
+                      "surface-dim": "#dcd9d9",
+                      "surface-tint": "#5f5e5e",
+                      "background": "#fcf9f8",
+                      "on-background": "#1b1c1c",
+                      "on-secondary-container": "#735a00",
+                      "primary-fixed": "#e5e2e1",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "tertiary": "#000000",
+                      "surface-container": "#f0eded",
+                      "secondary-fixed-dim": "#ecc246",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#eae7e7",
+                      "outline": "#747878",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "on-surface-variant": "#444748",
+                      "secondary": "#755b00",
+                      "primary-container": "#1c1b1b",
+                      "on-secondary-fixed-variant": "#584400",
+                      "secondary-container": "#fed255",
+                      "surface": "#fcf9f8",
+                      "inverse-surface": "#303030",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c4c7c7",
+                      "on-surface": "#1b1c1c",
+                      "inverse-primary": "#c8c6c5",
+                      "on-primary-container": "#858383",
+                      "surface-bright": "#fcf9f8",
+                      "inverse-on-surface": "#f3f0f0",
+                      "primary": "#000000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "section-gap": "160px",
+                      "margin-desktop": "80px",
+                      "gutter": "32px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom utilities not fully covered by strict standard Tailwind without plugins */
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased pt-20">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/15 dark:bg-black/15 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-2xl shadow-charcoal-black/5 ease-in-out duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<a class="font-headline-lg text-headline-lg tracking-tight text-primary dark:text-primary-fixed" href="#">
+                MarbleCraft
+            </a>
+<!-- Desktop Nav -->
+<ul class="hidden md:flex space-x-8">
+<!-- Active Item -->
+<li>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">
+                        Collections
+                    </a>
+</li>
+<!-- Inactive Items -->
+<li>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">
+                        Services
+                    </a>
+</li>
+<li>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">
+                        Portfolio
+                    </a>
+</li>
+<li>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">
+                        Heritage
+                    </a>
+</li>
+<li>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">
+                        Inquiry
+                    </a>
+</li>
+</ul>
+<!-- Trailing Actions -->
+<div class="flex items-center space-x-4">
+<button class="text-primary dark:text-primary-fixed hover:bg-white/10 dark:hover:bg-black/20 transition-all duration-400 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:bg-white/10 dark:hover:bg-black/20 transition-all duration-400 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<!-- Header & Breadcrumbs -->
+<header class="mb-16">
+<nav aria-label="Breadcrumb" class="mb-6">
+<ol class="flex items-center space-x-2 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<li><a class="hover:text-primary transition-colors duration-400" href="#">Home</a></li>
+<li><span class="material-symbols-outlined text-[14px]">chevron_right</span></li>
+<li aria-current="page" class="text-primary font-semibold">Collections</li>
+</ol>
+</nav>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+<div class="max-w-2xl">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-4">Masterworks in Stone</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore our curated catalog of nature's most exquisite canvases. Each slab is selected for its unique geological narrative, unparalleled veining, and architectural potential.</p>
+</div>
+<!-- Dynamic Filters (Chips) -->
+<div class="w-full md:w-auto overflow-x-auto hide-scrollbar pb-2">
+<div class="flex flex-nowrap md:flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full font-label-caps text-label-caps uppercase tracking-wider bg-primary text-on-primary transition-colors duration-400 whitespace-nowrap">All Collections</button>
+<button class="px-4 py-2 rounded-full font-label-caps text-label-caps uppercase tracking-wider bg-surface-variant text-on-surface hover:bg-primary hover:text-on-primary transition-colors duration-400 whitespace-nowrap">Marble</button>
+<button class="px-4 py-2 rounded-full font-label-caps text-label-caps uppercase tracking-wider bg-surface-variant text-on-surface hover:bg-primary hover:text-on-primary transition-colors duration-400 whitespace-nowrap">Quartzite</button>
+<button class="px-4 py-2 rounded-full font-label-caps text-label-caps uppercase tracking-wider bg-surface-variant text-on-surface hover:bg-primary hover:text-on-primary transition-colors duration-400 whitespace-nowrap">Onyx</button>
+<button class="px-4 py-2 rounded-full font-label-caps text-label-caps uppercase tracking-wider bg-surface-variant text-on-surface hover:bg-primary hover:text-on-primary transition-colors duration-400 whitespace-nowrap">Travertine</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Masonry Gallery -->
+<div class="columns-1 sm:columns-2 lg:columns-3 gap-gutter space-y-gutter">
+<!-- Item 1 (Tall) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="A massive, vertically oriented slab of Calacatta Gold marble dominating a minimalist gallery space. The stone exhibits a brilliant, luminous white background traversed by thick, dramatic veins of deep charcoal and subtle, warm gold undertones. The lighting is soft and diffused, emphasizing the highly polished, reflective surface of the marble. The aesthetic is ultra-luxurious, clean, and architectural, highlighting the monumental scale of the natural material." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHh3Rl666_sKaU8f1QEAX5Eref4Y1yAkYWE9mBDPvRwwCDLqvy2NFWjV7QcbjVX_EU3Qv-fuwqenjp3FqyAa4U1vl4dZMtgaES4yamMJZRDB8ngMJAKSfe7nvJeygRjjytIm9WECdhbSUCWWlRDl3SwVtjtiMilSwK2RSstJ7s-Pf1WO5ph1eptVbB5Z2uG70_mAzulyy_smiUJ0vtRXYPlu-bMSwP0HSBLQpPvBM-B9Vi1OFtprFt"/>
+<!-- Glassmorphic Label -->
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Calacatta Borghini</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Carrara, Italy · Polished</p>
+</div>
+</article>
+<!-- Item 2 (Square-ish) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="A close-up, high-resolution texture shot of Nero Marquina marble. The base color is an absolute, void-like black, intensely contrasted by sharp, erratic fault lines of pure, crystalline white calcite veining. The surface finish is a honed, matte texture rather than high gloss, giving it a modern, sophisticated, and slightly brooding architectural presence. The lighting is angled to highlight the subtle texture of the honed surface against the stark black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsDm6fn_Cpa2mfZPXabQBohIn2XdRgg6HBB4Y7q1wjJq2lK7nOPd39Relop92jz-i6wMjOY4OnLWdH5lWetNR8ye80IJ6rOQhkxWC9padFODFoyZPsPNULKhREdozlNQAw-Nw0rmscbhYr1EYn8jZ0MYHctNpC80XZLaCdyfa6tp8RdRyhJlP9_LrH0_kOeLlIg1X-h_rptATxMY1xjvRTfgHYw1cNwQL0nYeIo2bKyYIGOtb0cWI8"/>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Nero Marquina</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Basque Country, Spain · Honed</p>
+</div>
+</article>
+<!-- Item 3 (Medium) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="A beautifully lit slab of Pink Onyx, highly translucent and glowing from behind in a minimalist showroom setting. The stone features undulating layers of pale blush, deep coral, and crystalline white, creating a fluid, almost liquid visual effect. The backlighting reveals the incredible depth and fragility of the natural stone structure. The overall mood is ethereal, delicate, and uncompromisingly high-end, fitting for luxury interior accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsUcnSKqBVba6BblYxlg7wTmyCQ7UgsiM91JintTF3MbKZMvPvcaEsa-LfAgPe3XEL-LGLPHKjMsUr2TQmB8_Dp4SdzAdfhGPZjNW9KRHwpUSJ5ITZenVdrUDq2xDRWToKqx7GMsXtCqf8ZOHTlkXQUtiihjA97lLZSaKkowb5vilN5horhUCB5n1FyqYVRSqg0Ot-vL3L8Xbzu_MkIcqlNtp4f9Y7eIOtb8MlzYXaqEjNEXD0USXa"/>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Rosa Onyx</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Iran · Backlit Polished</p>
+</div>
+</article>
+<!-- Item 4 (Tall) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="An expansive view of Roman Travertine, showcasing its distinct porous texture and warm, earthy color palette ranging from pale ivory to deep beige. The slab is cut cross-cut, revealing swirling, cloud-like patterns rather than straight directional veins. The surface is unfilled and brushed, maintaining a highly tactile, ancient aesthetic. The lighting casts subtle shadows into the natural pitting of the stone, emphasizing its organic, monumental heritage character." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4NrkFb-g5ZlhLcANuURj2V5voFwtATt-kHx4BjmCJrTxxEODz8Nne9kaRld1ck9X66WqzQNHMPwDS6qc5xzHYLJUFpLH8tblnY_riXO1WjvKVD2Uy8TjT-_vqamGDTHE-dZfeWFtGyQwJDdwiAkTj8QkVd44S3j-XIWEyt_GrvpwdUb1E8QkCHkpklYJpNCxlF9H6alzyZKjLXdOGP7m--gKS-GIGV42tpCaynSB5Nm7jzlr5Dalu"/>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Navona Travertine</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Tivoli, Italy · Unfilled Brushed</p>
+</div>
+</article>
+<!-- Item 5 (Medium) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="A dramatic, moody shot of a Patagonia Quartzite slab. The stone is intensely chaotic and architectural, featuring massive, geometric blocks of stark white and translucent quartz suspended within a matrix of deep earthy browns, charcoal blacks, and flecks of gold. The composition highlights the raw, explosive energy of the geological formation. It is highly polished, reflecting a crisp, minimalist studio environment that contrasts with the wild texture of the stone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFI2ywmk9lCpZrJ_vTllGF1mtoPT0Ogo3ZW4b9g3GXUM6TSzffUH7ygWZl9NlsOwrQVGwMxsDp15JDerGrhTzhXL_UeFQTGIrMRWdTbyVFnt4RNK0DcXO7RtAU6Xk6KY7m_pPaC6jtU3Rcbs-HouSQCDSheEFC2Wmu9gpAce_N0D9kYFrtXBEmxech_3aHo5w25IcqsmitAEaqAInK15CGJUzXbAkahXuaywzCzFVnLDXrI5hrXSCy"/>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Patagonia</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Brazil · Polished Quartzite</p>
+</div>
+</article>
+<!-- Item 6 (Square) -->
+<article class="break-inside-avoid relative group rounded-lg overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" data-alt="A serene, minimalist presentation of Arabescato Corchia marble. The stone exhibits a cool, bright white background densely populated with intricate, highly detailed 'brecciated' (broken) veining in varying shades of cool grey and slate. The pattern resembles abstract art or a frozen, cracked ice landscape. The lighting is very even, cool, and flat, intended to clearly document the exact veining structure for high-end architectural specification." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfll5sAAk1A1VnID8kFwx9ijo9M-pmaYhGwxHSpqYf403umUVderO7LWunSKkyLhqo41Naz5y2vrHcedDzePVfk06VQy7PGaFbzIzC03RNXP-htzxQniz1U7O4Jt1_45cesoTp7gtTdITI9Pkh-AWTYPGlC8nVj9lBICKeat-td7LVqHL3_OxDoWJPocncv4KWokA047ERkLwDsFRmSgzvGV_IER-PKDAGVEbcb2WuDpU1IidF9opL"/>
+<div class="absolute bottom-0 inset-x-0 p-6 bg-white/20 dark:bg-black/20 glass-panel border-t border-outline-variant/30 flex flex-col justify-end translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+<h3 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-1">Arabescato Corchia</h3>
+<p class="font-body-md text-body-md text-primary/80 dark:text-primary-fixed/80">Tuscany, Italy · Honed</p>
+</div>
+</article>
+</div>
+<!-- Load More Action -->
+<div class="mt-20 flex justify-center">
+<button class="px-8 py-4 border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all duration-400 rounded-full font-label-caps text-label-caps uppercase tracking-widest flex items-center gap-2">
+                Explore Full Archive
+                <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-section-gap pb-10 bg-surface-container-lowest dark:bg-tertiary-container border-t border-outline-variant flat no shadows transition-all duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Brand -->
+<div class="col-span-1 md:col-span-2 mb-8 md:mb-0">
+<h2 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed mb-4">MarbleCraft</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Curators of the earth's most exceptional geological masterpieces. Providing unparalleled natural stone to the world's finest architectural projects.</p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col space-y-4">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Collections</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Bespoke Design</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Maintenance</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col space-y-4">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Sustainability</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Privacy Policy</a>
+</div>
+<!-- Copyright -->
+<div class="col-span-1 md:col-span-4 mt-16 pt-8 border-t border-outline-variant/30 flex justify-between items-center text-sm text-on-surface-variant">
+<p>© 2024 MarbleCraft. Excellence in Stone Heritage.</p>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarbleCraft | Excellence in Stone Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f6f3f2",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#474646",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#838484",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-container-highest": "#e4e2e1",
+                      "secondary-fixed": "#ffe08e",
+                      "tertiary-container": "#1a1c1c",
+                      "on-secondary-fixed": "#241a00",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e4e2e1",
+                      "surface-dim": "#dcd9d9",
+                      "surface-tint": "#5f5e5e",
+                      "background": "#fcf9f8",
+                      "on-background": "#1b1c1c",
+                      "on-secondary-container": "#735a00",
+                      "primary-fixed": "#e5e2e1",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "tertiary": "#000000",
+                      "surface-container": "#f0eded",
+                      "secondary-fixed-dim": "#ecc246",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#eae7e7",
+                      "outline": "#747878",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "on-surface-variant": "#444748",
+                      "secondary": "#755b00",
+                      "primary-container": "#1c1b1b",
+                      "on-secondary-fixed-variant": "#584400",
+                      "secondary-container": "#fed255",
+                      "surface": "#fcf9f8",
+                      "inverse-surface": "#303030",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c4c7c7",
+                      "on-surface": "#1b1c1c",
+                      "inverse-primary": "#c8c6c5",
+                      "on-primary-container": "#858383",
+                      "surface-bright": "#fcf9f8",
+                      "inverse-on-surface": "#f3f0f0",
+                      "primary": "#000000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "section-gap": "160px",
+                      "margin-desktop": "80px",
+                      "gutter": "32px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(232, 232, 232, 0.3);
+        }
+        
+        .soft-shadow {
+            box-shadow: 0 20px 60px -10px rgba(17, 17, 17, 0.05);
+        }
+
+        .btn-primary {
+            background-color: #111111;
+            color: #ffffff;
+            transition: all 400ms ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #C9A227;
+        }
+
+        .btn-ghost {
+            border: 1px solid #111111;
+            color: #111111;
+            background: transparent;
+            transition: all 400ms ease;
+        }
+
+        .btn-ghost:hover {
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        /* Smooth scroll reveal utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/15 dark:bg-black/15 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-2xl shadow-charcoal-black/5 ease-in-out duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<!-- Brand -->
+<a class="font-headline-lg text-headline-lg tracking-tight text-primary dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-3xl" data-weight="fill">diamond</span>
+                MarbleCraft
+            </a>
+<!-- Links (Desktop) -->
+<div class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Portfolio</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Heritage</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Inquiry</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed">
+<button class="p-2 hover:bg-white/10 dark:hover:bg-black/20 rounded-full transition-all duration-400">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 hover:bg-white/10 dark:hover:bg-black/20 rounded-full transition-all duration-400">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-screen min-h-[600px] flex items-center justify-center pt-20">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover object-center" data-alt="A breathtaking, wide-angle architectural shot of a massive, sweeping wall clad entirely in book-matched Italian Calacatta marble. The dramatic veining of deep greys and subtle golds stretches across the pristine white surface. Soft, natural sunlight pours in from unseen floor-to-ceiling windows on the left, casting elegant, elongated shadows across the highly polished floor, which reflects the grand wall perfectly. The scene is incredibly minimalist, devoid of furniture, focusing purely on the monumental scale and natural beauty of the luxury stone in a bright, modern, high-end gallery setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbKc30gK8OagaSf-MHpeBpOY8FuDXGYhRTnpumFPj309RzQzLTPPlyDXVPht8tM-aN8xqWyuf05dOchK2gmgtU9mz7a-NtP65lLHMCvCLaE179YWTZg0jsJULXgB0ti12eJiDAJw7PCb4XqD-XWVpVhzFNVy8UmvyboDcwgbB91U2FpoKX-Z8_t3dNsp0TnnWJT0RbZco-ozhKMigKHHAlNsgWoZkZR32tDxX48jdQJLzYldCF-3x1"/>
+<div class="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div> <!-- Subtle overlay for text legibility -->
+</div>
+<!-- Hero Content (Glassmorphism Panel) -->
+<div class="relative z-10 glass-panel soft-shadow p-8 md:p-16 max-w-3xl mx-margin-mobile md:mx-auto text-center rounded-2xl reveal active">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
+                Timeless Luxury Crafted in Natural Stone
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">
+                Premium Marble, Granite &amp; Quartz for Exceptional Spaces. Elevating architecture through heritage craftsmanship and uncompromising material quality.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<button class="btn-primary px-8 py-4 font-label-caps text-label-caps rounded-full w-full sm:w-auto tracking-widest uppercase">Explore Collection</button>
+<button class="btn-ghost px-8 py-4 font-label-caps text-label-caps rounded-full w-full sm:w-auto tracking-widest uppercase">Request a Quote</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Featured Collections (Bento Grid) -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+<div class="mb-16 text-center reveal">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-4">Masterpiece Collections</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">Curated selections sourced from the world's finest quarries, offering unparalleled aesthetic depth for high-end interiors.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter auto-rows-[300px]">
+<!-- Italian Marble (Large Spanning) -->
+<div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up macro photography of exquisite Italian Statuario marble. The pristine, icy white background is sharply contrasted by bold, dramatic veins of deep charcoal grey and subtle hints of metallic gold. The surface is highly polished, reflecting a soft, diffused studio light that highlights the smooth, glassy texture of the stone. The composition emphasizes the natural, chaotic elegance of the veining pattern in a high-key, luxurious light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGn_m5W-ORAuoblicMxz9c9Aq4dWV897SGVAqVj_eK1gsCiaAVs559K0WZ83Cg9vNaTY-iJdVJxSeR7G3DxP38lEZuhc_qG7KaboS6sz0J9zovA_x4uFth4YV6P8-U-JiBmHFydehhtDbPXz3o2P5pxmmNZbaDpMfVka6QAxA58z0ZLk5bFOHwzLZcHW2HLFtW7x8gEZYg6j6aVA58DEIaPKvlqStYkZAgmi2ot3lDrT5MySSIhFgQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 glass-panel border-t-0 border-l-0 border-r-0 border-b-0 rounded-b-xl translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+<h3 class="font-headline-lg text-headline-lg text-white mb-2">Italian Marble</h3>
+<p class="font-body-md text-body-md text-white/80">The pinnacle of classical elegance.</p>
+</div>
+</div>
+<!-- Granite -->
+<div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-xl reveal delay-100">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A tight, detailed shot of absolute black granite with subtle, microscopic flecks of silver and white that catch the light like distant stars. The stone surface is perfectly smooth and honed to a soft matte finish rather than a high gloss, giving it a sophisticated, contemporary industrial feel. Soft, angled light creates a gradient of deep greys to pure black across the slab, emphasizing its solid, dense permanence in a modern, minimalist context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG"/>
+<div class="absolute bottom-4 left-4 right-4 glass-panel p-4 rounded-lg">
+<h3 class="font-body-lg text-body-lg text-primary font-medium">Granite</h3>
+</div>
+</div>
+<!-- Quartz -->
+<div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-xl reveal delay-200">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A bright, pristine slab of engineered quartz, featuring a uniform, creamy white base with very subtle, wispy veins of pale grey that mimic natural stone but with perfect consistency. The lighting is bright and even, highlighting the flawless, non-porous surface of the material. The aesthetic is ultra-modern, clean, and clinical, suitable for a high-end contemporary kitchen countertop design in a minimalist light-filled space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3"/>
+<div class="absolute bottom-4 left-4 right-4 glass-panel p-4 rounded-lg">
+<h3 class="font-body-lg text-body-lg text-primary font-medium">Quartz</h3>
+</div>
+</div>
+<!-- Onyx -->
+<div class="md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-xl reveal delay-100">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A mesmerizing view of translucent natural Onyx stone, beautifully backlit to reveal its complex internal structures. Warm, glowing bands of amber, honey, and rust orange swirl together with milky white layers in fluid, organic patterns. The backlighting creates a sense of profound depth and warmth, transforming the stone into a piece of abstract art. The overall tone is luxurious, exotic, and dramatic, contrasting with a surrounding minimalist white environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN"/>
+<div class="absolute bottom-6 left-6 right-6 glass-panel p-6 rounded-lg flex justify-between items-center">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-1">Onyx</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Backlit brilliance.</p>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="reveal">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-6">The MarbleCraft Difference</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg">We don't just supply stone; we engineer permanence. Our global sourcing network and precision fabrication ensure every slab meets exacting architectural standards.</p>
+<div class="space-y-8">
+<!-- Feature 1 -->
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 soft-shadow text-primary">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-medium text-primary mb-2">Imported Quality</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Directly sourced from legendary quarries in Italy, Brazil, and Spain.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 soft-shadow text-primary">
+<span class="material-symbols-outlined">style</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-medium text-primary mb-2">1000+ Designs</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">An expansive inventory offering unparalleled variety in color and veining.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 soft-shadow text-primary">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-medium text-primary mb-2">Precision Cutting</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">State-of-the-art CNC routing for exact dimensions and flawless edges.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative h-[600px] rounded-2xl overflow-hidden reveal delay-200">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="An architectural interior shot focusing on a minimalist, highly structured staircase constructed entirely from massive blocks of honed light grey limestone. The geometric precision of the cutting is highlighted by sharp, stark shadows cast from a concealed skylight above. The textures are incredibly crisp, showing the subtle, natural grain of the stone against otherwise smooth surfaces. The aesthetic is monumental, serene, and exquisitely detailed, representing the zenith of modern stone craftsmanship in a bright gallery setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMQ_oN66gXkiIkqeud5PAV5fxxH-bi0SbQE3TAOkRLFKSRss_pldJkO9tIY6q-VzzWCjO0WAq1BJhYNdodZ9Sfo1LfQXomF-P2vnJPLbxwF5OU-gsMvB7dGKKirHBiU6Yexb_pcISGvV6d2ssc6nA7HOYdOGmFH8J98rCLfUG9Z6wFnLt9-1S1jYwK02XHk275CpLo5OhFqNZkblcMyelX3wVbUGF70BtYJJI5cgzlARX9TJy-Zq3x"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-section-gap pb-10 bg-surface-container-lowest dark:bg-tertiary-container border-t border-outline-variant font-body-md text-body-md transition-all duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter mb-16">
+<!-- Brand Column -->
+<div class="col-span-1 md:col-span-2">
+<a class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed flex items-center gap-2 mb-6" href="#">
+<span class="material-symbols-outlined text-3xl" data-weight="fill">diamond</span>
+                    MarbleCraft
+                </a>
+<p class="text-on-surface-variant dark:text-on-primary-fixed-variant max-w-sm mb-8">
+                    Elevating modern architecture through the timeless permanence and unmatched beauty of globally sourced natural stone.
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div>
+<h4 class="font-body-lg text-body-lg text-primary dark:text-primary-fixed font-semibold mb-6">Navigation</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Collections</a></li>
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Bespoke Design</a></li>
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Maintenance</a></li>
+</ul>
+</div>
+<!-- Links Column 2 -->
+<div>
+<h4 class="font-body-lg text-body-lg text-primary dark:text-primary-fixed font-semibold mb-6">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Sustainability</a></li>
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Contact Us</a></li>
+<li><a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400 inline-block" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop border-t border-outline-variant/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-on-surface-variant dark:text-on-primary-fixed-variant">© 2024 MarbleCraft. Excellence in Stone Heritage.</p>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+    </script>
+</body></html>

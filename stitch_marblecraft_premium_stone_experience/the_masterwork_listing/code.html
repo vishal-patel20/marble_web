@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collections - MarbleCraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "inverse-surface": "#303030",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e4e2e1",
+                        "secondary": "#755b00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container": "#f0eded",
+                        "outline": "#747878",
+                        "on-primary-container": "#858383",
+                        "tertiary": "#000000",
+                        "secondary-container": "#fed255",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary": "#000000",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface-variant": "#444748",
+                        "background": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-container-highest": "#e4e2e1",
+                        "outline-variant": "#c4c7c7",
+                        "on-secondary-fixed-variant": "#584400",
+                        "on-secondary-container": "#735a00",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-container": "#838484",
+                        "secondary-fixed-dim": "#ecc246",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#1a1c1c",
+                        "surface-tint": "#5f5e5e",
+                        "secondary-fixed": "#ffe08e",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed": "#241a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "section-gap": "160px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(228, 226, 225, 0.3); /* using outline-variant approx */
+        }
+        
+        .glass-card-hover {
+            transition: all 400ms ease;
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 40px 60px -15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom Checkbox */
+        .stone-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid theme('colors.outline');
+            border-radius: 2px;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 400ms ease;
+        }
+        .stone-checkbox:checked {
+            background-color: theme('colors.primary');
+            border-color: theme('colors.primary');
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 7L6 10L11 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-white/15 dark:bg-black/15 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/30 dark:border-white/10 shadow-2xl shadow-charcoal-black/5 ease-in-out duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-desktop flex justify-between items-center h-20">
+<div class="font-headline-lg text-headline-lg tracking-tight text-primary dark:text-primary-fixed">
+                MarbleCraft
+            </div>
+<nav class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Portfolio</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Heritage</a>
+<a class="text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-400" href="#">Inquiry</a>
+</nav>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed">
+<button class="hover:bg-white/10 dark:hover:bg-black/20 transition-all duration-400 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="hover:bg-white/10 dark:hover:bg-black/20 transition-all duration-400 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-20">
+<!-- Header Section with Shader -->
+<section class="relative w-full h-[40vh] min-h-[300px] flex items-end pb-12 overflow-hidden bg-surface-container-low">
+
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+<div class="relative max-w-[1440px] mx-auto px-margin-desktop w-full z-10">
+<nav aria-label="Breadcrumb" class="flex text-on-surface-variant font-label-caps text-label-caps mb-6 items-center uppercase">
+<a class="hover:text-primary transition-colors duration-400" href="#">Home</a>
+<span class="mx-2 material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors duration-400" href="#">Collections</a>
+<span class="mx-2 material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-semibold">Italian Marble</span>
+</nav>
+<h1 class="font-display-lg text-display-lg text-primary max-w-3xl">Italian Marble</h1>
+<p class="mt-4 font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Discover our curated selection of premium Italian stone, celebrated for its dramatic veining, luminous depth, and heritage of architectural excellence.
+                </p>
+</div>
+</section>
+<!-- Main Listing Area -->
+<section class="max-w-[1440px] mx-auto px-margin-desktop py-section-gap flex flex-col lg:flex-row gap-gutter">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-1/4 flex-shrink-0 pr-8">
+<div class="sticky top-32 space-y-8">
+<div class="flex items-center justify-between pb-4 border-b border-outline-variant">
+<h2 class="font-headline-lg text-headline-lg text-primary text-[24px]">Filters</h2>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors">Clear All</button>
+</div>
+<!-- Filter Category: Material -->
+<div class="space-y-4">
+<h3 class="font-body-md text-body-md font-semibold text-primary">Category</h3>
+<div class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Marble</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Granite</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Quartzite</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Onyx</span>
+</label>
+</div>
+</div>
+<!-- Filter Category: Color -->
+<div class="space-y-4">
+<h3 class="font-body-md text-body-md font-semibold text-primary">Color</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-body-md text-body-md hover:border-primary hover:text-primary transition-all duration-400">White</button>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-body-md text-body-md transition-all duration-400">Grey</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-body-md text-body-md hover:border-primary hover:text-primary transition-all duration-400">Black</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-body-md text-body-md hover:border-primary hover:text-primary transition-all duration-400">Gold</button>
+</div>
+</div>
+<!-- Filter Category: Finish -->
+<div class="space-y-4">
+<h3 class="font-body-md text-body-md font-semibold text-primary">Finish</h3>
+<div class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Polished</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Honed</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="stone-checkbox" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Leathered</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Grid Area -->
+<div class="w-full lg:w-3/4 flex flex-col">
+<!-- Toolbar -->
+<div class="flex justify-between items-center mb-8 pb-4 border-b border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface-variant">Showing <span class="font-semibold text-primary">4</span> exceptional slabs</p>
+<div class="flex items-center gap-4">
+<span class="font-body-md text-body-md text-on-surface-variant">Sort by:</span>
+<select class="border-none bg-transparent font-body-md text-body-md text-primary font-semibold focus:ring-0 cursor-pointer outline-none">
+<option value="featured">Featured</option>
+<option value="newest">Newest Arrivals</option>
+<option value="price_asc">Price (Low-High)</option>
+<option value="price_desc">Price (High-Low)</option>
+</select>
+</div>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Product Card 1 -->
+<article class="group relative aspect-[4/5] bg-surface-container-lowest overflow-hidden flex flex-col justify-end glass-card-hover">
+<div class="absolute inset-0 w-full h-full">
+<img alt="Calacatta Lincoln" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A flawless slab of Calacatta Lincoln marble with crisp white background and distinct, elegant grey veining. Photographed in a bright, minimalist gallery setting with soft natural light highlighting the polished surface. Premium architectural photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASCY2OGfmLZBlky4VUXoc5U60zqx6wlCfdGRMch0A6Ooaatcncrm3nXUTRpgwU9Bwp6Ll4SgF8bRm10EgmArG7nIzs678ygnRjK-Zsh6umImW7-B3zzGW8gCerdQ3LVjndpMZ4yq6HyBROIpGVzEthX8rxUu5Mei6lwdKbqrklKHeD7_gggxF200P0Ew2iws7sw8M3KHKTLcb0Jv3XocsIudhc6PrZGxFlKdwAvh5gF4KIz4-n7o5g"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+<div class="relative z-10 m-4 p-6 glass-panel flex flex-col gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase mb-1 tracking-widest opacity-80">Italy</p>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[28px] leading-tight">Calacatta Lincoln</h3>
+</div>
+</div>
+<div class="mt-4 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-400 delay-100 overflow-hidden">
+<button class="w-full bg-primary text-on-primary py-3 px-6 font-body-md text-body-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-400 flex justify-between items-center">
+<span>View Details</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="group relative aspect-[4/5] bg-surface-container-lowest overflow-hidden flex flex-col justify-end glass-card-hover">
+<div class="absolute inset-0 w-full h-full">
+<img alt="Statuario Extra" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A pristine slab of Statuario Extra marble, featuring a pure white base with striking, dramatic dark grey and charcoal veins sweeping across the surface. Captured in a high-end, minimalist studio environment emphasizing the stone's luxurious texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASip6TTiaCk4xnL7JaGcsFDKwFRDnjEMu9WX4RtGq3joxM7_satHy3U7EgHho2MNU_Qo3lD-G6VEJt0jfFufBSiA9-yiQHjMoTmTeOXEiejYKItFPlGnkoBl6aIicZUhg58HV1MJbvf_kiKiP1iskfeadBv7FEtXzBhLao0sbNSFHfvVadAuMVbXCaHKNzB62TJ4LwPNzi62VlM-M8hSRd25URqoElafIbgERJTFxyf4hdXsZAPNet"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+<div class="relative z-10 m-4 p-6 glass-panel flex flex-col gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase mb-1 tracking-widest opacity-80">Italy</p>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[28px] leading-tight">Statuario Extra</h3>
+</div>
+</div>
+<div class="mt-4 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-400 delay-100 overflow-hidden">
+<button class="w-full bg-primary text-on-primary py-3 px-6 font-body-md text-body-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-400 flex justify-between items-center">
+<span>View Details</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="group relative aspect-[4/5] bg-surface-container-lowest overflow-hidden flex flex-col justify-end glass-card-hover">
+<div class="absolute inset-0 w-full h-full">
+<img alt="Grey William" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A sophisticated slab of Grey William marble showing complex layers of mid-tone greys with subtle white crystalline veins. The lighting is soft and architectural, bringing out the honed finish of the stone in a minimalist luxury setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfv4pEhaMiwOUIHrOTmxsfhupVAeWRAFAICwoVBGAWM9DNJNk-zk1BNsDZt9XnNlB67tYNy5oGCBqhimiOhLaRJihl6f-lO5vS_7KgUfhBbgaF-QLy7_DQoWp9yVG9QwMnES5UocEfPZaaNDGla75Nq3ufB4kYjr26PakDNZ1Q4pct4Hg_ZF6sSuzrFcntRQ74dkj-tu9Xw9KNGPHSY0gVjI1S4nDMk6G1vnpp5Bo7LliYAjkeAgIC"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+<div class="relative z-10 m-4 p-6 glass-panel flex flex-col gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase mb-1 tracking-widest opacity-80">Italy</p>
+<h3 class="font-headline-lg text-headline-lg text-primary text-[28px] leading-tight">Grey William</h3>
+</div>
+</div>
+<div class="mt-4 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-400 delay-100 overflow-hidden">
+<button class="w-full bg-primary text-on-primary py-3 px-6 font-body-md text-body-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-400 flex justify-between items-center">
+<span>View Details</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 4 -->
+<article class="group relative aspect-[4/5] bg-surface-container-lowest overflow-hidden flex flex-col justify-end glass-card-hover">
+<div class="absolute inset-0 w-full h-full">
+<img alt="Black Marquina" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A bold, imposing slab of Black Marquina marble with a deep, inky black background pierced by sharp, lightning-like white veining. Shot in a dramatic, high-contrast minimalist space to emphasize its premium polished surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc8GoheiL5WVFZzr2tdKW43QranjsXPaKqK8rsCu2ND9_s3U5e9m_ZqkznG-_pKTbCHYwB28Sl3fvkFBoKlSevoh2MrX4KxhVAOqGXSht5B7Hufaaqww9UgndvddeA-CzSqV-8VOU1t5oOoBvP_Cn57c7XD_xJ2qiH7bkU9kSwhKOWd2v-WsaAp7HpLSm_BlL615t1M86f-H1LVZvRRGG-4aL5JgC6xL6pHCpmq7-ygl7yFyKeO3iV"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+<div class="relative z-10 m-4 p-6 glass-panel flex flex-col gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase mb-1 tracking-widest opacity-80">Spain</p> <!-- Typically Spain, but keeping with origin style -->
+<h3 class="font-headline-lg text-headline-lg text-primary text-[28px] leading-tight">Black Marquina</h3>
+</div>
+</div>
+<div class="mt-4 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-400 delay-100 overflow-hidden">
+<button class="w-full bg-primary text-on-primary py-3 px-6 font-body-md text-body-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-400 flex justify-between items-center">
+<span>View Details</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-16 flex justify-center">
+<button class="px-8 py-4 border border-primary text-primary font-body-md text-body-md font-semibold hover:bg-primary hover:text-on-primary transition-colors duration-400">
+                        Load More Collections
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-tertiary-container w-full pt-section-gap pb-10 border-t border-outline-variant flat no shadows transition-all duration-400">
+<div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed">MarbleCraft</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant opacity-80 mt-2">
+                    Excellence in Stone Heritage since 1984.
+                </p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-8 justify-around">
+<div class="flex flex-col gap-3">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Collections</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Bespoke Design</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Maintenance</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Sustainability</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant hover:text-primary hover:translate-x-1 transition-transform duration-400" href="#">Privacy Policy</a>
+</div>
+</div>
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4 justify-end items-start md:items-end mt-8 md:mt-0">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-primary-fixed-variant text-sm">
+                    © 2024 MarbleCraft. Excellence in Stone Heritage.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

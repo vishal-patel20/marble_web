@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Get a Quote - MarbleCraft</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "inverse-surface": "#303030",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e4e2e1",
+                        "secondary": "#755b00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container": "#f0eded",
+                        "outline": "#747878",
+                        "on-primary-container": "#858383",
+                        "tertiary": "#000000",
+                        "secondary-container": "#fed255",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary": "#000000",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface-variant": "#444748",
+                        "background": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-container-highest": "#e4e2e1",
+                        "outline-variant": "#c4c7c7",
+                        "on-secondary-fixed-variant": "#584400",
+                        "on-secondary-container": "#735a00",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-container": "#838484",
+                        "secondary-fixed-dim": "#ecc246",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#1a1c1c",
+                        "surface-tint": "#5f5e5e",
+                        "secondary-fixed": "#ffe08e",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed": "#241a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "80px",
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "section-gap": "160px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(232, 232, 232, 0.3);
+            box-shadow: 0 40px 60px -15px rgba(17, 17, 17, 0.05);
+        }
+        .dark .glass-panel {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-glass {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid theme('colors.outline');
+            border-radius: 0;
+            transition: border-color 0.4s ease;
+        }
+        .input-glass:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom-color: #C9A227; /* Gold focus */
+        }
+        .btn-primary {
+            background-color: #111111;
+            color: #ffffff;
+            transition: all 0.4s ease;
+        }
+        .btn-primary:hover {
+            background-color: #C9A227;
+        }
+        .step-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .step-content.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Background Image -->
+<div class="fixed inset-0 z-[-1]">
+<div class="w-full h-full bg-cover bg-center opacity-40" data-alt="A minimalist, high-end editorial shot of a vast expanse of polished Calacatta marble. The surface reflects soft, diffused, high-key white light, creating a bright, modern aesthetic. The subtle grey veining in the stone provides a sense of architectural permanence and luxury. The composition is clean, expansive, and weightless." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4G817ns763RbDGcFZLfOyyoGBxovHMeV519cFqYArNbU6uaVlWMpIBnijNwMqJhqa28SqFWrislMV52v8OeQPwitprAR0efGN29kejUf3Wm5u7hp56FqRwvCcnnI4V2pbBjo9jwA-zWgosdsD4JR_3txveEJx_w4hcR5Fohkg_Zjd58-1DbfBAnECQcKCGKzoYFMd1vbeJfKK8gIq5fJSgqI5pAmK1EThKT_42h8yG2cIfEXEkBdr')"></div>
+</div>
+<!-- TopNavBar (Transactional/Flow intent - Suppressed Navigation Links per mandate, keeping Brand anchor) -->
+<nav class="fixed top-0 w-full z-50 bg-white/15 dark:bg-black/15 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-2xl shadow-charcoal-black/5">
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<div class="font-headline-lg text-headline-lg tracking-tight text-primary dark:text-primary-fixed font-bold">
+                MarbleCraft
+            </div>
+<div>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-400 font-label-caps flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                    Exit Quote
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center pt-32 pb-20 px-margin-mobile md:px-margin-desktop">
+<div class="w-full max-w-[800px] glass-panel rounded-xl p-8 md:p-12 relative overflow-hidden">
+<!-- Progress Indicator -->
+<div class="mb-12 relative">
+<div class="flex justify-between items-center mb-4">
+<div class="step-indicator font-label-caps text-primary" data-step="1">Personal Info</div>
+<div class="step-indicator font-label-caps text-outline-variant" data-step="2">Project</div>
+<div class="step-indicator font-label-caps text-outline-variant" data-step="3">Design</div>
+<div class="step-indicator font-label-caps text-outline-variant" data-step="4">Summary</div>
+</div>
+<div class="h-[2px] bg-outline-variant/30 w-full rounded-full relative">
+<div class="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-400 ease-in-out w-1/4" id="progress-bar"></div>
+</div>
+</div>
+<!-- Form Container -->
+<div class="relative min-h-[400px]" id="form-steps">
+<!-- Step 1: Personal Info -->
+<div class="step-content active" id="step-1">
+<h2 class="font-headline-xl text-headline-xl mb-8 font-light text-primary">Let's start with the basics.</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-on-surface-variant">Full Name</label>
+<input class="input-glass w-full py-2 font-body-lg text-primary placeholder:text-outline-variant" placeholder="Jane Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-on-surface-variant">Email Address</label>
+<input class="input-glass w-full py-2 font-body-lg text-primary placeholder:text-outline-variant" placeholder="jane@studio.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-4 mb-12">
+<label class="font-label-caps text-on-surface-variant">Professional Category</label>
+<div class="flex flex-wrap gap-4">
+<button class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all duration-400 focus:bg-[#111111] focus:text-white focus:border-[#111111]">Architect</button>
+<button class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all duration-400 focus:bg-[#111111] focus:text-white focus:border-[#111111]">Interior Designer</button>
+<button class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all duration-400 focus:bg-[#111111] focus:text-white focus:border-[#111111]">Homeowner</button>
+<button class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all duration-400 focus:bg-[#111111] focus:text-white focus:border-[#111111]">Contractor</button>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="btn-primary px-8 py-4 rounded-full font-label-caps flex items-center gap-2" onclick="nextStep(2)">
+                            Next Step
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Project Details -->
+<div class="step-content" id="step-2">
+<h2 class="font-headline-xl text-headline-xl mb-8 font-light text-primary">Define your vision.</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-on-surface-variant">Type of Stone</label>
+<select class="input-glass w-full py-2 font-body-lg text-primary appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Select Material</option>
+<option value="calacatta">Calacatta Gold Marble</option>
+<option value="statuario">Statuario Marble</option>
+<option value="nero">Nero Marquina</option>
+<option value="quartzite">Taj Mahal Quartzite</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-on-surface-variant">Estimated Sq. Ft.</label>
+<input class="input-glass w-full py-2 font-body-lg text-primary placeholder:text-outline-variant" placeholder="e.g. 1500" type="number"/>
+</div>
+</div>
+<div class="flex flex-col gap-4 mb-12">
+<label class="font-label-caps text-on-surface-variant">Project Type</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="project_type" type="radio"/>
+<div class="border border-outline-variant rounded-lg p-6 text-center peer-checked:border-[#111111] peer-checked:bg-[#111111] peer-checked:text-white transition-all duration-400 hover:border-primary">
+<span class="material-symbols-outlined text-3xl mb-2">home</span>
+<div class="font-body-md">Luxury Villa</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="project_type" type="radio"/>
+<div class="border border-outline-variant rounded-lg p-6 text-center peer-checked:border-[#111111] peer-checked:bg-[#111111] peer-checked:text-white transition-all duration-400 hover:border-primary">
+<span class="material-symbols-outlined text-3xl mb-2">apartment</span>
+<div class="font-body-md">Boutique Hotel</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="project_type" type="radio"/>
+<div class="border border-outline-variant rounded-lg p-6 text-center peer-checked:border-[#111111] peer-checked:bg-[#111111] peer-checked:text-white transition-all duration-400 hover:border-primary">
+<span class="material-symbols-outlined text-3xl mb-2">business_center</span>
+<div class="font-body-md">Corporate Office</div>
+</div>
+</label>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<button class="px-6 py-3 font-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="prevStep(1)">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back
+                        </button>
+<button class="btn-primary px-8 py-4 rounded-full font-label-caps flex items-center gap-2" onclick="nextStep(3)">
+                            Next Step
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 3: Design Upload -->
+<div class="step-content" id="step-3">
+<h2 class="font-headline-xl text-headline-xl mb-8 font-light text-primary">Share your blueprints.</h2>
+<p class="font-body-md text-on-surface-variant mb-8 max-w-[500px]">Upload CAD files, architectural drawings, or rough sketches to help our artisans understand the precise requirements of your space.</p>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-12 flex flex-col items-center justify-center text-center mb-12 hover:border-primary hover:bg-black/5 transition-all duration-400 cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-outline-variant mb-4">upload_file</span>
+<div class="font-body-lg text-primary mb-2">Drag &amp; drop files here</div>
+<div class="font-body-sm text-on-surface-variant mb-6">Supported formats: PDF, DWG, DXF, JPG (Max 50MB)</div>
+<button class="px-6 py-2 border border-[#111111] rounded-full font-label-caps text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-400">
+                            Browse Files
+                        </button>
+</div>
+<div class="flex justify-between items-center">
+<button class="px-6 py-3 font-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="prevStep(2)">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back
+                        </button>
+<button class="btn-primary px-8 py-4 rounded-full font-label-caps flex items-center gap-2" onclick="nextStep(4)">
+                            Review Summary
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 4: Summary -->
+<div class="step-content" id="step-4">
+<h2 class="font-headline-xl text-headline-xl mb-8 font-light text-primary">Inquiry Summary.</h2>
+<div class="bg-surface-container-low rounded-lg p-8 mb-12 flex flex-col gap-6">
+<div class="flex justify-between items-start border-b border-outline-variant/30 pb-6">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">Contact</div>
+<div class="font-body-lg text-primary">Jane Doe (Architect)</div>
+<div class="font-body-md text-on-surface-variant">jane@studio.com</div>
+</div>
+<button class="text-primary hover:text-[#C9A227] transition-colors" onclick="prevStep(1)"><span class="material-symbols-outlined">edit</span></button>
+</div>
+<div class="flex justify-between items-start border-b border-outline-variant/30 pb-6">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">Project Scope</div>
+<div class="font-body-lg text-primary">Calacatta Gold Marble • Luxury Villa</div>
+<div class="font-body-md text-on-surface-variant">Approx. 1,500 sq ft.</div>
+</div>
+<button class="text-primary hover:text-[#C9A227] transition-colors" onclick="prevStep(2)"><span class="material-symbols-outlined">edit</span></button>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">draft</span>
+<div>
+<div class="font-body-md text-primary">villa_floorplan_v2.dwg</div>
+<div class="font-body-sm text-on-surface-variant">2.4 MB</div>
+</div>
+</div>
+<button class="text-primary hover:text-[#C9A227] transition-colors" onclick="prevStep(3)"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<button class="px-6 py-3 font-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="prevStep(3)">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back
+                        </button>
+<button class="btn-primary px-8 py-4 rounded-full font-label-caps flex items-center gap-2">
+                            Submit Request
+                            <span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Suppressed per task context of a focused flow, but keeping brand anchor minimalist version if needed, electing to omit to focus on the form as requested "dead end relative to global nav") -->
+<script>
+        function updateProgress(step) {
+            const bar = document.getElementById('progress-bar');
+            bar.style.width = `${(step / 4) * 100}%`;
+            
+            document.querySelectorAll('.step-indicator').forEach((ind, index) => {
+                if (index < step) {
+                    ind.classList.remove('text-outline-variant');
+                    ind.classList.add('text-primary');
+                } else {
+                    ind.classList.add('text-outline-variant');
+                    ind.classList.remove('text-primary');
+                }
+            });
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`step-${step}`).classList.add('active');
+            updateProgress(step);
+        }
+
+        function prevStep(step) {
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`step-${step}`).classList.add('active');
+            updateProgress(step);
+        }
+    </script>
+</body></html>
