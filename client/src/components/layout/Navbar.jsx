@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Diamond, Moon, Sun, Search, Menu, X } from 'lucide-react';
+import { Diamond, Moon, Sun, Search, Menu, X, User, LogOut, Shield } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore.js';
 
 const NAV_LINKS = [
   { label: 'Home',        to: '/'           },
+  { label: '3D Showroom', to: '/showroom'   },
   { label: 'Collections', to: '/collection' },
   { label: 'Colours',     to: '/colours'    },
-  { label: 'Customs',     to: '/quote'      },
   { label: 'Portfolio',   to: '/projects'   },
   { label: 'Blogs',       to: '/blogs'      },
   { label: 'Inquiry',     to: '/quote'      },
@@ -18,13 +18,16 @@ export default function Navbar() {
   const [scrolled,     setScrolled]     = useState(false);
   const [mobileOpen,   setMobileOpen]   = useState(false);
   const [searchOpen,   setSearchOpen]   = useState(false);
-  const { theme, toggleTheme } = useAuthStore();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { theme, toggleTheme, user, accessToken, clearAuth } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
     setSearchOpen(false);
+    setUserMenuOpen(false);
   }, [location.pathname]);
 
   // Solid bg after scroll
@@ -43,6 +46,12 @@ export default function Navbar() {
   const navbarBg = scrolled
     ? 'bg-surface/95 border-outline-variant/50'
     : 'bg-white/15 border-white/30';
+
+  const handleLogout = () => {
+    clearAuth();
+    setUserMenuOpen(false);
+    navigate('/');
+  };
 
   return (
     <>
@@ -79,7 +88,7 @@ export default function Navbar() {
           </div>
 
           {/* ── Trailing Actions ── */}
-          <div className="flex items-center gap-2 text-primary">
+          <div className="flex items-center gap-3 text-primary relative">
             {/* Theme toggle */}
             <button
               aria-label="Toggle theme"
@@ -97,6 +106,63 @@ export default function Navbar() {
             >
               <Search size={22} />
             </button>
+
+            {/* User Auth / Profile */}
+            {accessToken && user ? (
+              <div className="relative">
+                <button
+                  aria-label="User Account"
+                  onClick={() => setUserMenuOpen((p) => !p)}
+                  className="flex items-center gap-2 p-2 hover:bg-white/10 rounded-full transition-all duration-[400ms] text-primary"
+                  title={user.name || 'Account'}
+                >
+                  <User size={22} />
+                </button>
+
+                {/* Account Dropdown */}
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 py-2 z-50 text-slate-800 dark:text-slate-100"
+                    >
+                      <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
+                        <p className="font-semibold text-sm truncate">{user.name}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user.email}</p>
+                      </div>
+
+                      {(user.role === 'Admin' || user.role === 'MASTER_ADMIN') && (
+                        <Link
+                          to="/admin"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        >
+                          <Shield size={16} /> Admin Dashboard
+                        </Link>
+                      )}
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      >
+                        <LogOut size={16} /> Logout
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium border border-primary/30 rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+              >
+                <User size={18} />
+                <span>Sign In</span>
+              </Link>
+            )}
 
             {/* Mobile hamburger */}
             <button
@@ -184,8 +250,32 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              {/* CTA */}
-              <div className="mt-auto">
+              {/* CTA & User Auth */}
+              <div className="mt-auto flex flex-col gap-3">
+                {accessToken && user ? (
+                  <div className="flex flex-col gap-2 p-3 bg-surface-tint/10 rounded-xl">
+                    <span className="text-sm font-medium text-primary">{user.name} ({user.role})</span>
+                    {(user.role === 'Admin' || user.role === 'MASTER_ADMIN') && (
+                      <Link to="/admin" className="text-xs text-gold-accent font-semibold hover:underline">
+                        Admin Dashboard →
+                      </Link>
+                    )}
+                    <button
+                      onClick={handleLogout}
+                      className="text-xs text-red-500 font-semibold text-left hover:underline"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="w-full py-3 text-center border border-primary text-primary font-medium text-sm rounded-full block hover:bg-primary hover:text-white transition-all"
+                  >
+                    Sign In
+                  </Link>
+                )}
+
                 <Link
                   to="/quote"
                   className="btn-primary w-full py-4 text-center font-label-caps text-label-caps tracking-widest uppercase rounded-full block"

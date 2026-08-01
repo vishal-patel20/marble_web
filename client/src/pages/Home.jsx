@@ -38,8 +38,8 @@ function HeroSection() {
       <div className="absolute inset-0 z-0 scale-105 transform animate-subtleZoom">
         <img 
           className="w-full h-full object-cover object-center" 
-          alt="Architectural marble wall" 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbKc30gK8OagaSf-MHpeBpOY8FuDXGYhRTnpumFPj309RzQzLTPPlyDXVPht8tM-aN8xqWyuf05dOchK2gmgtU9mz7a-NtP65lLHMCvCLaE179YWTZg0jsJULXgB0ti12eJiDAJw7PCb4XqD-XWVpVhzFNVy8UmvyboDcwgbB91U2FpoKX-Z8_t3dNsp0TnnWJT0RbZco-ozhKMigKHHAlNsgWoZkZR32tDxX48jdQJLzYldCF-3x1"
+          alt="Architectural stone heritage" 
+          src="/images/hero_chatgpt.png"
         />
         <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px]"></div>
       </div>
@@ -170,7 +170,7 @@ function MasterpieceCollections() {
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Italian Marble" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGn_m5W-ORAuoblicMxz9c9Aq4dWV897SGVAqVj_eK1gsCiaAVs559K0WZ83Cg9vNaTY-iJdVJxSeR7G3DxP38lEZuhc_qG7KaboS6sz0J9zovA_x4uFth4YV6P8-U-JiBmHFydehhtDbPXz3o2P5pxmmNZbaDpMfVka6QAxA58z0ZLk5bFOHwzLZcHW2HLFtW7x8gEZYg6j6aVA58DEIaPKvlqStYkZAgmi2ot3lDrT5MySSIhFgQ"
+              src="/images/stone_image_23.jpg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <div className="absolute bottom-0 left-0 w-full p-10 glass-panel border-t-0 border-l-0 border-r-0 border-b-0 rounded-b-[24px] translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -187,7 +187,7 @@ function MasterpieceCollections() {
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Granite" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG"
+              src="/images/stone_image_18.jpg"
             />
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute bottom-6 left-6 right-6 glass-panel p-6 rounded-[16px] backdrop-blur-md">
@@ -203,7 +203,7 @@ function MasterpieceCollections() {
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Quartz" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3"
+              src="/images/stone_image_7.jpg"
             />
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="absolute bottom-6 left-6 right-6 glass-panel p-6 rounded-[16px] backdrop-blur-md">
@@ -219,7 +219,7 @@ function MasterpieceCollections() {
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Onyx" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN"
+              src="/images/stone_image_19.jpg"
             />
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute bottom-8 left-8 right-8 glass-panel p-8 rounded-[16px] flex justify-between items-center backdrop-blur-md">
@@ -292,7 +292,7 @@ function ProcessTimeline() {
 }
 
 // ── Virtual Showroom ──────────────────────────────────────────────────
-function VirtualShowroom() {
+function VirtualShowroomSection() {
   return (
     <section className="py-section-gap max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
       <ScrollReveal className="bg-surface-container-low rounded-[32px] p-8 md:p-16 flex flex-col md:flex-row items-center gap-16 relative overflow-hidden">
@@ -303,18 +303,18 @@ function VirtualShowroom() {
           <p className="font-label-caps text-gold-accent tracking-[0.2em] mb-4 uppercase">Immersive Experience</p>
           <h2 className="font-headline-xl text-[48px] text-primary leading-tight mb-6 tracking-[-0.02em]">Virtual Showroom</h2>
           <p className="font-body-lg text-on-surface-variant mb-8 max-w-md">Explore our expansive inventory in a fully interactive 360° environment. View slab details, inspect veining, and visualize applications from anywhere in the world.</p>
-          <button className="btn-primary px-8 py-4 font-label-caps text-label-caps rounded-full tracking-widest uppercase flex items-center gap-3">
+          <Link to="/showroom" className="inline-flex btn-primary px-8 py-4 font-label-caps text-label-caps rounded-full tracking-widest uppercase items-center gap-3 hover:scale-105 transition-transform shadow-lg">
             Enter Showroom
             <Rotate3d className="w-5 h-5" />
-          </button>
+          </Link>
         </div>
         
         <div className="flex-1 w-full relative z-10">
-          <div className="aspect-video bg-surface-variant rounded-[24px] overflow-hidden relative shadow-2xl group cursor-pointer border border-outline-variant/30">
+          <Link to="/showroom" className="block aspect-video bg-surface-variant rounded-[24px] overflow-hidden relative shadow-2xl group cursor-pointer border border-outline-variant/30">
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-              alt="Virtual showroom interface placeholder" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMQ_oN66gXkiIkqeud5PAV5fxxH-bi0SbQE3TAOkRLFKSRss_pldJkO9tIY6q-VzzWCjO0WAq1BJhYNdodZ9Sfo1LfQXomF-P2vnJPLbxwF5OU-gsMvB7dGKKirHBiU6Yexb_pcISGvV6d2ssc6nA7HOYdOGmFH8J98rCLfUG9Z6wFnLt9-1S1jYwK02XHk275CpLo5OhFqNZkblcMyelX3wVbUGF70BtYJJI5cgzlARX9TJy-Zq3x"
+              alt="Virtual showroom 3D environment" 
+              src="/images/stone_image_31.jpg"
             />
             {/* Play button overlay */}
             <div className="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors duration-400">
@@ -325,7 +325,7 @@ function VirtualShowroom() {
             {/* UI Hotspot Overlays */}
             <div className="absolute top-[30%] left-[20%] w-6 h-6 rounded-full bg-white/80 animate-pulse shadow-[0_0_15px_rgba(255,255,255,0.8)]"></div>
             <div className="absolute top-[60%] left-[70%] w-6 h-6 rounded-full bg-gold-accent/80 animate-pulse shadow-[0_0_15px_rgba(201,162,39,0.8)]"></div>
-          </div>
+          </Link>
         </div>
       </ScrollReveal>
     </section>
@@ -401,7 +401,7 @@ function CTASection() {
         <img 
           className="w-full h-full object-cover" 
           alt="Dark dramatic marble background" 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG"
+          src="/images/stone_image_9.jpg"
         />
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
       </div>
@@ -436,7 +436,7 @@ export default function Home() {
       <StoneFinder />
       <MasterpieceCollections />
       <ProcessTimeline />
-      <VirtualShowroom />
+      <VirtualShowroomSection />
       <FAQSection />
       <CTASection />
     </div>

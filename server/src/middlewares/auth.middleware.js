@@ -50,7 +50,15 @@ export const protect = async (req, res, next) => {
  */
 export const restrictTo = (...roles) => {
   return (req, res, next) => {
-    if (!req.user || !roles.includes(req.user.role)) {
+    if (!req.user) {
+      return ApiResponse.error(res, 'Authentication required.', null, 401);
+    }
+
+    // MASTER_ADMIN always has administrative privileges if Admin role is specified
+    const isMasterAdmin = req.user.role === 'MASTER_ADMIN';
+    const isPermitted   = roles.includes(req.user.role) || (isMasterAdmin && (roles.includes('Admin') || roles.includes('MASTER_ADMIN')));
+
+    if (!isPermitted) {
       return ApiResponse.error(
         res,
         'You do not have permission to perform this action.',

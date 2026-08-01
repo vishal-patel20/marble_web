@@ -1,17 +1,28 @@
-import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { FileText, MessageSquare } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, FileText, MessageSquare } from 'lucide-react';
 import ScrollReveal from '../components/ui/ScrollReveal.jsx';
-import { calacattaBorghiniDetail } from '../data/collections.js';
+import { getCollectionDetail } from '../data/collections.js';
 
 export default function ProductDetail() {
-  const { slug } = useParams();
-  // In a real app, look up product by slug. We use the Stitch design mock.
-  const product = calacattaBorghiniDetail;
+  const { category, slug } = useParams();
+  const navigate = useNavigate();
+  // Support routes like /collection/:category/:slug or /products/:slug or /collection/:slug
+  const activeSlug = slug || category;
+  const activeCat  = slug ? category : undefined;
+  
+  const product = getCollectionDetail(activeSlug, activeCat);
 
-  const [selectedFinish, setSelectedFinish] = useState(product.finishes[0]);
+  const [selectedFinish, setSelectedFinish] = useState(product.finishes[0] || 'Polished');
   const [projectName, setProjectName] = useState('');
   const [email,       setEmail]       = useState('');
+
+  // Sync selected finish if product changes
+  useEffect(() => {
+    if (product?.finishes?.length) {
+      setSelectedFinish(product.finishes[0]);
+    }
+  }, [activeSlug]);
 
   return (
     <>
@@ -22,8 +33,16 @@ export default function ProductDetail() {
         {/* ── Hero Gallery Section ── */}
         <section className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pt-12 pb-[160px]">
 
-          {/* Breadcrumb + Title */}
+          {/* Back Button + Breadcrumb + Title */}
           <div className="mb-8">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors mb-6 group cursor-pointer bg-surface-tint/10 hover:bg-surface-tint/20 px-4 py-2 rounded-full"
+            >
+              <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
+              <span>Back</span>
+            </button>
+
             <p className="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4">
               {product.categoryLabel}
             </p>
@@ -205,25 +224,9 @@ export default function ProductDetail() {
           </div>
         </section>
 
-        {/* ── Application Showcase (Full Bleed) ── */}
-        <section className="mb-[160px]">
-          <div className="w-full h-[60vh] md:h-[80vh] relative">
-            <img
-              src={product.images.application}
-              alt="Calacatta Borghini living room application"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute bottom-[20px] md:bottom-[80px] left-[20px] md:left-[80px] glass-panel p-6 rounded-lg max-w-sm">
-              <p className="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Application</p>
-              <p className="text-[32px] font-[500] leading-[1.3] text-primary" style={{ fontFamily: 'Inter' }}>
-                Living Room Flooring
-              </p>
-            </div>
-          </div>
-        </section>
 
       </main>
     </>
   );
 }
+

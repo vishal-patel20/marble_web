@@ -112,7 +112,7 @@ export default function Colours() {
             <ScrollReveal key={item.id} delay={i * 0.08}>
               <StoneCard
                 item={item}
-                to={`/collection/italian-marble/${item.id}`}
+                to={`/collection/${item.category || 'marble'}/${item.id}`}
               />
             </ScrollReveal>
           ))}

@@ -1,155 +1,139 @@
 // ── MarbleCraft Collection Data ─────────────────────────────────────
-// Source: Stitch design export — used as mock data for all collection pages
+// Complete Marble Collection Registry organized by Categories
 
-export const collectionItems = [
-  {
-    id: 'calacatta-borghini',
-    name: 'Calacatta Borghini',
-    origin: 'Carrara, Italy',
-    finish: 'Polished',
-    category: 'marble',
-    color: 'white',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHh3Rl666_sKaU8f1QEAX5Eref4Y1yAkYWE9mBDPvRwwCDLqvy2NFWjV7QcbjVX_EU3Qv-fuwqenjp3FqyAa4U1vl4dZMtgaES4yamMJZRDB8ngMJAKSfe7nvJeygRjjytIm9WECdhbSUCWWlRDl3SwVtjtiMilSwK2RSstJ7s-Pf1WO5ph1eptVbB5Z2uG70_mAzulyy_smiUJ0vtRXYPlu-bMSwP0HSBLQpPvBM-B9Vi1OFtprFt',
-    description: 'Quarried from the historic mountains of Carrara, Italy, Calacatta Borghini represents the pinnacle of luxury natural stone. Luminous pure white background with gold veining.',
-  },
-  {
-    id: 'nero-marquina',
-    name: 'Nero Marquina',
-    origin: 'Basque Country, Spain',
-    finish: 'Honed',
-    category: 'marble',
-    color: 'black',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDsDm6fn_Cpa2mfZPXabQBohIn2XdRgg6HBB4Y7q1wjJq2lK7nOPd39Relop92jz-i6wMjOY4OnLWdH5lWetNR8ye80IJ6rOQhkxWC9padFODFoyZPsPNULKhREdozlNQAw-Nw0rmscbhYr1EYn8jZ0MYHctNpC80XZLaCdyfa6tp8RdRyhJlP9_LrH0_kOeLlIg1X-h_rptATxMY1xjvRTfgHYw1cNwQL0nYeIo2bKyYIGOtb0cWI8',
-    description: 'Absolute deep black marble, intensely contrasted by sharp white calcite veining.',
-  },
-  {
-    id: 'verde-guatemala',
-    name: 'Verde Guatemala',
-    origin: 'India',
-    finish: 'Polished',
-    category: 'marble',
-    color: 'green',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop',
-    description: 'Deep forest emerald green marble with dramatic darker green and white calcite filaments.',
-  },
-  {
-    id: 'giallo-siena',
-    name: 'Giallo Siena',
-    origin: 'Siena, Italy',
-    finish: 'Honed',
-    category: 'marble',
-    color: 'yellow',
-    image: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=800&auto=format&fit=crop',
-    description: 'Vibrant ochre and buttery yellow marble interwoven with subtle grey and cream veins.',
-  },
-  {
-    id: 'rosso-levanto',
-    name: 'Rosso Levanto',
-    origin: 'Liguria, Italy',
-    finish: 'Polished',
-    category: 'marble',
-    color: 'red',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop',
-    description: 'Rich cherry red marble accented by intense white calcite veining and burgundy undertones.',
-  },
-  {
-    id: 'grey-william',
-    name: 'Grey William',
-    origin: 'Italy',
-    finish: 'Honed',
-    category: 'marble',
-    color: 'grey',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfv4pEhaMiwOUIHrOTmxsfhupVAeWRAFAICwoVBGAWM9DNJNk-zk1BNsDZt9XnNlB67tYNy5oGCBqhimiOhLaRJihl6f-lO5vS_7KgUfhBbgaF-QLy7_DQoWp9yVG9QwMnES5UocEfPZaaNDGla75Nq3ufB4kYjr26PakDNZ1Q4pct4Hg_ZF6sSuzrFcntRQ74dkj-tu9Xw9KNGPHSY0gVjI1S4nDMk6G1vnpp5Bo7LliYAjkeAgIC',
-    description: 'Sophisticated dark grey marble highlighted by sweeping silver-grey veining.',
-  },
-  {
-    id: 'rosa-onyx',
-    name: 'Rosa Onyx',
-    origin: 'Iran',
-    finish: 'Backlit Polished',
-    category: 'onyx',
-    color: 'pink',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCsUcnSKqBVba6BblYxlg7wTmyCQ7UgsiM91JintTF3MbKZMvPvcaEsa-LfAgPe3XEL-LGLPHKjMsUr2TQmB8_Dp4SdzAdfhGPZjNW9KRHwpUSJ5ITZenVdrUDq2xDRWToKqx7GMsXtCqf8ZOHTlkXQUtiihjA97lLZSaKkowb5vilN5horhUCB5n1FyqYVRSqg0Ot-vL3L8Xbzu_MkIcqlNtp4f9Y7eIOtb8MlzYXaqEjNEXD0USXa',
-    description: 'Translucent pink onyx with soft pastel rose layers and crystalline veins.',
-  },
-  {
-    id: 'titanium-black-granite',
-    name: 'Titanium Black Granite',
-    origin: 'Brazil',
-    finish: 'Leathered',
-    category: 'granite',
-    color: 'black',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG',
-    description: 'Dramatic black granite infused with swirling movement in shades of gold, ivory, and slate grey.',
-  },
-  {
-    id: 'honey-onyx',
-    name: 'Honey Onyx',
-    origin: 'Turkey',
-    finish: 'Backlit Polished',
-    category: 'onyx',
-    color: 'yellow',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN',
-    description: 'Luminous amber yellow onyx with rich honey hues and glowing translucent strata.',
-  },
-  {
-    id: 'emerald-quartz',
-    name: 'Emerald Quartz',
-    origin: 'Brazil',
-    finish: 'Polished',
-    category: 'quartz',
-    color: 'green',
-    image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop',
-    description: 'Exotic emerald green quartz with crystal formations and shimmering mineral flakes.',
-  },
-  {
-    id: 'imperial-red-granite',
-    name: 'Imperial Red Granite',
-    origin: 'India',
-    finish: 'Polished',
-    category: 'granite',
-    color: 'red',
-    image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=800&auto=format&fit=crop',
-    description: 'Deep ruby red granite featuring intricate black and dark grey mineral flecks.',
-  },
-  {
-    id: 'cristallo-white-quartz',
-    name: 'Cristallo White Quartz',
-    origin: 'Brazil',
-    finish: 'Polished',
-    category: 'quartz',
-    color: 'white',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3',
-    description: 'Pure translucent white quartz with subtle crystalline depth and icy grey undertones.',
-  },
-  {
-    id: 'silver-grey-quartz',
-    name: 'Silver Grey Quartz',
-    origin: 'Norway',
-    finish: 'Honed',
-    category: 'quartz',
-    color: 'grey',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFI2ywmk9lCpZrJ_vTllGF1mtoPT0Ogo3ZW4b9g3GXUM6TSzffUH7ygWZl9NlsOwrQVGwMxsDp15JDerGrhTzhXL_UeFQTGIrMRWdTbyVFnt4RNK0DcXO7RtAU6Xk6KY7m_pPaC6jtU3Rcbs-HouSQCDSheEFC2Wmu9gpAce_N0D9kYFrtXBEmxech_3aHo5w25IcqsmitAEaqAInK15CGJUzXbAkahXuaywzCzFVnLDXrI5hrXSCy',
-    description: 'Modern silver-grey quartzite with sleek horizontal linear veining and satin luster.',
-  },
-  {
-    id: 'pink-norwegian-marble',
-    name: 'Pink Norwegian Marble',
-    origin: 'Norway',
-    finish: 'Polished',
-    category: 'marble',
-    color: 'pink',
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=800&auto=format&fit=crop',
-    description: 'Exquisite blush pink marble with soft rose cloud patterns and white veins.',
-  },
-];
+export const MARBLE_CATEGORIES_DATA = {
+  'Premium Italian Marbles': [
+    { name: 'Calacatta Gold', description: 'White background with bold gray veins and gold highlights.', origin: 'Carrara, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
+    { name: 'Statuario', description: 'Bright white with dramatic gray veining.', origin: 'Tuscany, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_2.jpg' },
+    { name: 'Carrara', description: 'Soft white with light gray veins; classic and timeless.', origin: 'Carrara, Italy', finish: 'Honed', color: 'white', image: '/images/stone_image_27.jpg' },
+    { name: 'Arabescato', description: 'White marble with intricate flowing gray veins.', origin: 'Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_11.jpg' },
+    { name: 'Bianco Lasa', description: 'Pure white with elegant gray veining.', origin: 'Lasa, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_17.jpg' },
+    { name: 'Botticino Classico', description: 'Warm beige marble with delicate veinings.', origin: 'Brescia, Italy', finish: 'Honed', color: 'yellow', image: '/images/stone_image_5.jpg' },
+  ],
+  'Black Marbles': [
+    { name: 'Nero Marquina', description: 'Deep black with striking white veins.', origin: 'Spain', finish: 'Polished', color: 'black', image: '/images/stone_image_3.jpg' },
+    { name: 'Black Portoro', description: 'Black with luxurious gold veining.', origin: 'Italy', finish: 'Polished', color: 'black', image: '/images/stone_image_9.jpg' },
+    { name: 'Saint Laurent Black', description: 'Dark brown-black with golden veins.', origin: 'France', finish: 'Polished', color: 'black', image: '/images/stone_image_12.jpg' },
+    { name: 'Black Marquina Premium', description: 'High-gloss luxury black marble.', origin: 'Spain', finish: 'Polished', color: 'black', image: '/images/stone_image_19.jpg' },
+  ],
+  'Beige & Cream Marbles': [
+    { name: 'Crema Marfil', description: 'Elegant cream marble with subtle yellow and gold undertones.', origin: 'Spain', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
+    { name: 'Botticino', description: 'Classic beige marble with gentle golden veins.', origin: 'Italy', finish: 'Honed', color: 'yellow', image: '/images/stone_image_10.jpg' },
+    { name: 'Perlato Sicilia', description: 'Rich ivory beige marble with crystalline fossils.', origin: 'Italy', finish: 'Polished', color: 'yellow', image: '/images/stone_image_29.jpg' },
+    { name: 'Daino Reale', description: 'Layered cream and tan marble with river-stone veining.', origin: 'Italy', finish: 'Polished', color: 'yellow', image: '/images/stone_image_30.jpg' },
+    { name: 'Sunny Beige Marble', description: 'Bright sunlit beige marble with soft golden veining.', origin: 'Egypt', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
+    { name: 'Crema Nova', description: 'Soft cream marble with delicate tan and hazelnut swirls.', origin: 'Turkey', finish: 'Polished', color: 'yellow', image: '/images/stone_image_29.jpg' },
+  ],
+  'Green Marbles': [
+    { name: 'Rainforest Green', description: 'Striking dark green marble with web-like brown and white veins.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
+    { name: 'Forest Green', description: 'Deep emerald green marble with dark linear veining.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_11.jpg' },
+    { name: 'Verde Alpi', description: 'Dark Alpine green marble with white calcite veins.', origin: 'Italy', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
+    { name: 'Verde Guatemala', description: 'Rich forest green marble with intricate dark veining.', origin: 'Guatemala', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
+    { name: 'Indian Green Marble', description: 'Classic vibrant green marble with dark veins.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
+    { name: 'Ming Green', description: 'Soft mint green marble with gentle seafoam waves.', origin: 'Asia', finish: 'Honed', color: 'green', image: '/images/stone_image_11.jpg' },
+  ],
+  'White Marbles': [
+    { name: 'Makrana White (India)', description: 'World famous pure white marble from Rajasthan.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
+    { name: 'Michelangelo White', description: 'Premium white marble with subtle silver veining.', origin: 'Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_13.jpg' },
+    { name: 'Volakas White', description: 'Soft white marble with diagonal grey and violet veins.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_18.jpg' },
+    { name: 'Thassos White', description: 'Crystal-clear pure snow-white marble.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_33.jpg' },
+    { name: 'Vietnam White', description: 'Luminous ultra-white marble slab.', origin: 'Vietnam', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
+    { name: 'Polar White', description: 'Pure white pristine marble with ice-like clarity.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_17.jpg' },
+  ],
+  'Brown Marbles': [
+    { name: 'Emperador Dark', description: 'Deep chocolate brown marble with spiderweb white veins.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_28.jpg' },
+    { name: 'Emperador Light', description: 'Warm hazelnut brown marble with light cream veins.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_29.jpg' },
+    { name: 'Coffee Brown', description: 'Rich coffee-toned marble with warm bronze flecks.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_30.jpg' },
+    { name: 'Fantasy Brown', description: 'Sweeping waves of brown, cream, and grey marble.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_31.jpg' },
+    { name: 'Bronze Armani', description: 'Dark bronze marble with fine copper veining.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_28.jpg' },
+    { name: 'Chocolate Brown Marble', description: 'Deep mocha marble with smooth milk-chocolate undertones.', origin: 'Turkey', finish: 'Polished', color: 'brown', image: '/images/stone_image_32.jpg' },
+  ],
+  'Red & Pink Marbles': [
+    { name: 'Rosso Levanto', description: 'Rich cherry red marble accented by intense white calcite veining.', origin: 'Italy', finish: 'Polished', color: 'red', image: '/images/stone_image_6.jpg' },
+    { name: 'Rojo Alicante', description: 'Warm terracotta red marble with pale white veins.', origin: 'Spain', finish: 'Polished', color: 'red', image: '/images/stone_image_12.jpg' },
+    { name: 'Rosa Portugalo', description: 'Elegant blush pink marble with delicate rose veining.', origin: 'Portugal', finish: 'Polished', color: 'pink', image: '/images/stone_image_8.jpg' },
+    { name: 'Pink Onyx Marble', description: 'Translucent pink marble with soft pastel rose layers.', origin: 'Iran', finish: 'Polished', color: 'pink', image: '/images/stone_image_8.jpg' },
+    { name: 'Bidasar Pink', description: 'Rainforest pink marble with dramatic earthy veins.', origin: 'India', finish: 'Polished', color: 'pink', image: '/images/stone_image_6.jpg' },
+  ],
+  'Grey Marbles': [
+    { name: 'Pietra Grey', description: 'Charcoal grey marble with sharp white linear veins.', origin: 'Iran', finish: 'Honed', color: 'grey', image: '/images/stone_image_7.jpg' },
+    { name: 'Grigio Carnico', description: 'Dark charcoal grey marble with dramatic white veining.', origin: 'Italy', finish: 'Polished', color: 'grey', image: '/images/stone_image_14.jpg' },
+    { name: 'Tundra Grey', description: 'Cool silvery grey marble with cloud-like veining.', origin: 'Turkey', finish: 'Honed', color: 'grey', image: '/images/stone_image_7.jpg' },
+    { name: 'Silver Shadow', description: 'Light silver grey marble with fine pewter veining.', origin: 'Turkey', finish: 'Polished', color: 'grey', image: '/images/stone_image_14.jpg' },
+    { name: 'Bardiglio Grey', description: 'Classic dark grey Italian marble with fine linear veining.', origin: 'Italy', finish: 'Polished', color: 'grey', image: '/images/stone_image_7.jpg' },
+  ],
+  'Indian Marbles': [
+    { name: 'Makrana White', description: 'World-famous pure white marble from Makrana quarries.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
+    { name: 'Katni Marble', description: 'Elegant cream and beige Indian marble.', origin: 'India', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
+    { name: 'Morwad White', description: 'Lustrous white marble with grey and purple veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_18.jpg' },
+    { name: 'Ambaji White', description: 'Pristine white marble with subtle green veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_2.jpg' },
+    { name: 'Banswara White', description: 'High-luster white marble with soft grey veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_33.jpg' },
+    { name: 'Agaria White', description: 'Translucent white marble with subtle yellow highlights.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_13.jpg' },
+    { name: 'Udaipur Green', description: 'Famous deep green marble from Rajasthan quarries.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
+    { name: 'Rainforest Brown', description: 'Exotic golden-brown marble with dense root-like veining.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_31.jpg' },
+    { name: 'Albeta Marble', description: 'Supreme quality Makrana white marble with golden veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
+    { name: 'Dungri Marble', description: 'Durable white marble with distinctive grey lines.', origin: 'India', finish: 'Honed', color: 'white', image: '/images/stone_image_27.jpg' },
+  ],
+};
+
+// LocalStorage key for custom admin added collection items
+const LOCAL_STORAGE_KEY = 'marblecraft_custom_collections';
+
+export const getCustomCollectionItems = () => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (e) {
+    return [];
+  }
+};
+
+export const addCustomCollectionItem = (item) => {
+  try {
+    const existing = getCustomCollectionItems();
+    const updated = [item, ...existing];
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    return updated;
+  } catch (e) {
+    console.error('Failed to add custom collection item', e);
+    return [];
+  }
+};
+
+export const deleteCustomCollectionItem = (id) => {
+  try {
+    const existing = getCustomCollectionItems();
+    const updated = existing.filter((item) => item.id !== id);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    return updated;
+  } catch (e) {
+    console.error('Failed to delete custom collection item', e);
+    return [];
+  }
+};
+
+// Default seed collection items array (Empty — only admin-created items are shown)
+export const defaultCollectionItems = [];
+
+// Combined collection items (Returns only admin-added custom collection items)
+export const getAllCollectionItems = () => {
+  return getCustomCollectionItems();
+};
+
+export const collectionItems = getAllCollectionItems();
 
 export const categories = [
-  { id: 'all',     label: 'All Collections' },
-  { id: 'marble',  label: 'Marble' },
-  { id: 'granite', label: 'Granite' },
-  { id: 'quartz',  label: 'Quartz' },
-  { id: 'onyx',    label: 'Onyx' },
+  { id: 'all', label: 'All Collections' },
+  { id: 'Premium Italian Marbles', label: 'Premium Italian Marbles' },
+  { id: 'Black Marbles', label: 'Black Marbles' },
+  { id: 'Beige & Cream Marbles', label: 'Beige & Cream Marbles' },
+  { id: 'Green Marbles', label: 'Green Marbles' },
+  { id: 'White Marbles', label: 'White Marbles' },
+  { id: 'Brown Marbles', label: 'Brown Marbles' },
+  { id: 'Red & Pink Marbles', label: 'Red & Pink Marbles' },
+  { id: 'Grey Marbles', label: 'Grey Marbles' },
+  { id: 'Indian Marbles', label: 'Indian Marbles' }
 ];
 
 export const colorOptions = [
@@ -161,83 +145,45 @@ export const colorOptions = [
   { id: 'red',    label: 'Red',         hex: '#dc2626' },
   { id: 'grey',   label: 'Grey',        hex: '#6b7280' },
   { id: 'pink',   label: 'Pink',        hex: '#ec4899' },
+  { id: 'brown',  label: 'Brown',       hex: '#78350f' },
 ];
 
-// ── Bento grid collections for Home page ──────────────────────────────
 export const bentoCollections = [
   {
-    id: 'italian-marble',
-    name: 'Italian Marble',
+    id: 'premium-italian-marbles',
+    name: 'Premium Italian Marbles',
     tagline: 'The pinnacle of classical elegance.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGn_m5W-ORAuoblicMxz9c9Aq4dWV897SGVAqVj_eK1gsCiaAVs559K0WZ83Cg9vNaTY-iJdVJxSeR7G3DxP38lEZuhc_qG7KaboS6sz0J9zovA_x4uFth4YV6P8-U-JiBmHFydehhtDbPXz3o2P5pxmmNZbaDpMfVka6QAxA58z0ZLk5bFOHwzLZcHW2HLFtW7x8gEZYg6j6aVA58DEIaPKvlqStYkZAgmi2ot3lDrT5MySSIhFgQ',
-    size: 'large', // md:col-span-2 md:row-span-2
-    slug: 'italian-marble',
+    image: '/images/stone_image_1.jpg',
+    size: 'large',
+    slug: 'premium-italian-marbles',
   },
   {
-    id: 'granite',
-    name: 'Granite',
-    tagline: '',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiP9gEBDNDBUC0s4bLA9jw_9NcLFsUzWy_KT7ImshXIjRJcJNt3NMm5e846lWy7Q1rlVOEeRjJDINsppkXzT5Md-dg5JGuljnOMGTLlW2ucwEvGJyhn2FItV-CU9D3yn-7tD5a63ANjs1D60KqQpAYtWO9_yBWTiYFivur2CysxudzHb5BZp1Gi81y6kuzXd7rC0QPadhYctFMHpYvwUOBswg-MM8AKZezA8x0rkIpX6b4CT0tYhOG',
+    id: 'black-marbles',
+    name: 'Black Marbles',
+    tagline: 'Deep intensity and white calcite veining.',
+    image: '/images/stone_image_3.jpg',
     size: 'small',
-    slug: 'granite',
+    slug: 'black-marbles',
   },
   {
-    id: 'quartz',
-    name: 'Quartz',
-    tagline: '',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsC5kmkeTy4P1VVa7n_yURcGipHPosMts376dGn7vp-3v6P6rXMJvW-PUBD9sOENPD8OPDW9SJtaO4Y7oFnPEf-ukTfBtA3gwlVv4v-36CL0wqk-BpDx2i_FKUwMBncFq-WG-sLtnSE29SKyBh8HbL10mgyPaF6lu0D8lhWEEI2LE5oIoL1z1oP9eCnaFie4KZ-dnzoPX-R7o6gJFhyXWLOOdL9J9qgEd6vn5LXq6MgNZ3QKCmmhQ3',
+    id: 'indian-marbles',
+    name: 'Indian Marbles',
+    tagline: 'Heritage quarries of Rajasthan.',
+    image: '/images/stone_image_27.jpg',
     size: 'small',
-    slug: 'quartz',
+    slug: 'indian-marbles',
   },
   {
-    id: 'onyx',
-    name: 'Onyx',
-    tagline: 'Backlit brilliance.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0T0IANfSNoNEL6OGm9ajgrAQsc1HJqRL2evC2zpiqxYE3lf9AaLXPwkQWVC8XMIDQ9AfiaV6t9XQZWnp93KShlKkjFAFdcx03_2bXMP-h7yprKlIhj3vT1VTz-eBSI5461Vi70VeG0awDNQQq1IX6f5CbZi7R9xOPb8I6pPSIH9qd9lg5u2PGtSovABI1pXt--FxCvFe2fp3TidneF_i1wcf4P7NcVDWIwbRoTzrY0xl5vfKn0WUN',
-    size: 'wide', // md:col-span-2
-    slug: 'onyx',
+    id: 'green-marbles',
+    name: 'Green Marbles',
+    tagline: 'Emerald and forest veined masterpieces.',
+    image: '/images/stone_image_4.jpg',
+    size: 'wide',
+    slug: 'green-marbles',
   },
 ];
 
-// ── Masterwork listing (Italian Marble products) ──────────────────────
-export const italianMarbleProducts = [
-  {
-    id: 'calacatta-lincoln',
-    name: 'Calacatta Lincoln',
-    origin: 'Italy',
-    finish: 'Polished',
-    category: 'marble',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuASCY2OGfmLZBlky4VUXoc5U60zqx6wlCfdGRMch0A6Ooaatcncrm3nXUTRpgwU9Bwp6Ll4SgF8bRm10EgmArG7nIzs678ygnRjK-Zsh6umImW7-B3zzGW8gCerdQ3LVjndpMZ4yq6HyBROIpGVzEthX8rxUu5Mei6lwdKbqrklKHeD7_gggxF200P0Ew2iws7sw8M3KHKTLcb0Jv3XocsIudhc6PrZGxFlKdwAvh5gF4KIz4-n7o5g',
-    slug: 'calacatta-lincoln',
-  },
-  {
-    id: 'statuario-extra',
-    name: 'Statuario Extra',
-    origin: 'Italy',
-    finish: 'Honed',
-    category: 'marble',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuASip6TTiaCk4xnL7JaGcsFDKwFRDnjEMu9WX4RtGq3joxM7_satHy3U7EgHho2MNU_Qo3lD-G6VEJt0jfFufBSiA9-yiQHjMoTmTeOXEiejYKItFPlGnkoBl6aIicZUhg58HV1MJbvf_kiKiP1iskfeadBv7FEtXzBhLao0sbNSFHfvVadAuMVbXCaHKNzB62TJ4LwPNzi62VlM-M8hSRd25URqoElafIbgERJTFxyf4hdXsZAPNet',
-    slug: 'statuario-extra',
-  },
-  {
-    id: 'grey-william',
-    name: 'Grey William',
-    origin: 'Italy',
-    finish: 'Honed',
-    category: 'marble',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfv4pEhaMiwOUIHrOTmxsfhupVAeWRAFAICwoVBGAWM9DNJNk-zk1BNsDZt9XnNlB67tYNy5oGCBqhimiOhLaRJihl6f-lO5vS_7KgUfhBbgaF-QLy7_DQoWp9yVG9QwMnES5UocEfPZaaNDGla75Nq3ufB4kYjr26PakDNZ1Q4pct4Hg_ZF6sSuzrFcntRQ74dkj-tu9Xw9KNGPHSY0gVjI1S4nDMk6G1vnpp5Bo7LliYAjkeAgIC',
-    slug: 'grey-william',
-  },
-  {
-    id: 'black-marquina',
-    name: 'Black Marquina',
-    origin: 'Spain',
-    finish: 'Polished',
-    category: 'marble',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBc8GoheiL5WVFZzr2tdKW43QranjsXPaKqK8rsCu2ND9_s3U5e9m_ZqkznG-_pKTbCHYwB28Sl3fvkFBoKlSevoh2MrX4KxhVAOqGXSht5B7Hufaaqww9UgndvddeA-CzSqV-8VOU1t5oOoBvP_Cn57c7XD_xJ2qiH7bkU9kSwhKOWd2v-WsaAp7HpLSm_BlL615t1M86f-H1LVZvRRGG-4aL5JgC6xL6pHCpmq7-ygl7yFyKeO3iV',
-    slug: 'black-marquina',
-  },
-];
+export const italianMarbleProducts = collectionItems;
 
 // ── Team members ──────────────────────────────────────────────────────
 export const teamMembers = [
@@ -245,23 +191,23 @@ export const teamMembers = [
     id: 'elena-rostova',
     name: 'Elena Rostova',
     title: 'Chief Director of Design',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjrHYLD2R0nBaLfaqu-WwUvRrRL9wlnBSMwPIu8M_skSpuFOtrfcm-5DN99654WkzKQ0dw9WFRxOW187_b9i9iqofzITMKH9kan5s0WHbNM8UYpOClFDISA0wAACs6jvWGPGin4zhoOdAfo93rYbtNW5RqX_670tg3NvVZGM1Rl4dEuweJS6qgBqgNR2LIoZYXrydMChHU4dCnX0ww4bTAmkSXqr4DO7wH5ZbVlAvwTDBPzFd8E3oG',
+    image: '/images/stone_image_20.jpg',
   },
   {
     id: 'marcus-vance',
     name: 'Marcus Vance',
     title: 'Head of Global Sourcing',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgKcJtLkLazJZDDhch63sp78fOxHBiPUm0BdveQCdSOBS4Eh3MLMLcfFZmiawz_M0BMKZ6Pg1tm6XDbVIxpr3tWp34yX13HvVHE6AhyQLjfkNIakHP9QX4dR1GM5ZOmksdgr4fDH-2xtoaJM9_-Vmr7hWsvYO_kufoyuoAoH8Ahx_LL027Et-aeOsBzTTr8UjfhOVdaUn1pay8q0oHCIyC60bjOKpvaC2R3uoBRyi7zPlkCVpP1tcg',
+    image: '/images/stone_image_21.jpg',
   },
   {
     id: 'julian-thorne',
     name: 'Julian Thorne',
     title: 'VP of Environmental Strategy',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-kBT3J40ZSGSUJYyWUKtpwaCo_vGbOdg6pbseyGJGdh0GQ4crAtKl0jN8lTGBP8eREvU3ePVvibFPCQEmuot8CM-WoR3shMxMXbC_6m8dzJ9ZVAO7i5bRp2vCEd143xJVWsthlLLhPkfvmPns0Dm0nLxWIuJg9yZx74G4Tpm_qpS447UlPlh64rdiA7V9uAMUHOKaYVdf-Wn3O99f-Wxk0_sth2jp2oNaYMOLuQWc66yOV7NIYNwf',
+    image: '/images/stone_image_22.jpg',
   },
 ];
 
-// ── Product detail data (Calacatta Borghini) ──────────────────────────
+// ── Product detail data map ───────────────────────────────────────────
 export const calacattaBorghiniDetail = {
   id: 'calacatta-borghini',
   name: 'Calacatta Borghini',
@@ -277,9 +223,444 @@ export const calacattaBorghiniDetail = {
     { label: 'Compressive Strength',value: '135 MPa'    },
   ],
   images: {
-    main: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZafm9KlDcfyOtIFk4s3acZcIaI2a-mXToo4gFcFG_vfnpDREJByxrLnNpPydLssvSFXWgReqHoPG_amfAaLhZ3CirAIs4fI3MyDQcMzgrhsdigf2OyZrCamvuLAB-CaCB4odE2HzrGyf73PRw9m-o-EDFZEVpMKPCqAONKtSZ_Tcg899JDPU88xIMNCbXnndJg5lG5F7Pha-KyQ1TXc7iMP3V56DAgEpoS9opuc9XjUHNuHRw9eDl',
-    thumb1: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCwWCg1JYWh8TPgKYtka53wRW4f75hqVQLpwFRWeHNY5HKXI4dykltTWrSXkjCLsJ9Dq7F7obfofh5Zu-aXyEZa1c6mlVKwZ9FfAA879mq93VX-tuT03sfPRSomVisDMPUojTGqqmZbcC9n41NU4Z4WkZqHhjEJk4gmIoOYDKNCzeEEpo7pnQCoew_WP3bgeL-FJxsKgxhcc1EkVTnN2ZSb0ZAleVj-xBOdMy9-ANK6d8j3G_qGIJea',
-    thumb2: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCheUHAIkicuKV1W3Ze5N147tt64kDrrAMLuXgZ3vp4FPDbKqEjDbx3cDQ5LnN_uws9oY35qB6nlyxeD-bafLDGpmTnliCyVRsFZJv_GqARTlC5Kc8H2chDgP10KpnmVtIeOU8PPGul540tbobQcv7XRyI6Yxwfvzk6f1wRxw_ii_mU1lRFl3XMSm_W-J1mGGrYGzlVz5XxCXdtNo8Kr5JiniJVeuQ3V5fDsYp4bOybwa9NFL9otKr2',
-    application: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAik8Q4qqfqEHWG8Htc6xqW1PQ_8ZBsLZ0IM2nyw9KoQFHPw79uBEs8RvGHZY0qqhGu2CGLU-rgSmiA2hf0XTakqVJ-zrnYGV1KP-WBS3rT50sXZZRX8Pb64w7PNoycmK3ibjBCw2pOqbV_AGOWk66D0WnfhdgPTpwGrd9WnfUq9_Yuh6AYa43HBp6EGtkhf-UctOsZ4Yse-YIMGdV4VM4d3XL1O1thITdgEPCHy8WitaZ2xSdBYBHN',
+    main: '/images/stone_image_23.jpg',
+    thumb1: '/images/stone_image_27.jpg',
+    thumb2: '/images/stone_image_25.jpg',
+    application: '/images/stone_image_26.jpg',
   },
 };
+
+export const collectionDetailsMap = {
+  'calacatta-borghini': calacattaBorghiniDetail,
+  'nero-marquina': {
+    id: 'nero-marquina',
+    name: 'Nero Marquina',
+    categoryLabel: 'Collections / Black Marble',
+    breadcrumb: ['Collections', 'Black Marble', 'Nero Marquina'],
+    origin: 'Basque Country, Spain',
+    primaryColor: 'Absolute Black / White Calcite',
+    description: 'Quarried in the Markina region of Northern Spain, Nero Marquina is a world-renowned fine-grained black marble. Its intense deep black base contrasts dramatically with sharp white calcite filaments, making it an extraordinary choice for luxury bathrooms, feature walls, and custom furniture.',
+    finishes: ['Honed', 'Polished', 'Leathered'],
+    specs: [
+      { label: 'Density',             value: '2690 kg/m³' },
+      { label: 'Water Absorption',    value: '0.17 %'     },
+      { label: 'Compressive Strength',value: '140 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_3.jpg',
+      thumb1: '/images/stone_image_6.jpg',
+      thumb2: '/images/stone_image_4.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'verde-guatemala': {
+    id: 'verde-guatemala',
+    name: 'Verde Guatemala',
+    categoryLabel: 'Collections / Green Marble',
+    breadcrumb: ['Collections', 'Green Marble', 'Verde Guatemala'],
+    origin: 'Rajasthan, India',
+    primaryColor: 'Deep Emerald / Dark Green',
+    description: 'Verde Guatemala captivates with its lush, deep emerald hues interwoven with darker mineral strands and crystalline highlights. It brings a majestic natural warmth to high-end residential interiors and bespoke architectural detailing.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2730 kg/m³' },
+      { label: 'Water Absorption',    value: '0.11 %'     },
+      { label: 'Compressive Strength',value: '148 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_4.jpg',
+      thumb1: '/images/stone_image_5.jpg',
+      thumb2: '/images/stone_image_6.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'giallo-siena': {
+    id: 'giallo-siena',
+    name: 'Giallo Siena',
+    categoryLabel: 'Collections / Yellow Marble',
+    breadcrumb: ['Collections', 'Yellow Marble', 'Giallo Siena'],
+    origin: 'Siena, Tuscany, Italy',
+    primaryColor: 'Golden Ochre / Cream',
+    description: 'Extracted from Tuscan quarries since antiquity, Giallo Siena is celebrated for its warm ochre and buttery tones highlighted by delicate violet, grey, and cream veins. Highly prized for classical and contemporary masterpieces alike.',
+    finishes: ['Honed', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2680 kg/m³' },
+      { label: 'Water Absorption',    value: '0.18 %'     },
+      { label: 'Compressive Strength',value: '128 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_5.jpg',
+      thumb1: '/images/stone_image_4.jpg',
+      thumb2: '/images/stone_image_6.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'rosso-levanto': {
+    id: 'rosso-levanto',
+    name: 'Rosso Levanto',
+    categoryLabel: 'Collections / Red Marble',
+    breadcrumb: ['Collections', 'Red Marble', 'Rosso Levanto'],
+    origin: 'Liguria, Italy',
+    primaryColor: 'Rich Cherry Red / White Veining',
+    description: 'Quarried along the Ligurian coastline of Italy, Rosso Levanto exhibits a deep crimson and burgundy background traversed by vivid white calcite veining. An iconic stone specified for regal fireplaces and luxury hotel lobbies.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2720 kg/m³' },
+      { label: 'Water Absorption',    value: '0.13 %'     },
+      { label: 'Compressive Strength',value: '136 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_6.jpg',
+      thumb1: '/images/stone_image_5.jpg',
+      thumb2: '/images/stone_image_4.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'grey-william': {
+    id: 'grey-william',
+    name: 'Grey William',
+    categoryLabel: 'Collections / Grey Marble',
+    breadcrumb: ['Collections', 'Grey Marble', 'Grey William'],
+    origin: 'Italy',
+    primaryColor: 'Charcoal Grey / Silver Streams',
+    description: 'Grey William offers an understated modern aesthetic with smooth dark grey hues and gentle silver clouding. Perfect for contemporary architectural projects requiring refined minimalism.',
+    finishes: ['Honed', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2700 kg/m³' },
+      { label: 'Water Absorption',    value: '0.14 %'     },
+      { label: 'Compressive Strength',value: '132 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_7.jpg',
+      thumb1: '/images/stone_image_6.jpg',
+      thumb2: '/images/stone_image_4.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'rosa-onyx': {
+    id: 'rosa-onyx',
+    name: 'Rosa Onyx',
+    categoryLabel: 'Collections / Onyx',
+    breadcrumb: ['Collections', 'Onyx', 'Rosa Onyx'],
+    origin: 'Iran',
+    primaryColor: 'Translucent Pink / Rose Quartz',
+    description: 'Rosa Onyx is a breathtaking translucent stone featuring soft blush rose bands and crystalline layers. When backlit, it emits a soothing, ethereal radiance suited for statement bars and feature walls.',
+    finishes: ['Backlit Polished', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2650 kg/m³' },
+      { label: 'Water Absorption',    value: '0.09 %'     },
+      { label: 'Compressive Strength',value: '115 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_8.jpg',
+      thumb1: '/images/stone_image_11.jpg',
+      thumb2: '/images/stone_image_5.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'titanium-black-granite': {
+    id: 'titanium-black-granite',
+    name: 'Titanium Black Granite',
+    categoryLabel: 'Collections / Granite',
+    breadcrumb: ['Collections', 'Granite', 'Titanium Black Granite'],
+    origin: 'Brazil',
+    primaryColor: 'Obsidian Black / Gold & Silver Swirls',
+    description: 'Imported from Brazilian quarries, Titanium Black Granite blends deep black obsidian background with dramatic flowing waves of gold, cream, and silver. Renowned for its extreme durability and high scratch resistance.',
+    finishes: ['Leathered', 'Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2800 kg/m³' },
+      { label: 'Water Absorption',    value: '0.05 %'     },
+      { label: 'Compressive Strength',value: '190 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_9.jpg',
+      thumb1: '/images/stone_image_12.jpg',
+      thumb2: '/images/stone_image_6.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'honey-onyx': {
+    id: 'honey-onyx',
+    name: 'Honey Onyx',
+    categoryLabel: 'Collections / Onyx',
+    breadcrumb: ['Collections', 'Onyx', 'Honey Onyx'],
+    origin: 'Turkey',
+    primaryColor: 'Warm Honey Amber / Golden Stratum',
+    description: 'Honey Onyx is characterized by layers of warm golden amber, butterscotch, and translucent ivory veins. Exceptional light transmission properties make it a premier choice for backlit vanity tops and ambient wall accents.',
+    finishes: ['Backlit Polished', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2640 kg/m³' },
+      { label: 'Water Absorption',    value: '0.08 %'     },
+      { label: 'Compressive Strength',value: '112 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_10.jpg',
+      thumb1: '/images/stone_image_5.jpg',
+      thumb2: '/images/stone_image_11.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'emerald-quartz': {
+    id: 'emerald-quartz',
+    name: 'Emerald Quartz',
+    categoryLabel: 'Collections / Quartz',
+    breadcrumb: ['Collections', 'Quartz', 'Emerald Quartz'],
+    origin: 'Brazil',
+    primaryColor: 'Exotic Emerald / Mineral Crystals',
+    description: 'Emerald Quartzite is an exotic natural quartzite featuring brilliant green quartz matrix, translucent crystals, and golden mica flakes. It combines the exotic beauty of rare marble with the hardness of granite.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2750 kg/m³' },
+      { label: 'Water Absorption',    value: '0.07 %'     },
+      { label: 'Compressive Strength',value: '165 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_11.jpg',
+      thumb1: '/images/stone_image_4.jpg',
+      thumb2: '/images/stone_image_5.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'imperial-red-granite': {
+    id: 'imperial-red-granite',
+    name: 'Imperial Red Granite',
+    categoryLabel: 'Collections / Granite',
+    breadcrumb: ['Collections', 'Granite', 'Imperial Red Granite'],
+    origin: 'India',
+    primaryColor: 'Ruby Red / Dark Flecks',
+    description: 'Imperial Red Granite features a rich ruby red canvas punctuated by black and charcoal mineral deposits. Known for exceptional compressive strength and weather resistance in major exterior and interior applications.',
+    finishes: ['Polished', 'Flamed', 'Leathered'],
+    specs: [
+      { label: 'Density',             value: '2780 kg/m³' },
+      { label: 'Water Absorption',    value: '0.06 %'     },
+      { label: 'Compressive Strength',value: '185 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_12.jpg',
+      thumb1: '/images/stone_image_6.jpg',
+      thumb2: '/images/stone_image_5.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'cristallo-white-quartz': {
+    id: 'cristallo-white-quartz',
+    name: 'Cristallo White Quartz',
+    categoryLabel: 'Collections / Quartz',
+    breadcrumb: ['Collections', 'Quartz', 'Cristallo White Quartz'],
+    origin: 'Brazil',
+    primaryColor: 'Pure Translucent White / Ice Grey',
+    description: 'Cristallo Quartzite is a precious translucent stone quarried in Brazil. Its pure crystalline body and subtle ice-grey fractures create a glowing, ethereal surface that responds beautifully to backlighting.',
+    finishes: ['Polished', 'Satin'],
+    specs: [
+      { label: 'Density',             value: '2740 kg/m³' },
+      { label: 'Water Absorption',    value: '0.08 %'     },
+      { label: 'Compressive Strength',value: '160 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_13.jpg',
+      thumb1: '/images/stone_image_23.jpg',
+      thumb2: '/images/stone_image_27.jpg',
+      application: '/images/stone_image_26.jpg',
+    },
+  },
+  'silver-grey-quartz': {
+    id: 'silver-grey-quartz',
+    name: 'Silver Grey Quartz',
+    categoryLabel: 'Collections / Quartz',
+    breadcrumb: ['Collections', 'Quartz', 'Silver Grey Quartz'],
+    origin: 'Norway',
+    primaryColor: 'Sleek Silver Grey / Linear Strata',
+    description: 'Silver Grey Quartzite offers architectural elegance with linear silver stratification and fine crystalline luster. Highly favored for executive office floors and ultra-modern kitchen countertops.',
+    finishes: ['Honed', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2720 kg/m³' },
+      { label: 'Water Absorption',    value: '0.10 %'     },
+      { label: 'Compressive Strength',value: '155 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_14.jpg',
+      thumb1: '/images/stone_image_7.jpg',
+      thumb2: '/images/stone_image_6.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'pink-norwegian-marble': {
+    id: 'pink-norwegian-marble',
+    name: 'Pink Norwegian Marble',
+    categoryLabel: 'Collections / Pink Marble',
+    breadcrumb: ['Collections', 'Pink Marble', 'Pink Norwegian Marble'],
+    origin: 'Fauske, Norway',
+    primaryColor: 'Soft Blush Pink / Rose Cloud',
+    description: 'Pink Norwegian Marble is a rare Arctic stone featuring romantic rose and blush pink tones interwoven with white quartz veins. Celebrated globally for unique boutique applications.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2700 kg/m³' },
+      { label: 'Water Absorption',    value: '0.12 %'     },
+      { label: 'Compressive Strength',value: '138 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_28.jpg',
+      thumb1: '/images/stone_image_8.jpg',
+      thumb2: '/images/stone_image_5.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'calacatta-lincoln': {
+    id: 'calacatta-lincoln',
+    name: 'Calacatta Lincoln',
+    categoryLabel: 'Collections / Italian Marble',
+    breadcrumb: ['Collections', 'Italian Marble', 'Calacatta Lincoln'],
+    origin: 'Colorado / Italy',
+    primaryColor: 'Milky White / Smoky Grey Veins',
+    description: 'Calacatta Lincoln displays a creamy white background laced with delicate smokey grey and gold ribbons. Sourced for prestigious government and private estate architecture.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2710 kg/m³' },
+      { label: 'Water Absorption',    value: '0.11 %'     },
+      { label: 'Compressive Strength',value: '137 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_17.jpg',
+      thumb1: '/images/stone_image_23.jpg',
+      thumb2: '/images/stone_image_27.jpg',
+      application: '/images/stone_image_26.jpg',
+    },
+  },
+  'statuario-extra': {
+    id: 'statuario-extra',
+    name: 'Statuario Extra',
+    categoryLabel: 'Collections / Italian Marble',
+    breadcrumb: ['Collections', 'Italian Marble', 'Statuario Extra'],
+    origin: 'Carrara, Italy',
+    primaryColor: 'Bright White / Bold Charcoal Veins',
+    description: 'Statuario Extra is the definitive luxury Carrara marble. Featuring a brilliant white backdrop with dramatic dark charcoal vein structures that create captivating focal points.',
+    finishes: ['Honed', 'Polished'],
+    specs: [
+      { label: 'Density',             value: '2715 kg/m³' },
+      { label: 'Water Absorption',    value: '0.10 %'     },
+      { label: 'Compressive Strength',value: '142 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_18.jpg',
+      thumb1: '/images/stone_image_23.jpg',
+      thumb2: '/images/stone_image_27.jpg',
+      application: '/images/stone_image_26.jpg',
+    },
+  },
+  'black-marquina': {
+    id: 'black-marquina',
+    name: 'Black Marquina',
+    categoryLabel: 'Collections / Italian Marble',
+    breadcrumb: ['Collections', 'Italian Marble', 'Black Marquina'],
+    origin: 'Spain',
+    primaryColor: 'Jet Black / White Calcite',
+    description: 'Black Marquina is a classic black marble with fine white veining. Sleek and versatile for modern counters and wall features.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2690 kg/m³' },
+      { label: 'Water Absorption',    value: '0.16 %'     },
+      { label: 'Compressive Strength',value: '138 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_19.jpg',
+      thumb1: '/images/stone_image_6.jpg',
+      thumb2: '/images/stone_image_4.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+};
+
+/**
+ * Dynamically resolves full collection details by slug/id and optional category.
+ * Falls back to base catalog items or formats unknown slugs.
+ */
+export function getCollectionDetail(slug, category) {
+  if (!slug) return calacattaBorghiniDetail;
+
+  const normalizedSlug = slug.toLowerCase().trim();
+
+  // 1. Direct match in collectionDetailsMap
+  if (collectionDetailsMap[normalizedSlug]) {
+    return collectionDetailsMap[normalizedSlug];
+  }
+
+  // 2. Search all collectionItems (including custom admin added items)
+  const allItems = getAllCollectionItems();
+  const foundItem = allItems.find(
+    (item) => item.id.toLowerCase() === normalizedSlug || item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === normalizedSlug
+  );
+
+  // 3. Search italianMarbleProducts
+  const foundProduct = italianMarbleProducts.find(
+    (prod) => (prod.slug && prod.slug.toLowerCase() === normalizedSlug) || prod.id.toLowerCase() === normalizedSlug
+  );
+
+  const baseItem = foundItem || foundProduct;
+
+  if (baseItem) {
+    const rawCat = category || baseItem.category || 'Marble';
+    const formattedCat = rawCat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+    const finishesArray = Array.isArray(baseItem.finishes)
+      ? baseItem.finishes
+      : baseItem.finish
+      ? [baseItem.finish, 'Polished', 'Honed'].filter((v, i, a) => a.indexOf(v) === i)
+      : ['Polished', 'Honed', 'Leathered'];
+
+    return {
+      id: baseItem.id || baseItem.slug || normalizedSlug,
+      name: baseItem.name,
+      categoryLabel: `Collections / ${formattedCat}`,
+      breadcrumb: ['Collections', formattedCat, baseItem.name],
+      origin: baseItem.origin || 'Carrara, Italy',
+      primaryColor: baseItem.color
+        ? `${baseItem.color.charAt(0).toUpperCase() + baseItem.color.slice(1)} Natural Stone`
+        : 'Natural Stone',
+      description:
+        baseItem.description ||
+        `Quarried from premier international stone reserves, ${baseItem.name} offers exceptional veining, luminous texture, and architectural versatility.`,
+      finishes: finishesArray,
+      specs: [
+        { label: 'Density',             value: baseItem.density || '2710 kg/m³' },
+        { label: 'Water Absorption',    value: baseItem.waterAbsorption || '0.12 %' },
+        { label: 'Compressive Strength',value: baseItem.compressiveStrength || '135 MPa' },
+      ],
+      images: {
+        main: baseItem.image,
+        thumb1: baseItem.image,
+        thumb2: baseItem.image,
+        application: baseItem.image,
+      },
+    };
+  }
+
+  // 4. Dynamic fallback for unknown slugs
+  const formattedTitle = normalizedSlug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const rawCat = category || 'Marble';
+  const formattedCat = rawCat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return {
+    id: normalizedSlug,
+    name: formattedTitle,
+    categoryLabel: `Collections / ${formattedCat}`,
+    breadcrumb: ['Collections', formattedCat, formattedTitle],
+    origin: 'International Reserve',
+    primaryColor: 'Natural Stone',
+    description: `${formattedTitle} is a rare natural stone curated for high-end architectural surfaces and bespoke luxury interior installations.`,
+    finishes: ['Polished', 'Honed', 'Leathered'],
+    specs: [
+      { label: 'Density',             value: '2700 kg/m³' },
+      { label: 'Water Absorption',    value: '0.14 %'     },
+      { label: 'Compressive Strength',value: '135 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_23.jpg',
+      thumb1: '/images/stone_image_4.jpg',
+      thumb2: '/images/stone_image_6.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  };
+}
+

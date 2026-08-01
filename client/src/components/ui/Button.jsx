@@ -11,13 +11,14 @@ export default function Button({
   className = '',
   icon: Icon
 }) {
-  const baseStyle = 'inline-flex items-center justify-center font-medium uppercase tracking-wider transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-400';
+  const baseStyle = 'inline-flex items-center justify-center font-medium uppercase tracking-wider transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
   
   const variants = {
-    primary: 'bg-gold-400 text-slate-950 hover:bg-gold-500 active:bg-gold-600 border border-transparent shadow-sm',
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 border border-transparent shadow-sm font-semibold',
     secondary: 'bg-slate-800 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 border border-transparent shadow-sm',
-    outline: 'bg-transparent text-gold-400 border border-gold-400 hover:bg-gold-400 hover:text-slate-950',
+    outline: 'bg-transparent text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-semibold',
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 border border-transparent shadow-sm',
+    gold: 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 border border-transparent shadow-sm font-semibold',
   };
 
   const sizes = {

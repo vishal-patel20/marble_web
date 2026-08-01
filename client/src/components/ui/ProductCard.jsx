@@ -38,7 +38,7 @@ export default function ProductCard({ product, to }) {
         {/* Reveal on hover */}
         <div className="mt-4 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-[400ms] delay-100 overflow-hidden">
           <Link
-            to={to || `/collection/italian-marble/${product.slug}`}
+            to={to || `/collection/${product.category || 'italian-marble'}/${product.slug || product.id}`}
             className="w-full bg-primary text-on-primary py-3 px-6 font-body-md text-body-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors duration-[400ms] flex justify-between items-center"
           >
             <span>View Details</span>

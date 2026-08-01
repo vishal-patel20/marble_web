@@ -303,7 +303,7 @@ export default function Quote() {
         <div
           className="w-full h-full bg-cover bg-center opacity-40"
           style={{
-            backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4G817ns763RbDGcFZLfOyyoGBxovHMeV519cFqYArNbU6uaVlWMpIBnijNwMqJhqa28SqFWrislMV52v8OeQPwitprAR0efGN29kejUf3Wm5u7hp56FqRwvCcnnI4V2pbBjo9jwA-zWgosdsD4JR_3txveEJx_w4hcR5Fohkg_Zjd58-1DbfBAnECQcKCGKzoYFMd1vbeJfKK8gIq5fJSgqI5pAmK1EThKT_42h8yG2cIfEXEkBdr')`,
+            backgroundImage: `url('/images/stone_image_32.jpg')`,
           }}
         />
       </div>

@@ -64,7 +64,7 @@ function CompanyStory() {
         {/* Image with floating glass card */}
         <ScrollReveal delay={0.2} className="md:col-span-6 md:col-start-7 relative mt-12 md:mt-0">
           <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoGQMAZXR9xZXAmayTfaxAbOURbF4lmRj1dsnLVQuAW-vBv5aXj5Do-KBIou8gjmBzsYBuN26EjgTV4L6dbhm-ndB57pqrfUj6TKnRpIOBt9duSmr3dKbN27XhDjtJleo45MI6nJmkKazaNvCXYns7Vkfk9wS2ueS0LxVHfUNRVOGYRLgYFo-hrMat-FtVblutb4Y76It9Bu38MavLCIQq2pFwzlB7Cw9auw0pzxZ9VDDn2zfQrNc4"
+            src="/images/stone_image_28.jpg"
             alt="Carrara marble quarry"
             loading="lazy"
             className="w-full h-auto object-cover rounded-sm shadow-2xl"
@@ -87,12 +87,12 @@ function CompanyStory() {
 // ── Sustainability Section ────────────────────────────────────────────
 function Sustainability() {
   return (
-    <section className="relative my-[160px]" style={{ minHeight: '500px' }}>
+    <section id="sustainability" className="relative my-[160px]" style={{ minHeight: '500px' }}>
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center w-full h-full"
         style={{
-          backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsP2RFct8JN40Pf8W5wuUbiwQxiFROX7kexim8eBleu3ScAdrQLGj1AdANgflCjqo6EsUtfQ6Kx9iJEoFSDlDR92kDqdf0WyvX042Pc_XQbla7VVecuVlh0H6nTR4krfiVSfwTUb0vYoBhbmR2Bj-99zAzsK4Nmq8MF2JqkQp3OcVzc-k_6cQhEYLClmIXqpVJS_YBS_PtgGtf28OqkQA_JzUSUScs9x37RLWS4vfaBXBdjpog7wp7')`,
+          backgroundImage: `url('/images/stone_image_29.jpg')`,
         }}
       />
       {/* Overlay */}

@@ -2,18 +2,16 @@ import { Link } from 'react-router-dom';
 import { Diamond } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'Home',          to: '/'           },
-  { label: 'Collections',   to: '/collection' },
-  { label: 'Colours',       to: '/colours'    },
-  { label: 'Blogs',         to: '/blogs'      },
-  { label: 'Bespoke Design',to: '/about'      },
-  { label: 'Maintenance',   to: '/about'      },
+  { label: 'Home',        to: '/'           },
+  { label: 'Collections', to: '/collection' },
+  { label: 'Colours',     to: '/colours'    },
+  { label: 'Blogs',       to: '/blogs'      },
 ];
 
 const LEGAL_LINKS = [
-  { label: 'Sustainability', to: '/about'   },
-  { label: 'Contact Us',     to: '/contact' },
-  { label: 'Privacy Policy', to: '/'        },
+  { label: 'Sustainability', to: '/about#sustainability' },
+  { label: 'Contact Us',     to: '/contact'              },
+  { label: 'Privacy Policy', to: '/privacy'              },
 ];
 
 export default function Footer() {
@@ -88,13 +86,15 @@ export default function Footer() {
         <div className="border-t border-outline-variant/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-on-surface-variant">© 2024 MarbleCraft. Excellence in Stone Heritage.</p>
           <div className="flex gap-4">
-            <Link to="/" className="text-on-surface-variant hover:text-primary transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-                <polyline points="16 6 12 2 8 6"/>
-                <line x1="12" y1="2" x2="12" y2="15"/>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-xs uppercase tracking-widest flex items-center gap-1.5"
+            >
+              <span>Back to Top</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15"/>
               </svg>
-            </Link>
+            </button>
           </div>
         </div>
       </div>

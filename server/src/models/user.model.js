@@ -47,7 +47,7 @@ User.init(
       },
     },
     role: {
-      type: DataTypes.ENUM('Admin', 'Customer'),
+      type: DataTypes.ENUM('MASTER_ADMIN', 'Admin', 'Customer'),
       defaultValue: 'Customer',
       allowNull: false,
     },

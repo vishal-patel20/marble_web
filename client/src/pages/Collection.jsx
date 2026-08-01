@@ -1,18 +1,21 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowDown } from 'lucide-react';
 import BreadCrumb from '../components/ui/BreadCrumb.jsx';
 import FilterChip from '../components/ui/FilterChip.jsx';
 import StoneCard from '../components/ui/StoneCard.jsx';
 import ScrollReveal from '../components/ui/ScrollReveal.jsx';
-import { collectionItems, categories } from '../data/collections.js';
+import { getAllCollectionItems, categories } from '../data/collections.js';
 
 export default function Collection() {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filtered = activeCategory === 'all'
-    ? collectionItems
-    : collectionItems.filter((item) => item.category === activeCategory);
+  const allItems = useMemo(() => getAllCollectionItems(), []);
+
+  const filtered = useMemo(() => {
+    if (activeCategory === 'all') return allItems;
+    return allItems.filter((item) => item.category === activeCategory);
+  }, [activeCategory, allItems]);
 
   return (
     <>
@@ -61,16 +64,25 @@ export default function Collection() {
         </header>
 
         {/* ── Masonry Gallery ── */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-[32px]">
-          {filtered.map((item, i) => (
-            <ScrollReveal key={item.id} delay={i * 0.08}>
-              <StoneCard
-                item={item}
-                to={`/collection/italian-marble/${item.id}`}
-              />
-            </ScrollReveal>
-          ))}
-        </div>
+        {filtered.length === 0 ? (
+          <div className="py-20 text-center text-on-surface-variant max-w-md mx-auto bg-surface-container-low rounded-3xl p-8 border border-outline-variant/30">
+            <h3 className="text-xl font-bold font-serif text-primary mb-2">No Marble Slabs in Collection</h3>
+            <p className="text-sm text-on-surface-variant">
+              There are currently no marble slabs in this category. Log in as Admin to add marble slabs to the collection!
+            </p>
+          </div>
+        ) : (
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-[32px]">
+            {filtered.map((item, i) => (
+              <ScrollReveal key={item.id} delay={i * 0.08}>
+                <StoneCard
+                  item={item}
+                  to={`/collection/${item.category || 'marble'}/${item.id}`}
+                />
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
 
         {/* ── Load More ── */}
         <div className="mt-20 flex justify-center">

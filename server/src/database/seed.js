@@ -10,29 +10,46 @@ import {
 } from '../models/index.js';
 import logger from '../config/logger.js';
 
+export const seedMasterAdmin = async () => {
+  try {
+    const masterAdminCount = await User.count({ where: { role: 'MASTER_ADMIN' } });
+    if (masterAdminCount > 0) {
+      logger.info('MASTER_ADMIN user already exists. Skipping master admin creation.');
+      return;
+    }
+
+    const name     = process.env.MASTER_ADMIN_NAME     || 'Master Admin';
+    const email    = process.env.MASTER_ADMIN_EMAIL    || 'masteradmin@marblecraft.com';
+    const password = process.env.MASTER_ADMIN_PASSWORD || 'MasterAdmin@Craft2024!';
+
+    await User.create({
+      name,
+      email,
+      password,
+      role: 'MASTER_ADMIN',
+    });
+
+    logger.info(`✅ Single MASTER_ADMIN created successfully (${email}).`);
+  } catch (error) {
+    logger.error(`Error creating MASTER_ADMIN: ${error.message}`);
+  }
+};
+
 export const seedDatabase = async () => {
   try {
-    // 1. Check if DB is already seeded
+    // 1. Ensure MASTER_ADMIN is always seeded if missing
+    await seedMasterAdmin();
+
+    // 2. Check if DB is already seeded with products/categories
     const usersCount = await User.count();
-    if (usersCount > 0) {
-      logger.info('Database already contains records. Skipping seed process.');
+    if (usersCount > 1) {
+      logger.info('Database already contains seeded records. Skipping full seed process.');
       return;
     }
 
     logger.info('Starting database seeding...');
 
-    // ========================================================
-    // 2. Users
-    // ========================================================
-    // NOTE: The User model's beforeSave hook auto-hashes passwords,
-    // so we pass plain-text passwords here.
-    await User.create({
-      name: 'Executive Admin',
-      email: 'admin@premiummarbles.com',
-      password: 'Admin@Marbles2024',
-      role: 'Admin',
-    });
-
+    // Default accounts
     await User.create({
       name: 'John Architect',
       email: 'john@builder.com',
@@ -40,44 +57,66 @@ export const seedDatabase = async () => {
       role: 'Customer',
     });
 
-    logger.info('Default accounts seeded. Admin: admin@premiummarbles.com / Admin@Marbles2024');
+    logger.info('Default accounts seeded.');
 
     // ========================================================
-    // 3. Categories
+    // 3. Categories (9 requested marble categories)
     // ========================================================
     const catItalian = await Category.create({
-      name: 'Italian Marble',
-      description:
-        'Ultra-luxurious natural white and gold marbles direct from Tuscan quarries. Renowned globally for high luster and elegant veining.',
-      image:
-        'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
+      name: 'Premium Italian Marbles',
+      description: 'Ultra-luxurious natural white and gold marbles direct from Tuscan quarries.',
+      image: '/images/stone_image_23.jpg',
     });
 
-    const catGranite = await Category.create({
-      name: 'Exotic Granite',
-      description:
-        'Extremely durable igneous rocks displaying unique crystalline textures. Ideal for kitchen countertops and high-traffic flooring.',
-      image:
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    const catBlack = await Category.create({
+      name: 'Black Marbles',
+      description: 'Deep black marble with striking white and gold veins.',
+      image: '/images/stone_image_3.jpg',
     });
 
-    const catOnyx = await Category.create({
-      name: 'Translucent Onyx',
-      description:
-        'Exquisite, light-transmitting banded stones with rich natural hues. Popularly backlit in luxury commercial lobbies and bars.',
-      image:
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+    const catBeige = await Category.create({
+      name: 'Beige & Cream Marbles',
+      description: 'Warm cream, ivory, and beige marble for opulent interior spaces.',
+      image: '/images/stone_image_5.jpg',
     });
 
-    const catQuartzite = await Category.create({
-      name: 'Premium Quartzite',
-      description:
-        'Incredibly hard metamorphic rocks that offer the beauty of marble with the durability of granite. Perfect for heavy-use surfaces.',
-      image:
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+    const catGreen = await Category.create({
+      name: 'Green Marbles',
+      description: 'Emerald and forest green marble with intricate web-like veining.',
+      image: '/images/stone_image_4.jpg',
     });
 
-    logger.info('Categories seeded: Italian, Granite, Onyx, Quartzite');
+    const catWhite = await Category.create({
+      name: 'White Marbles',
+      description: 'Pure snow white and silver veined natural marble slabs.',
+      image: '/images/stone_image_13.jpg',
+    });
+
+    const catBrown = await Category.create({
+      name: 'Brown Marbles',
+      description: 'Chocolate, mocha, and bronze brown marble with spiderweb veins.',
+      image: '/images/stone_image_28.jpg',
+    });
+
+    const catRedPink = await Category.create({
+      name: 'Red & Pink Marbles',
+      description: 'Cherry red, blush pink, and terracotta natural marble.',
+      image: '/images/stone_image_6.jpg',
+    });
+
+    const catGrey = await Category.create({
+      name: 'Grey Marbles',
+      description: 'Charcoal and silver grey marble with sleek pewter linear veins.',
+      image: '/images/stone_image_7.jpg',
+    });
+
+    const catIndian = await Category.create({
+      name: 'Indian Marbles',
+      description: 'Heritage white, green, and brown marble quarried in Rajasthan.',
+      image: '/images/stone_image_27.jpg',
+    });
+
+    logger.info('9 Marble categories seeded.');
 
     // ========================================================
     // 4. Products (using new rich schema)
@@ -98,10 +137,10 @@ export const seedDatabase = async () => {
       slabSize: '3100 x 1850 mm',
       colorFamily: 'White & Gold',
       image:
-        'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_29.jpg',
       images: [
-        'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_29.jpg',
+        '/images/stone_image_30.jpg',
       ],
       featured: true,
       metaTitle: 'Calacatta Gold Supreme | Italian Marble Slabs',
@@ -125,9 +164,9 @@ export const seedDatabase = async () => {
       slabSize: '2900 x 1750 mm',
       colorFamily: 'White & Grey',
       image:
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_31.jpg',
       images: [
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_31.jpg',
       ],
       featured: true,
       metaTitle: 'Statuario Extra White Marble | Premium Italian Slabs',
@@ -151,9 +190,9 @@ export const seedDatabase = async () => {
       slabSize: '2700 x 1600 mm',
       colorFamily: 'Blue & Gold',
       image:
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_32.jpg',
       images: [
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_32.jpg',
       ],
       featured: true,
       metaTitle: 'Royal Blue Onyx Slabs | Translucent Backlit Stone',
@@ -177,9 +216,9 @@ export const seedDatabase = async () => {
       slabSize: '3200 x 1950 mm',
       colorFamily: 'Black & Gold',
       image:
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_33.jpg',
       images: [
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_33.jpg',
       ],
       featured: false,
     });
@@ -200,9 +239,9 @@ export const seedDatabase = async () => {
       slabSize: '3000 x 1800 mm',
       colorFamily: 'White & Grey',
       image:
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_30.jpg',
       images: [
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_30.jpg',
       ],
       featured: true,
     });
@@ -223,9 +262,9 @@ export const seedDatabase = async () => {
       slabSize: '2400 x 1400 mm',
       colorFamily: 'Gold & Amber',
       image:
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_32.jpg',
       images: [
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+        '/images/stone_image_32.jpg',
       ],
       featured: false,
     });
@@ -236,42 +275,72 @@ export const seedDatabase = async () => {
     // 5. Portfolio Projects
     // ========================================================
     await Project.create({
-      name: 'The Ritz Executive Penthouse',
+      name: 'The St. Regis Sky Residence',
       description:
-        'A luxurious kitchen and master bathroom renovation using Calacatta Gold Supreme waterfall slabs and backlit Onyx accent walls.',
-      location: 'Manhattan, New York',
+        'Ultra-luxury penthouse living room and master suite featuring seamless Italian Calacatta Gold marble flooring with mirror-finish polishing.',
+      location: 'Mumbai, Maharashtra',
       year: 2025,
-      image:
-        'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80',
-      client: 'Ritz Properties LLC',
+      image: '/images/stone_image_11.jpg',
+      client: 'St. Regis Residences',
       categoryId: catItalian.id,
     });
 
     await Project.create({
-      name: 'Grand Hyatt Hotel Lobby',
+      name: 'DLF Cybercity Executive Lounge',
       description:
-        'Cladding structural pillars in book-matched Royal Blue Onyx with integrated architectural backlighting across 3,200 sq ft of lobby space.',
-      location: 'Dubai, UAE',
+        'Corporate headquarters atrium featuring high-lustre Nero Marquina marble floor tiling with brass borders and backlit onyx reception panels.',
+      location: 'Gurugram, Delhi NCR',
       year: 2024,
-      image:
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      client: 'Hyatt International Group',
+      image: '/images/stone_image_12.jpg',
+      client: 'DLF Commercial Group',
       categoryId: catOnyx.id,
     });
 
     await Project.create({
-      name: 'Oakwood Signature Residences',
+      name: 'Taj Palace Heritage Pavilion',
       description:
-        'Multi-unit high-rise development featuring Super White Quartzite kitchen countertops and Statuario marble master bath suites across 48 units.',
-      location: 'London, UK',
+        'Bespoke courtyard and grand hallway paved with pure Makrana white marble flooring and hand-carved stone inlay borders.',
+      location: 'Udaipur, Rajasthan',
       year: 2024,
-      image:
-        'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
-      client: 'Oakwood Developers Ltd',
+      image: '/images/stone_image_27.jpg',
+      client: 'Taj Hotels & Resorts',
+      categoryId: catItalian.id,
+    });
+
+    await Project.create({
+      name: 'Jubilee Hills Private Estate',
+      description:
+        'Sprawling 12,000 sq ft private estate featuring high-gloss Super White Quartzite floor slabs and outdoor granite landscape paving.',
+      location: 'Hyderabad, Telangana',
+      year: 2025,
+      image: '/images/stone_image_33.jpg',
+      client: 'Jubilee Luxury Living',
       categoryId: catQuartzite.id,
     });
 
-    logger.info('Projects portfolio seeded (3 projects).');
+    await Project.create({
+      name: 'The Oberoi Horizon Lobby',
+      description:
+        '5-star hotel grand lobby featuring customized Honey Onyx marble floor medallions and polished Statuario wall cladding.',
+      location: 'Bengaluru, Karnataka',
+      year: 2024,
+      image: '/images/stone_image_1.jpg',
+      client: 'Oberoi Hotels Group',
+      categoryId: catOnyx.id,
+    });
+
+    await Project.create({
+      name: 'Jaipur Royal Heritage Resort',
+      description:
+        'Luxury heritage resort ballroom displaying traditional Indian emerald green marble flooring with gold-veined Calacatta borders.',
+      location: 'Jaipur, Rajasthan',
+      year: 2025,
+      image: '/images/stone_image_4.jpg',
+      client: 'Royal Palace Hotels',
+      categoryId: catGranite.id,
+    });
+
+    logger.info('Projects portfolio seeded (6 projects).');
 
     // ========================================================
     // 6. Gallery Items
@@ -282,42 +351,42 @@ export const seedDatabase = async () => {
         description: 'Calacatta book-match slab matching island countertops.',
         tag: 'Kitchen',
         image:
-          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_30.jpg',
       },
       {
         title: 'Honed Marble Spa Bathroom',
         description: 'Carrara slab wall cladding and soaking tub deck.',
         tag: 'Bathroom',
         image:
-          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_31.jpg',
       },
       {
         title: 'Backlit Onyx Hotel Reception',
         description: 'Emerald onyx panels backlit in a 5-star hotel reception.',
         tag: 'Commercial',
         image:
-          'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_32.jpg',
       },
       {
         title: 'Calacatta Gold Fireplace Feature',
         description: 'Floor-to-ceiling fireplace wrapped in Calacatta Gold.',
         tag: 'Living Room',
         image:
-          'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_29.jpg',
       },
       {
         title: 'Outdoor Granite Terrace',
         description: 'Black Cosmic granite tiling for a luxury outdoor terrace.',
         tag: 'Outdoor',
         image:
-          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_33.jpg',
       },
       {
         title: 'Quartzite Restaurant Countertop',
         description: 'Super White Quartzite bar and service counter in a fine dining restaurant.',
         tag: 'Commercial',
         image:
-          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+          '/images/stone_image_30.jpg',
       },
     ];
     await GalleryItem.bulkCreate(galleryItems);
@@ -329,46 +398,76 @@ export const seedDatabase = async () => {
     await Blog.create({
       title: 'How to Care for and Protect Your Italian Marble Slabs',
       content:
-        'Italian marble is a stunning investment for any property. However, to preserve its lustrous shine, you must clean it using pH-neutral soap, seal it annually, and prevent acid etching from lemons or vinegar immediately...',
-      author: 'Premium Marbles Expert',
-      image:
-        'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
-      tags: ['Marble Care', 'Interior Design', 'Maintenance'],
+        'Italian marble is a timeless investment for any luxury property. However, preserving its brilliant luster requires proper care and protection.\n\n1. Sealing: Apply a high-grade impregnating sealer every 6 to 12 months.\n2. pH-Neutral Cleaning: Never use acidic cleaners like vinegar or lemon juice. Clean daily using warm water and marble soap.\n3. Spills: Wipe up liquids immediately with a soft cloth.',
+      author: 'Marco Rossi (Senior Stone Specialist)',
+      image: '/images/stone_image_1.jpg',
+      tags: ['Marble Care', 'Maintenance', 'Italian Marble'],
       seoTitle: 'Italian Marble Care Guide | Premium Stone Showroom',
-      seoDescription:
-        'Expert tips on sealing, polishing, and preventing etching on your Italian marble countertops.',
+      seoDescription: 'Expert tips on sealing, polishing, and preventing etching on your Italian marble countertops.',
       status: 'Published',
     });
 
     await Blog.create({
-      title: 'The Rise of Backlit Translucent Onyx in Modern Architecture',
+      title: 'Italian Statuario vs Calacatta Gold: The Ultimate Comparison',
       content:
-        'Bespoke designs increasingly leverage natural Onyx to create warm, ambient light emissions. By placing LED panel assemblies behind these translucent stones, architects create glowing centerpieces...',
-      author: 'Design Lead',
-      image:
-        'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
-      tags: ['Onyx', 'Architecture', 'Commercial Design'],
-      seoTitle: 'Backlit Onyx Walls: 2025 Architecture Trends',
-      seoDescription:
-        'How modern hotels and luxury homes use backlit onyx panels for dramatic ambient effects.',
+        'Quarried exclusively in Tuscany, Italy, both Statuario and Calacatta Gold are world-renowned white marbles offering distinct aesthetics.\n\nStatuario Extra White features a crisp white surface crossed by bold graphite grey veining. Calacatta Gold offers a warmer cream-white background with golden-honey veining.',
+      author: 'Elena Vance (Lead Interior Architect)',
+      image: '/images/stone_image_2.jpg',
+      tags: ['Buying Guide', 'Design Trends', 'Italian Marble'],
+      seoTitle: 'Statuario vs Calacatta Gold Marble Comparison',
+      seoDescription: 'Discover the differences between Statuario and Calacatta Gold marble slabs.',
       status: 'Published',
     });
 
     await Blog.create({
-      title: 'Quartzite vs Marble: Which Stone is Right for Your Kitchen?',
+      title: 'The Rise of Backlit Translucent Onyx in Luxury Architecture',
       content:
-        'Choosing between quartzite and marble for your kitchen is a common design dilemma. While marble offers unmatched beauty with its unique veining, quartzite provides comparable aesthetics with superior scratch and heat resistance...',
-      author: 'Stone Specialist',
-      image:
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      tags: ['Quartzite', 'Marble', 'Kitchen Design', 'Buying Guide'],
-      seoTitle: 'Quartzite vs Marble for Kitchens | Expert Comparison',
-      seoDescription:
-        'Compare quartzite and marble for kitchen countertops — durability, aesthetics, price, and maintenance.',
+        'Translucent Onyx stone slabs create mesmerizing visual focal points when illuminated from behind using diffuse LED light panels in hotel lobbies, cocktail bars, and VIP lounges.',
+      author: 'Rajesh Sharma (Lighting & Stone Designer)',
+      image: '/images/stone_image_3.jpg',
+      tags: ['Translucent Onyx', 'Architecture', 'Commercial Design'],
+      seoTitle: 'Backlit Onyx Walls: Architecture Trends',
+      seoDescription: 'How luxury hotels and homes use backlit onyx panels for dramatic ambient lighting.',
       status: 'Published',
     });
 
-    logger.info('Blogs seeded (3 articles).');
+    await Blog.create({
+      title: 'Quartzite vs Marble Countertops: Which Stone Fits Your Kitchen?',
+      content:
+        'Choosing between Quartzite and Marble depends on daily lifestyle and maintenance preference. Quartzite rates 7 on Mohs scale with exceptional scratch resistance, while marble offers unmatched cool elegance.',
+      author: 'Samantha Vance (Material Scientist)',
+      image: '/images/stone_image_4.jpg',
+      tags: ['Quartzite', 'Kitchen Design', 'Comparison'],
+      seoTitle: 'Quartzite vs Marble for Kitchens',
+      seoDescription: 'Compare quartzite and marble for kitchen countertops durability, price, and maintenance.',
+      status: 'Published',
+    });
+
+    await Blog.create({
+      title: 'How to Book-Match Marble Slabs for Wall Feature Panels',
+      content:
+        'Book-matching involves slicing consecutive marble slabs from the same block and mirroring their veining patterns side-by-side to create symmetrical butterfly patterns across feature walls.',
+      author: 'Vikramaditya Singh (Master Mason)',
+      image: '/images/stone_image_5.jpg',
+      tags: ['Installation', 'Book-Matching', 'Luxury Interiors'],
+      seoTitle: 'Book-Matching Marble Slabs Guide',
+      seoDescription: 'Learn how to book-match marble slabs for stunning symmetrical wall features.',
+      status: 'Published',
+    });
+
+    await Blog.create({
+      title: 'Restoring Heritage Indian Marble Flooring to Mirror Polish',
+      content:
+        'Restoring aged Makrana white or emerald green marble floors involves sequential diamond grit grinding followed by crystallization polishing to reactivate natural calcium luster.',
+      author: 'Ananya Patel (Restoration Expert)',
+      image: '/images/stone_image_6.jpg',
+      tags: ['Restoration', 'Indian Marble', 'Flooring'],
+      seoTitle: 'Restoring Indian Marble Flooring',
+      seoDescription: 'Guide to diamond grinding and polishing heritage Makrana marble floors.',
+      status: 'Published',
+    });
+
+    logger.info('Blogs seeded (6 articles).');
 
     // ========================================================
     // 8. Testimonials
@@ -381,7 +480,7 @@ export const seedDatabase = async () => {
         feedback:
           'The Calacatta Gold slabs for our Manhattan project were breathtaking. Perfect book-matching, impeccable finish, and outstanding logistics support.',
         image:
-          'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+          '/images/stone_image_34.jpg',
       },
       {
         name: 'Marco Rossi',
@@ -390,7 +489,7 @@ export const seedDatabase = async () => {
         feedback:
           'Premium Marbles is our go-to partner for high-end stone panels. Their Italian import handled with zero delays across three major developments.',
         image:
-          'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80',
+          '/images/stone_image_35.jpg',
       },
       {
         name: 'Priya Kapoor',
@@ -399,7 +498,7 @@ export const seedDatabase = async () => {
         feedback:
           'The Royal Blue Onyx panels we sourced for our client hotel transformed the lobby beyond imagination. The team guided us through every detail perfectly.',
         image:
-          'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80',
+          '/images/stone_image_36.jpg',
       },
     ];
     await Testimonial.bulkCreate(testimonials);

@@ -46,7 +46,7 @@ export default function Wishlist() {
   }, [user]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 min-h-[60vh]">
+    <div className="max-w-7xl mx-auto px-4 pt-32 pb-16 sm:px-6 lg:px-8 min-h-[60vh]">
       
       {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-16">

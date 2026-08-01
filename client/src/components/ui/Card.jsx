@@ -52,7 +52,7 @@ export default function Card({ product, isFavorited, onWishlistUpdate }) {
       {/* Product Image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
         <img
-          src={product.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80'}
+          src={product.image || '/images/stone_image_1.jpg'}
           alt={product.name}
           className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
           loading="lazy"

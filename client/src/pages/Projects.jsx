@@ -3,6 +3,69 @@ import { Award, MapPin, Calendar, User } from 'lucide-react';
 import axiosInstance from '../api/axiosInstance.js';
 import Skeleton from '../components/ui/Skeleton.jsx';
 
+const MOCK_PROJECTS = [
+  {
+    id: 'p1',
+    name: 'The St. Regis Sky Residence',
+    description: 'Ultra-luxury penthouse living room and master suite featuring seamless Italian Calacatta Gold marble flooring with mirror-finish polishing.',
+    location: 'Mumbai, Maharashtra',
+    year: 2025,
+    client: 'St. Regis Residences',
+    image: '/images/stone_image_11.jpg',
+    category: { name: 'Italian Marble' }
+  },
+  {
+    id: 'p2',
+    name: 'DLF Cybercity Executive Lounge',
+    description: 'Corporate headquarters atrium featuring high-lustre Nero Marquina marble floor tiling with brass borders and backlit onyx reception panels.',
+    location: 'Gurugram, Delhi NCR',
+    year: 2024,
+    client: 'DLF Commercial Group',
+    image: '/images/stone_image_12.jpg',
+    category: { name: 'Translucent Onyx' }
+  },
+  {
+    id: 'p3',
+    name: 'Taj Palace Heritage Pavilion',
+    description: 'Bespoke courtyard and grand hallway paved with pure Makrana white marble flooring and hand-carved stone inlay borders.',
+    location: 'Udaipur, Rajasthan',
+    year: 2024,
+    client: 'Taj Hotels & Resorts',
+    image: '/images/stone_image_27.jpg',
+    category: { name: 'Italian Marble' }
+  },
+  {
+    id: 'p4',
+    name: 'Jubilee Hills Private Estate',
+    description: 'Sprawling 12,000 sq ft private estate featuring high-gloss Super White Quartzite floor slabs and outdoor granite landscape paving.',
+    location: 'Hyderabad, Telangana',
+    year: 2025,
+    client: 'Jubilee Luxury Living',
+    image: '/images/stone_image_33.jpg',
+    category: { name: 'Premium Quartzite' }
+  },
+  {
+    id: 'p5',
+    name: 'The Oberoi Horizon Lobby',
+    description: '5-star hotel grand lobby featuring customized Honey Onyx marble floor medallions and polished Statuario wall cladding.',
+    location: 'Bengaluru, Karnataka',
+    year: 2024,
+    client: 'Oberoi Hotels Group',
+    image: '/images/stone_image_1.jpg',
+    category: { name: 'Translucent Onyx' }
+  },
+  {
+    id: 'p6',
+    name: 'Jaipur Royal Heritage Resort',
+    description: 'Luxury heritage resort ballroom displaying traditional Indian emerald green marble flooring with gold-veined Calacatta borders.',
+    location: 'Jaipur, Rajasthan',
+    year: 2025,
+    client: 'Royal Palace Hotels',
+    image: '/images/stone_image_4.jpg',
+    category: { name: 'Exotic Granite' }
+  }
+];
+
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -13,7 +76,9 @@ export default function Projects() {
     const loadData = async () => {
       try {
         const catRes = await axiosInstance.get('/inventory/categories');
-        setCategories(catRes.data.data);
+        if (catRes.data?.data?.length) {
+          setCategories(catRes.data.data);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -28,9 +93,15 @@ export default function Projects() {
         const params = {};
         if (selectedCat) params.category = selectedCat;
         const res = await axiosInstance.get('/misc/projects', { params });
-        setProjects(res.data.data);
+        if (res.data?.data?.length) {
+          setProjects(res.data.data);
+        } else {
+          // Fallback if DB not seeded or returned empty
+          setProjects(MOCK_PROJECTS);
+        }
       } catch (err) {
         console.error(err);
+        setProjects(MOCK_PROJECTS);
       } finally {
         setLoading(false);
       }
@@ -39,7 +110,7 @@ export default function Projects() {
   }, [selectedCat]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto px-4 pt-32 pb-16 sm:px-6 lg:px-8">
       
       {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-16">

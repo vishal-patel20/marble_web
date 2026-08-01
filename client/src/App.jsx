@@ -5,6 +5,7 @@ import { useAuthStore } from './store/authStore.js';
 // Layout
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
+import ScrollToTop from './components/layout/ScrollToTop.jsx';
 
 // Lazy load pages for code splitting
 const Home           = lazy(() => import('./pages/Home.jsx'));
@@ -21,6 +22,9 @@ const Quote          = lazy(() => import('./pages/Quote.jsx'));
 const Login          = lazy(() => import('./pages/Login.jsx'));
 const Register       = lazy(() => import('./pages/Register.jsx'));
 const Wishlist       = lazy(() => import('./pages/Wishlist.jsx'));
+const Privacy          = lazy(() => import('./pages/Privacy.jsx'));
+const Maintenance      = lazy(() => import('./pages/Maintenance.jsx'));
+const Showroom         = lazy(() => import('./pages/Showroom.jsx'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard.jsx'));
 
 // Loading fallback — matches Stitch soft-shadow aesthetic
@@ -48,14 +52,22 @@ const ProtectedRoute = ({ children, roles = [] }) => {
 
 // Guest-only Route Guard
 const GuestRoute = ({ children }) => {
-  const { accessToken } = useAuthStore();
-  if (accessToken) return <Navigate to="/" replace />;
+  const { user, accessToken, clearAuth } = useAuthStore();
+  if (accessToken && user) {
+    if (user.role === 'Admin' || user.role === 'MASTER_ADMIN') {
+      return <Navigate to="/admin" replace />;
+    }
+    return <Navigate to="/" replace />;
+  }
+  if (accessToken && !user) {
+    clearAuth();
+  }
   return children;
 };
 
 // Pages that should NOT show navbar/footer
 const QUOTE_ROUTES       = ['/quote', '/customs'];
-const FULL_SCREEN_ROUTES = ['/admin'];
+const FULL_SCREEN_ROUTES = ['/admin', '/showroom', '/virtual-showroom'];
 
 export default function App() {
   const { initializeTheme } = useAuthStore();
@@ -73,6 +85,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface text-on-surface transition-colors duration-300">
+      <ScrollToTop />
       {!hideLayout && <Navbar />}
 
       <main className="flex-grow">
@@ -92,6 +105,10 @@ export default function App() {
             <Route path="/contact"                           element={<Contact />}        />
             <Route path="/quote"                             element={<Quote />}          />
             <Route path="/customs"                           element={<Quote />}          />
+            <Route path="/showroom"                          element={<Showroom />}       />
+            <Route path="/virtual-showroom"                  element={<Showroom />}       />
+            <Route path="/privacy"                           element={<Privacy />}        />
+            <Route path="/maintenance"                       element={<Maintenance />}    />
 
             {/* Legacy routes for backwards compat */}
             <Route path="/products"                          element={<Collection />}     />
@@ -107,7 +124,7 @@ export default function App() {
             {/* ── Admin routes ─────────────────────────── */}
             <Route
               path="/admin/*"
-              element={<ProtectedRoute roles={['Admin']}><AdminDashboard /></ProtectedRoute>}
+              element={<ProtectedRoute roles={['Admin', 'MASTER_ADMIN']}><AdminDashboard /></ProtectedRoute>}
             />
 
             {/* ── Catch-all ──────────────────────────── */}

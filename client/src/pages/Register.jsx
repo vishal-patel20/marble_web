@@ -232,7 +232,7 @@ export default function Register() {
         {/* Right Panel - Decorative */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+            src="/images/stone_image_33.jpg"
             alt="Premium marble interior"
             className="absolute inset-0 w-full h-full object-cover"
           />

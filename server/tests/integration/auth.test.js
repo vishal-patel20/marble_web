@@ -29,46 +29,15 @@ describe('Auth Routes', () => {
   });
 
   // ===========================================================
-  // 2. Register
+  // 2. Disabled Public Registration
   // ===========================================================
   describe('POST /api/v1/auth/register', () => {
-    it('should register a new user and return access token', async () => {
+    it('should return 404 since public registration API is disabled', async () => {
       const res = await request(app)
         .post('/api/v1/auth/register')
         .send(testUser);
 
-      expect(res.statusCode).toBe(201);
-      expect(res.body.success).toBe(true);
-      expect(res.body.data).toHaveProperty('accessToken');
-      expect(res.body.data.user).toHaveProperty('id');
-      expect(res.body.data.user.email).toBe(testUser.email);
-
-      accessToken = res.body.data.accessToken;
-    });
-
-    it('should fail with 400 if email already exists', async () => {
-      const res = await request(app)
-        .post('/api/v1/auth/register')
-        .send(testUser);
-
-      expect(res.statusCode).toBe(400);
-      expect(res.body.success).toBe(false);
-    });
-
-    it('should fail with 422 if required fields are missing', async () => {
-      const res = await request(app)
-        .post('/api/v1/auth/register')
-        .send({ email: 'incomplete@test.com' });
-
-      expect(res.statusCode).toBe(422);
-    });
-
-    it('should fail with 422 for weak password', async () => {
-      const res = await request(app)
-        .post('/api/v1/auth/register')
-        .send({ name: 'Test', email: 'weak@test.com', password: '123' });
-
-      expect(res.statusCode).toBe(422);
+      expect(res.statusCode).toBe(404);
     });
   });
 

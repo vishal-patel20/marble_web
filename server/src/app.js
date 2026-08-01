@@ -67,6 +67,8 @@ app.use('/api/', limiter);
 // 4. Static media serving fallback
 const projectRoot = path.resolve();
 app.use('/uploads', express.static(path.join(projectRoot, 'uploads')));
+app.use('/images', express.static(path.join(projectRoot, 'public', 'images')));
+app.use('/images', express.static(path.join(projectRoot, '..', 'client', 'public', 'images')));
 
 // 5. Swagger Docs Setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

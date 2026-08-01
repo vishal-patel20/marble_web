@@ -38,8 +38,33 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   } : {}
 });
 
+import pg from 'pg';
+
+export const ensureDatabaseExists = async () => {
+  try {
+    const client = new pg.Client({
+      host: DB_HOST,
+      port: parseInt(DB_PORT),
+      user: DB_USER,
+      password: DB_PASSWORD,
+      database: 'postgres',
+    });
+    await client.connect();
+    const res = await client.query(`SELECT 1 FROM pg_database WHERE datname = $1`, [DB_NAME]);
+    if (res.rowCount === 0) {
+      logger.info(`Database '${DB_NAME}' does not exist. Auto-creating database...`);
+      await client.query(`CREATE DATABASE "${DB_NAME}"`);
+      logger.info(`Database '${DB_NAME}' created successfully.`);
+    }
+    await client.end();
+  } catch (err) {
+    logger.warn(`Database creation check warning: ${err.message}`);
+  }
+};
+
 export const connectDB = async () => {
   try {
+    await ensureDatabaseExists();
     await sequelize.authenticate();
     logger.info('PostgreSQL connected successfully via Sequelize.');
     
@@ -50,6 +75,9 @@ export const connectDB = async () => {
       
       const { seedDatabase } = await import('../database/seed.js');
       await seedDatabase();
+    } else {
+      const { seedMasterAdmin } = await import('../database/seed.js');
+      await seedMasterAdmin();
     }
   } catch (error) {
     logger.error(`PostgreSQL connection failure: ${error.message}`);

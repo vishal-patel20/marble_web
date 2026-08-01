@@ -1,9 +1,19 @@
 import { create } from 'zustand';
 
+const getInitialUser = () => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const item = localStorage.getItem('user');
+    return item ? JSON.parse(item) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
 export const useAuthStore = create((set, get) => ({
-  user: null,
-  accessToken: localStorage.getItem('accessToken') || null,
-  theme: localStorage.getItem('theme') || 'light',
+  user: getInitialUser(),
+  accessToken: typeof window !== 'undefined' ? localStorage.getItem('accessToken') || null : null,
+  theme: typeof window !== 'undefined' ? localStorage.getItem('theme') || 'light' : 'light',
   wishlistCount: 0,
 
   // Auth Operations
@@ -11,11 +21,15 @@ export const useAuthStore = create((set, get) => ({
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken);
     }
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
     set({ user, accessToken });
   },
 
   clearAuth: () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
     set({ user: null, accessToken: null, wishlistCount: 0 });
   },
 

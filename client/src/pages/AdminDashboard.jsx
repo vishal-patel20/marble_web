@@ -12,14 +12,20 @@ import {
   HelpCircle,
   Upload,
   Globe,
-  DollarSign
+  DollarSign,
+  Layers
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import axiosInstance from '../api/axiosInstance.js';
 import Button from '../components/ui/Button.jsx';
+import {
+  getAllCollectionItems,
+  addCustomCollectionItem,
+  deleteCustomCollectionItem
+} from '../data/collections.js';
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('collections');
 
   // Database Data lists
   const [products, setProducts] = useState([]);
@@ -28,6 +34,22 @@ export default function AdminDashboard() {
   const [projects, setProjects] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [blogs, setBlogs] = useState([]);
+
+  // Collection Items List (Loaded from collections.js + localStorage)
+  const [collectionItemsList, setCollectionItemsList] = useState([]);
+  const [collectionForm, setCollectionForm] = useState({
+    name: '',
+    category: 'Premium Italian Marbles',
+    origin: '',
+    color: 'White',
+    finishes: ['Polished'],
+    description: '',
+    density: '2710 kg/m³',
+    waterAbsorption: '0.12 %',
+    compressiveStrength: '135 MPa',
+  });
+  const [collectionFile, setCollectionFile] = useState(null);
+  const [collectionImagePreview, setCollectionImagePreview] = useState(null);
 
   // Form inputs states
   const [productForm, setProductForm] = useState({ name: '', description: '', price: '', stock: '', categoryId: '', dimensions: '', thickness: '', origins: '', featured: false });
@@ -73,10 +95,107 @@ export default function AdminDashboard() {
     fetchProjects().catch(console.error);
     fetchGallery().catch(console.error);
     fetchBlogs().catch(console.error);
+    setCollectionItemsList(getAllCollectionItems());
   }, []);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
+  };
+
+  const handleCollectionImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCollectionFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCollectionImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFinishToggle = (finishName) => {
+    setCollectionForm((prev) => {
+      const current = prev.finishes || [];
+      const updated = current.includes(finishName)
+        ? current.filter((f) => f !== finishName)
+        : [...current, finishName];
+      return { ...prev, finishes: updated };
+    });
+  };
+
+  // ==========================================
+  // Marble Collections CRUD
+  // ==========================================
+  const handleCreateCollectionItem = async (e) => {
+    e.preventDefault();
+    if (!collectionForm.name || !collectionForm.category) {
+      toast.error('Marble Name and Category are required');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      let imagePath = '/images/stone_image_1.jpg';
+
+      if (collectionImagePreview) {
+        imagePath = collectionImagePreview;
+      } else if (collectionFile) {
+        imagePath = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(collectionFile);
+        });
+      }
+
+      const slug = collectionForm.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const newItem = {
+        id: slug + '-' + Date.now(),
+        slug,
+        name: collectionForm.name,
+        category: collectionForm.category,
+        origin: collectionForm.origin || 'International Reserve',
+        color: collectionForm.color || 'White',
+        finish: (collectionForm.finishes && collectionForm.finishes.length) ? collectionForm.finishes.join(', ') : 'Polished',
+        finishes: collectionForm.finishes || ['Polished'],
+        description: collectionForm.description || `${collectionForm.name} is a luxury natural marble slab curated for high-end interior spaces.`,
+        density: collectionForm.density || '2710 kg/m³',
+        waterAbsorption: collectionForm.waterAbsorption || '0.12 %',
+        compressiveStrength: collectionForm.compressiveStrength || '135 MPa',
+        image: imagePath,
+      };
+
+      addCustomCollectionItem(newItem);
+      toast.success(`"${newItem.name}" added to Collection successfully!`);
+
+      // Reset form
+      setCollectionForm({
+        name: '',
+        category: 'Premium Italian Marbles',
+        origin: '',
+        color: 'White',
+        finishes: ['Polished'],
+        description: '',
+        density: '2710 kg/m³',
+        waterAbsorption: '0.12 %',
+        compressiveStrength: '135 MPa',
+      });
+      setCollectionFile(null);
+      setCollectionImagePreview(null);
+      setCollectionItemsList(getAllCollectionItems());
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to add collection item');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteCollectionItem = (id) => {
+    if (!window.confirm('Delete this marble from collection?')) return;
+    deleteCustomCollectionItem(id);
+    toast.success('Collection item removed');
+    setCollectionItemsList(getAllCollectionItems());
   };
 
   // ==========================================
@@ -297,7 +416,8 @@ export default function AdminDashboard() {
           
           <nav className="space-y-1.5">
             {[
-              { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
+              { id: 'collections', name: 'Add to Collection', icon: Layers },
+              { id: 'dashboard', name: 'Dashboard Analytics', icon: LayoutDashboard },
               { id: 'products', name: 'Products Slabs', icon: Gem },
               { id: 'categories', name: 'Categories', icon: FolderOpen },
               { id: 'inquiries', name: 'Inquiries leads', icon: MessageSquare },
@@ -308,13 +428,13 @@ export default function AdminDashboard() {
               <button
                 key={tab.id}
                 onClick={() => { setActiveTab(tab.id); setSelectedFile(null); }}
-                className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   activeTab === tab.id
-                    ? 'bg-gold-400 text-slate-950 shadow-md'
-                    : 'text-slate-600 hover:bg-slate-50 dark:text-slate-350 dark:hover:bg-slate-800'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/25 font-semibold'
+                    : 'text-slate-600 hover:bg-slate-100/80 dark:text-slate-400 dark:hover:bg-slate-800/60'
                 }`}
               >
-                <tab.icon className="h-4.5 w-4.5 mr-3 shrink-0" />
+                <tab.icon className={`h-4.5 w-4.5 mr-3 shrink-0 ${activeTab === tab.id ? 'text-white' : 'text-slate-400'}`} />
                 {tab.name}
               </button>
             ))}
@@ -325,6 +445,293 @@ export default function AdminDashboard() {
       {/* Main Content Area */}
       <main className="flex-1 p-8 md:p-12 overflow-y-auto">
         
+        {/* Tab 0: Add to Collection Section */}
+        {activeTab === 'collections' && (
+          <div className="space-y-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-extrabold font-serif text-slate-800 dark:text-white">
+                  Marble Collections Management
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  Add new marble slabs to the collection catalog with custom images, origins, colors, finishes, and technical specifications.
+                </p>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 px-4 py-2 rounded-xl text-blue-700 dark:text-blue-300 text-xs font-semibold shadow-sm">
+                {collectionItemsList.length} Marble Slabs Registered
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+              {/* Add to Collection Form */}
+              <div className="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-8 rounded-3xl shadow-sm">
+                <h3 className="text-xl font-bold font-serif mb-6 text-slate-800 dark:text-white flex items-center gap-2">
+                  <Plus className="h-5 w-5 text-blue-600" /> Add to Collection
+                </h3>
+
+                <form onSubmit={handleCreateCollectionItem} className="space-y-5">
+
+                  {/* Marble Image File Picker */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      Marble Image (Choose from Local) *
+                    </label>
+                    <div className="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-center hover:border-blue-600 transition-colors">
+                      {collectionImagePreview ? (
+                        <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-2">
+                          <img src={collectionImagePreview} alt="Marble Preview" className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => { setCollectionFile(null); setCollectionImagePreview(null); }}
+                            className="absolute top-2 right-2 bg-slate-900/80 text-white p-1 rounded-full text-xs hover:bg-red-600"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="py-4">
+                          <Upload className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                          <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold mb-1">Click or drag local marble image</p>
+                          <p className="text-[10px] text-slate-400">Supports JPG, PNG, WEBP</p>
+                        </div>
+                      )}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleCollectionImageChange}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Marble Name */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                      Name of the Marble *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Statuario Extra White"
+                      value={collectionForm.name}
+                      onChange={(e) => setCollectionForm({ ...collectionForm, name: e.target.value })}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Category Dropdown */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                      Category (Available Categories) *
+                    </label>
+                    <select
+                      value={collectionForm.category}
+                      onChange={(e) => setCollectionForm({ ...collectionForm, category: e.target.value })}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white cursor-pointer"
+                    >
+                      <option value="Premium Italian Marbles">Premium Italian Marbles</option>
+                      <option value="Black Marbles">Black Marbles</option>
+                      <option value="Beige & Cream Marbles">Beige & Cream Marbles</option>
+                      <option value="Green Marbles">Green Marbles</option>
+                      <option value="White Marbles">White Marbles</option>
+                      <option value="Brown Marbles">Brown Marbles</option>
+                      <option value="Red & Pink Marbles">Red & Pink Marbles</option>
+                      <option value="Grey Marbles">Grey Marbles</option>
+                      <option value="Indian Marbles">Indian Marbles</option>
+                    </select>
+                  </div>
+
+                  {/* Origin & Primary Color */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                        Origin
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Carrara, Italy"
+                        value={collectionForm.origin}
+                        onChange={(e) => setCollectionForm({ ...collectionForm, origin: e.target.value })}
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                        Primary Color
+                      </label>
+                      <select
+                        value={collectionForm.color}
+                        onChange={(e) => setCollectionForm({ ...collectionForm, color: e.target.value })}
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white cursor-pointer"
+                      >
+                        <option value="White">White</option>
+                        <option value="Black">Black</option>
+                        <option value="Grey">Grey</option>
+                        <option value="Green">Green</option>
+                        <option value="Red">Red</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Yellow">Yellow/Beige</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Available Finishes */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                      Available Finishes
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {['Polished', 'Honed', 'Leathered', 'Satin'].map((fin) => (
+                        <button
+                          type="button"
+                          key={fin}
+                          onClick={() => handleFinishToggle(fin)}
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                            (collectionForm.finishes || []).includes(fin)
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                              : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400'
+                          }`}
+                        >
+                          {fin}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+                      Description
+                    </label>
+                    <textarea
+                      rows={2}
+                      placeholder="Marble slab character, veining details, and architectural applications..."
+                      value={collectionForm.description}
+                      onChange={(e) => setCollectionForm({ ...collectionForm, description: e.target.value })}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                    />
+                  </div>
+
+                  {/* Technical Specifications */}
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 rounded-2xl space-y-3">
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider block">
+                      Technical Specifications
+                    </span>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-[10px] text-slate-400 font-semibold mb-1">Density</label>
+                        <input
+                          type="text"
+                          placeholder="2710 kg/m³"
+                          value={collectionForm.density}
+                          onChange={(e) => setCollectionForm({ ...collectionForm, density: e.target.value })}
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs px-2.5 py-2 rounded-lg focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-slate-400 font-semibold mb-1">Water Absorption</label>
+                        <input
+                          type="text"
+                          placeholder="0.12 %"
+                          value={collectionForm.waterAbsorption}
+                          onChange={(e) => setCollectionForm({ ...collectionForm, waterAbsorption: e.target.value })}
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs px-2.5 py-2 rounded-lg focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-slate-400 font-semibold mb-1">Compressive Strength</label>
+                        <input
+                          type="text"
+                          placeholder="135 MPa"
+                          value={collectionForm.compressiveStrength}
+                          onChange={(e) => setCollectionForm({ ...collectionForm, compressiveStrength: e.target.value })}
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs px-2.5 py-2 rounded-lg focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md text-sm cursor-pointer disabled:opacity-50"
+                  >
+                    {submitting ? 'Adding Slab...' : 'Add to Collection Section'}
+                  </button>
+
+                </form>
+              </div>
+
+              {/* Collection Items Table */}
+              <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 rounded-3xl shadow-sm">
+                <h3 className="text-xl font-bold font-serif mb-6 text-slate-800 dark:text-white">
+                  Active Collection Registry ({collectionItemsList.length} Slabs)
+                </h3>
+                
+                {collectionItemsList.length === 0 ? (
+                  <div className="py-16 text-center text-slate-400">
+                    <Layers className="h-10 w-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+                    <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">No marble slabs in collection</p>
+                    <p className="text-xs text-slate-400 mt-1">Use the form on the left to add your first marble entry to the collection!</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-slate-100 dark:border-slate-800 pb-3 text-slate-400 uppercase font-semibold">
+                          <th className="py-3">Image</th>
+                          <th className="py-3">Marble Name</th>
+                          <th className="py-3">Category</th>
+                          <th className="py-3">Origin</th>
+                          <th className="py-3">Specs</th>
+                          <th className="py-3 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {collectionItemsList.map((item) => (
+                          <tr key={item.id} className="border-b border-slate-50 dark:border-slate-800/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3">
+                              <div className="h-10 w-12 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
+                                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                              </div>
+                            </td>
+                            <td className="py-3 font-bold text-slate-800 dark:text-white">
+                              {item.name}
+                              <span className="block text-[10px] font-normal text-slate-500">{item.finish}</span>
+                            </td>
+                            <td className="py-3">
+                              <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-350 text-[10px] font-medium px-2 py-0.5 rounded-full">
+                                {item.category}
+                              </span>
+                            </td>
+                            <td className="py-3 text-slate-500 dark:text-slate-400">{item.origin || 'Italy'}</td>
+                            <td className="py-3 text-[10px] text-slate-400">
+                              <div>{item.density || '2710 kg/m³'}</div>
+                              <div>{item.waterAbsorption || '0.12 %'}</div>
+                            </td>
+                            <td className="py-3 text-right">
+                              <button
+                                onClick={() => handleDeleteCollectionItem(item.id)}
+                                className="text-red-500 hover:text-red-650 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                                title="Delete Marble"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+            </div>
+          </div>
+        )}
+
         {/* Tab 1: Dashboard Analytics */}
         {activeTab === 'dashboard' && (
           <div className="space-y-10">
@@ -459,7 +866,7 @@ export default function AdminDashboard() {
                 <div className="border border-dashed border-slate-200 dark:border-slate-700 p-4 rounded-xl text-center">
                   <input type="file" onChange={handleFileChange} className="hidden" id="product-img" />
                   <label htmlFor="product-img" className="cursor-pointer text-xs text-slate-400 flex flex-col items-center gap-1.5">
-                    <Upload className="h-6 w-6 text-gold-400" />
+                    <Upload className="h-6 w-6 text-blue-600" />
                     {selectedFile ? selectedFile.name : 'Upload main thumbnail image'}
                   </label>
                 </div>
@@ -536,7 +943,7 @@ export default function AdminDashboard() {
                 <div className="border border-dashed border-slate-200 dark:border-slate-700 p-4 rounded-xl text-center">
                   <input type="file" onChange={handleFileChange} className="hidden" id="category-img" />
                   <label htmlFor="category-img" className="cursor-pointer text-xs text-slate-400 flex flex-col items-center gap-1.5">
-                    <Upload className="h-6 w-6 text-gold-400" />
+                    <Upload className="h-6 w-6 text-blue-600" />
                     {selectedFile ? selectedFile.name : 'Upload Category cover image'}
                   </label>
                 </div>
@@ -678,7 +1085,7 @@ export default function AdminDashboard() {
                 <div className="border border-dashed border-slate-200 dark:border-slate-700 p-4 rounded-xl text-center">
                   <input type="file" onChange={handleFileChange} className="hidden" id="project-img" />
                   <label htmlFor="project-img" className="cursor-pointer text-xs text-slate-400 flex flex-col items-center gap-1.5">
-                    <Upload className="h-6 w-6 text-gold-400" />
+                    <Upload className="h-6 w-6 text-blue-600" />
                     {selectedFile ? selectedFile.name : 'Upload Project Image'}
                   </label>
                 </div>
@@ -749,7 +1156,7 @@ export default function AdminDashboard() {
                 <div className="border border-dashed border-slate-200 dark:border-slate-700 p-4 rounded-xl text-center">
                   <input type="file" onChange={handleFileChange} className="hidden" id="gallery-img" />
                   <label htmlFor="gallery-img" className="cursor-pointer text-xs text-slate-400 flex flex-col items-center gap-1.5">
-                    <Upload className="h-6 w-6 text-gold-400" />
+                    <Upload className="h-6 w-6 text-blue-600" />
                     {selectedFile ? selectedFile.name : 'Upload Gallery Image'}
                   </label>
                 </div>
@@ -827,7 +1234,7 @@ export default function AdminDashboard() {
                 <div className="border border-dashed border-slate-200 dark:border-slate-700 p-4 rounded-xl text-center">
                   <input type="file" onChange={handleFileChange} className="hidden" id="blog-img" />
                   <label htmlFor="blog-img" className="cursor-pointer text-xs text-slate-400 flex flex-col items-center gap-1.5">
-                    <Upload className="h-6 w-6 text-gold-400" />
+                    <Upload className="h-6 w-6 text-blue-600" />
                     {selectedFile ? selectedFile.name : 'Upload Article Feature Image'}
                   </label>
                 </div>
