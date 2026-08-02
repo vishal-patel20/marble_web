@@ -14,33 +14,54 @@ const {
 } = process.env;
 
 // Create Sequelize instance
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: DB_HOST,
-  port: parseInt(DB_PORT),
-  dialect: 'postgres',
-  logging: (msg) => {
-    // Log database queries to winston under 'http' or 'debug' level if needed
-    if (NODE_ENV === 'development') {
-      logger.debug(`[DB Query] ${msg}`);
-    }
-  },
-  pool: {
-    max: 10,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-  dialectOptions: NODE_ENV === 'production' ? {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false // Set to true if certificates are fully configured
-    }
-  } : {}
-});
+const sequelize = process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: 'postgres',
+      logging: (msg) => {
+        if (NODE_ENV === 'development') {
+          logger.debug(`[DB Query] ${msg}`);
+        }
+      },
+      pool: {
+        max: 10,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      },
+      dialectOptions: (NODE_ENV === 'production' || process.env.DATABASE_URL?.includes('sslmode=require') || process.env.DATABASE_URL?.includes('neon.tech')) ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+      } : {}
+    })
+  : new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+      host: DB_HOST,
+      port: parseInt(DB_PORT),
+      dialect: 'postgres',
+      logging: (msg) => {
+        if (NODE_ENV === 'development') {
+          logger.debug(`[DB Query] ${msg}`);
+        }
+      },
+      pool: {
+        max: 10,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      },
+      dialectOptions: (NODE_ENV === 'production' || DB_HOST.includes('neon.tech')) ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+      } : {}
+    });
 
 import pg from 'pg';
 
 export const ensureDatabaseExists = async () => {
+  if (process.env.DATABASE_URL || DB_HOST.includes('neon.tech')) return;
   try {
     const client = new pg.Client({
       host: DB_HOST,

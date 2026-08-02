@@ -25,9 +25,9 @@ const SHOWROOM_SLABS = [
     type: 'Italian Marble',
     finish: 'Polished',
     price: '$45 / sq ft',
-    image: '/images/stone_image_23.jpg',
-    backlitImage: '/images/stone_image_20.jpg',
-    bookmatchImage: '/images/stone_image_13.jpg',
+    image: '/images/showroom_3d_marble.png',
+    backlitImage: '/images/showroom_3d_marble.png',
+    bookmatchImage: '/images/showroom_3d_marble.png',
     description: 'Distinctive white marble traversed by bold graphite veining and subtle gold ribbons.',
     specifications: {
       hardness: '3.5 Mohs',
