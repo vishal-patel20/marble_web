@@ -36,10 +36,10 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
       callback(null, true);
     } else {
-      callback(new Error('Blocked by CORS policy'));
+      callback(null, true); // Allow requests from all frontend domains
     }
   },
   credentials: true,
@@ -75,6 +75,17 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // 6. Base API Router Mounting
 app.use('/api/v1', router);
+
+// Root Welcome Endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'online',
+    message: 'MarbleCraft API Backend Service',
+    health: '/health',
+    docs: '/api-docs',
+    version: '1.0.0'
+  });
+});
 
 // Root route checking server status
 app.get('/health', (req, res) => {
