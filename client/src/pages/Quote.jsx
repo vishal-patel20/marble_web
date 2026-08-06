@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, X, Home, Building2, Briefcase, UploadCloud } from 'lucide-react';
+import axiosInstance from '../api/axiosInstance.js';
+import { toast } from 'react-toastify';
 
 const STEPS = [
   { id: 1, label: 'Personal Info' },
@@ -11,10 +13,10 @@ const STEPS = [
 ];
 
 const STONE_OPTIONS = [
-  { value: 'calacatta', label: 'Calacatta Gold Marble' },
-  { value: 'statuario', label: 'Statuario Marble'       },
-  { value: 'nero',      label: 'Nero Marquina'          },
-  { value: 'quartzite', label: 'Taj Mahal Quartzite'    },
+  { value: 'calacatta', label: 'Calacatta Gold Marble', image: '/images/stone_image_10.jpg' },
+  { value: 'statuario', label: 'Statuario Marble',       image: '/images/stone_image_2.jpg'  },
+  { value: 'nero',      label: 'Nero Marquina',          image: '/images/stone_image_3.jpg'  },
+  { value: 'quartzite', label: 'Taj Mahal Quartzite',    image: '/images/stone_image_4.jpg'  },
 ];
 
 const PROJECT_TYPES = [
@@ -210,7 +212,7 @@ function Step3({ data, onChange, onNext, onPrev }) {
   );
 }
 
-function Step4({ data, goTo, onSubmit }) {
+function Step4({ data, goTo, onSubmit, loading }) {
   return (
     <div>
       <h2
@@ -225,8 +227,8 @@ function Step4({ data, goTo, onSubmit }) {
         <div className="flex justify-between items-start border-b border-outline-variant/30 pb-6">
           <div>
             <div className="font-label-caps text-label-caps text-on-surface-variant mb-1">Contact</div>
-            <div className="font-body-lg text-body-lg text-primary">{data.name || 'Jane Doe'} ({data.category || 'Architect'})</div>
-            <div className="font-body-md text-body-md text-on-surface-variant">{data.email || 'jane@studio.com'}</div>
+            <div className="font-body-lg text-body-lg text-primary">{data.name || 'Not provided'} ({data.category || 'Architect'})</div>
+            <div className="font-body-md text-body-md text-on-surface-variant">{data.email || 'Not provided'}</div>
           </div>
           <button onClick={() => goTo(1)} className="text-primary hover:text-[#C9A227] transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -238,7 +240,7 @@ function Step4({ data, goTo, onSubmit }) {
           <div>
             <div className="font-label-caps text-label-caps text-on-surface-variant mb-1">Project Scope</div>
             <div className="font-body-lg text-body-lg text-primary">
-              {STONE_OPTIONS.find((s) => s.value === data.stone)?.label || 'Calacatta Gold Marble'} • {PROJECT_TYPES.find((p) => p.value === data.projectType)?.label || 'Luxury Villa'}
+              {STONE_OPTIONS.find((s) => s.value === data.stone)?.label || data.stone || 'Calacatta Gold Marble'} • {PROJECT_TYPES.find((p) => p.value === data.projectType)?.label || data.projectType || 'Luxury Villa'}
             </div>
             <div className="font-body-md text-body-md text-on-surface-variant">Approx. {data.sqft || '1,500'} sq ft.</div>
           </div>
@@ -252,8 +254,8 @@ function Step4({ data, goTo, onSubmit }) {
           <div className="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             <div>
-              <div className="font-body-md text-body-md text-primary">{data.file?.name || 'villa_floorplan_v2.dwg'}</div>
-              <div className="text-sm text-on-surface-variant">{data.file ? `${(data.file.size / 1024 / 1024).toFixed(1)} MB` : '2.4 MB'}</div>
+              <div className="font-body-md text-body-md text-primary">{data.file?.name || 'No attachment selected'}</div>
+              <div className="text-sm text-on-surface-variant">{data.file ? `${(data.file.size / 1024 / 1024).toFixed(1)} MB` : 'N/A'}</div>
             </div>
           </div>
           <button onClick={() => goTo(3)} className="text-primary hover:text-[#C9A227] transition-colors">
@@ -266,8 +268,14 @@ function Step4({ data, goTo, onSubmit }) {
         <button type="button" onClick={() => goTo(3)} className="px-6 py-3 font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
           <ArrowLeft size={18} /> Back
         </button>
-        <button type="button" onClick={onSubmit} className="btn-primary px-8 py-4 rounded-full font-label-caps text-label-caps flex items-center gap-2">
-          Submit Request <Check size={18} />
+        <button
+          type="button"
+          disabled={loading}
+          onClick={onSubmit}
+          className="btn-primary px-8 py-4 rounded-full font-label-caps text-label-caps flex items-center gap-2 disabled:opacity-50"
+        >
+          {loading ? 'Submitting...' : 'Submit Request'}
+          {!loading && <Check size={18} />}
         </button>
       </div>
     </div>
@@ -278,13 +286,65 @@ function Step4({ data, goTo, onSubmit }) {
 export default function Quote() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '', email: '', category: '', stone: '', sqft: '', projectType: '', file: null,
   });
 
   const updateField = (field, value) => setFormData((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = () => setSubmitted(true);
+  const handleSubmit = async () => {
+    if (!formData.name || !formData.name.trim() || !formData.email || !formData.email.trim()) {
+      toast.error('Please provide your name and email in Step 1.');
+      setStep(1);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const selectedStoneLabel = STONE_OPTIONS.find((s) => s.value === formData.stone)?.label || formData.stone;
+      const selectedProjectLabel = PROJECT_TYPES.find((p) => p.value === formData.projectType)?.label || formData.projectType;
+
+      const subject = `Bespoke Quote Request: ${selectedStoneLabel || 'Natural Stone'} (${selectedProjectLabel || 'General Project'})`;
+      const messageLines = [
+        `Professional Category: ${formData.category || 'Not specified'}`,
+        `Selected Stone Material: ${selectedStoneLabel || 'Not specified'}`,
+        `Project Type: ${selectedProjectLabel || 'Not specified'}`,
+        `Estimated Square Footage: ${formData.sqft ? `${formData.sqft} sq. ft.` : 'Not specified'}`,
+        formData.file ? `Attached Blueprint/File: ${formData.file.name}` : ''
+      ].filter(Boolean);
+
+      const message = messageLines.join('\n');
+
+      if (formData.file) {
+        const bodyFormData = new FormData();
+        bodyFormData.append('name', formData.name.trim());
+        bodyFormData.append('email', formData.email.trim());
+        bodyFormData.append('subject', subject);
+        bodyFormData.append('message', message);
+        bodyFormData.append('image', formData.file);
+
+        await axiosInstance.post('/leads/inquiries', bodyFormData);
+      } else {
+        const selectedStoneObj = STONE_OPTIONS.find((s) => s.value === formData.stone);
+        await axiosInstance.post('/leads/inquiries', {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject,
+          message,
+          image: selectedStoneObj?.image || '/images/stone_image_2.jpg'
+        });
+      }
+
+      toast.success('Inquiry submitted successfully!');
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Quote inquiry submission failed:', err);
+      toast.error(err.response?.data?.message || 'Failed to submit quote inquiry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const progressWidth = `${(step / 4) * 100}%`;
 
@@ -387,7 +447,7 @@ export default function Quote() {
                   {step === 1 && <Step1 data={formData} onChange={updateField} onNext={() => setStep(2)} />}
                   {step === 2 && <Step2 data={formData} onChange={updateField} onNext={() => setStep(3)} onPrev={() => setStep(1)} />}
                   {step === 3 && <Step3 data={formData} onChange={updateField} onNext={() => setStep(4)} onPrev={() => setStep(2)} />}
-                  {step === 4 && <Step4 data={formData} goTo={setStep} onSubmit={handleSubmit} />}
+                  {step === 4 && <Step4 data={formData} goTo={setStep} onSubmit={handleSubmit} loading={loading} />}
                 </motion.div>
               </AnimatePresence>
             </div>

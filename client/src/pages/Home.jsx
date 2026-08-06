@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  PlayCircle, 
   ArrowRight, 
   Grid, 
   Palette, 
@@ -17,6 +16,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import ScrollReveal from '../components/ui/ScrollReveal.jsx';
+import { getAllCollectionItems } from '../data/collections.js';
 
 // ── Announcement Bar ───────────────────────────────────────────────────
 function AnnouncementBar() {
@@ -33,7 +33,7 @@ function AnnouncementBar() {
 // ── Hero Section ────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <header className="relative w-full h-[100vh] min-h-[800px] flex items-center justify-center pt-20 overflow-hidden">
+    <header className="relative w-full h-[88vh] min-h-[620px] flex items-center justify-center pt-24 overflow-hidden">
       {/* Background Image with Slow Zoom */}
       <div className="absolute inset-0 z-0 scale-105 transform animate-subtleZoom">
         <img 
@@ -45,52 +45,48 @@ function HeroSection() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-[1440px] px-margin-mobile md:px-margin-desktop text-center md:text-left flex flex-col md:flex-row items-center md:items-end justify-between pb-20">
+      <div className="relative z-10 w-full max-w-[1440px] px-margin-mobile md:px-margin-desktop text-center md:text-left flex flex-col md:flex-row items-center md:items-end justify-between pb-12">
         <ScrollReveal className="max-w-3xl">
-          <p className="font-label-caps text-label-caps text-black/80 tracking-[0.2em] mb-6 uppercase font-bold">
+          <p className="font-label-caps text-label-caps text-black/80 tracking-[0.2em] mb-4 uppercase font-bold text-xs">
             Excellence in Stone Heritage
           </p>
-          <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[88px] text-black leading-[1.05] tracking-[-0.03em] mb-8 font-semibold">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-[68px] text-black leading-[1.08] tracking-[-0.02em] mb-6 font-medium">
             Timeless Luxury<br/>Crafted in Nature.
           </h1>
-          <p className="font-body-lg text-[20px] text-black/90 mb-10 max-w-xl font-medium">
+          <p className="font-body-lg text-base md:text-[17px] text-black/85 mb-8 max-w-xl font-normal leading-relaxed">
             Premium Marble, Granite & Quartz for Exceptional Spaces. Elevating architecture through heritage craftsmanship.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link 
               to="/collection" 
-              className="bg-white text-black px-8 py-4 font-label-caps text-label-caps rounded-full w-full sm:w-auto tracking-widest uppercase hover:bg-gold-accent hover:text-white transition-all duration-400 text-center"
+              className="bg-white text-black px-8 py-3.5 font-label-caps text-xs rounded-full w-full sm:w-auto tracking-widest uppercase hover:bg-gold-accent hover:text-white transition-all duration-400 text-center shadow-sm"
             >
               Explore Collection
             </Link>
-            <button className="btn-accent px-8 py-4 font-label-caps text-label-caps rounded-full w-full sm:w-auto tracking-widest uppercase flex items-center justify-center gap-2">
-              <PlayCircle className="w-5 h-5" />
-              Watch Our Story
-            </button>
           </div>
         </ScrollReveal>
 
         {/* Animated Statistics */}
-        <div className="hidden md:flex flex-col gap-8">
+        <div className="hidden md:flex flex-col gap-4">
           <ScrollReveal delay={0.2}>
-            <div className="glass-panel p-6 rounded-2xl border-white/20 text-white min-w-[160px]">
-              <p className="font-display-lg text-4xl font-light mb-1">25<span className="text-gold-accent">+</span></p>
-              <p className="font-label-caps text-[10px] text-white/70 uppercase tracking-widest">Years Heritage</p>
+            <div className="glass-panel p-5 rounded-2xl border-white/20 text-white min-w-[150px] shadow-sm">
+              <p className="font-display-lg text-3xl font-light mb-0.5">25<span className="text-gold-accent">+</span></p>
+              <p className="font-label-caps text-[9px] text-white/80 uppercase tracking-widest">Years Heritage</p>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.4}>
-            <div className="glass-panel p-6 rounded-2xl border-white/20 text-white min-w-[160px]">
-              <p className="font-display-lg text-4xl font-light mb-1">5k<span className="text-gold-accent">+</span></p>
-              <p className="font-label-caps text-[10px] text-white/70 uppercase tracking-widest">Global Projects</p>
+            <div className="glass-panel p-5 rounded-2xl border-white/20 text-white min-w-[150px] shadow-sm">
+              <p className="font-display-lg text-3xl font-light mb-0.5">5k<span className="text-gold-accent">+</span></p>
+              <p className="font-label-caps text-[9px] text-white/80 uppercase tracking-widest">Global Projects</p>
             </div>
           </ScrollReveal>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <ScrollReveal delay={0.6} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/60">
-        <span className="font-label-caps text-[10px] tracking-widest uppercase">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent"></div>
+      <ScrollReveal delay={0.6} className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 text-white/60">
+        <span className="font-label-caps text-[9px] tracking-widest uppercase">Scroll</span>
+        <div className="w-[1px] h-8 bg-gradient-to-b from-white/60 to-transparent"></div>
       </ScrollReveal>
     </header>
   );
@@ -98,9 +94,11 @@ function HeroSection() {
 
 // ── Interactive Stone Finder ──────────────────────────────────────────
 function StoneFinder() {
+  const navigate = useNavigate();
+
   return (
     <section className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
-      <ScrollReveal className="flex flex-col md:flex-row justify-between items-end mb-16">
+      <ScrollReveal className="flex flex-col md:flex-row justify-between items-end mb-12">
         <div className="max-w-2xl">
           <p className="font-label-caps text-gold-accent tracking-[0.2em] mb-4 uppercase">Discover Your Material</p>
           <h2 className="font-headline-xl text-[56px] text-primary leading-tight mb-4 tracking-[-0.02em]">Interactive Stone Finder</h2>
@@ -114,7 +112,10 @@ function StoneFinder() {
       {/* Filter Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <ScrollReveal delay={0.1}>
-          <div className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group">
+          <div 
+            onClick={() => navigate('/collection')}
+            className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group"
+          >
             <div>
               <p className="font-label-caps text-on-surface-variant mb-1">Filter by</p>
               <h3 className="text-headline-lg text-2xl text-primary font-medium" style={{fontFamily: 'Inter'}}>Material Type</h3>
@@ -126,7 +127,10 @@ function StoneFinder() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <div className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group">
+          <div 
+            onClick={() => navigate('/colours')}
+            className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group"
+          >
             <div>
               <p className="font-label-caps text-on-surface-variant mb-1">Filter by</p>
               <h3 className="text-headline-lg text-2xl text-primary font-medium" style={{fontFamily: 'Inter'}}>Color Palette</h3>
@@ -138,7 +142,10 @@ function StoneFinder() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.3}>
-          <div className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group">
+          <div 
+            onClick={() => navigate('/showroom')}
+            className="bg-surface-container-low p-6 rounded-[24px] border border-outline-variant/30 flex justify-between items-center cursor-pointer hover:bg-white hover:shadow-xl transition-all duration-400 group"
+          >
             <div>
               <p className="font-label-caps text-on-surface-variant mb-1">Filter by</p>
               <h3 className="text-headline-lg text-2xl text-primary font-medium" style={{fontFamily: 'Inter'}}>Surface Finish</h3>
@@ -166,7 +173,7 @@ function MasterpieceCollections() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter auto-rows-[400px]">
         {/* Italian Marble (Large Spanning) */}
         <ScrollReveal className="md:col-span-2 md:row-span-2 relative hover-zoom overflow-hidden rounded-[24px] group block" delay={0.1}>
-          <Link to="/collection/italian-marble" className="w-full h-full block">
+          <Link to="/collection?category=Premium%20Italian%20Marbles" className="w-full h-full block">
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Italian Marble" 
@@ -183,7 +190,7 @@ function MasterpieceCollections() {
 
         {/* Granite */}
         <ScrollReveal className="md:col-span-1 md:row-span-1 relative hover-zoom overflow-hidden rounded-[24px] group" delay={0.2}>
-          <Link to="/collection/granite" className="w-full h-full block">
+          <Link to="/collection?category=Black%20Marbles" className="w-full h-full block">
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Granite" 
@@ -199,7 +206,7 @@ function MasterpieceCollections() {
 
         {/* Quartz */}
         <ScrollReveal className="md:col-span-1 md:row-span-1 relative hover-zoom overflow-hidden rounded-[24px] group" delay={0.3}>
-          <Link to="/collection/quartz" className="w-full h-full block">
+          <Link to="/collection?category=White%20Marbles" className="w-full h-full block">
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Quartz" 
@@ -215,7 +222,7 @@ function MasterpieceCollections() {
 
         {/* Onyx */}
         <ScrollReveal className="md:col-span-2 md:row-span-1 relative hover-zoom overflow-hidden rounded-[24px] group" delay={0.2}>
-          <Link to="/collection/onyx" className="w-full h-full block">
+          <Link to="/collection?category=Beige%20%26%20Cream%20Marbles" className="w-full h-full block">
             <img 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-out" 
               alt="Onyx" 

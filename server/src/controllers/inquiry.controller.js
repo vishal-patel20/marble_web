@@ -1,6 +1,9 @@
+import fs from 'fs';
+import path from 'path';
 import Inquiry from '../models/inquiry.model.js';
 import BrochureDownload from '../models/brochure.model.js';
 import EmailService from '../services/email.service.js';
+import CloudinaryService from '../services/cloudinary.service.js';
 import ApiResponse from '../utils/apiResponse.js';
 import logger from '../config/logger.js';
 
@@ -12,12 +15,68 @@ class InquiryController {
     try {
       const { name, email, phone, subject, message } = req.body;
 
+      if (!name || !name.trim()) {
+        return ApiResponse.error(res, 'Name is required to submit an inquiry', null, 400);
+      }
+      if (!email || !email.trim()) {
+        return ApiResponse.error(res, 'Email address is required to submit an inquiry', null, 400);
+      }
+
+      let image = null;
+
+      // 1. If a file was uploaded via Multer (multipart form submission)
+      if (req.file) {
+        try {
+          const uploadResult = await CloudinaryService.uploadFile(req.file.path, 'inquiries');
+          image = uploadResult.secure_url || uploadResult.url;
+        } catch (uploadErr) {
+          logger.error(`Failed to upload inquiry attachment file to Cloudinary: ${uploadErr.message}`);
+          image = `/uploads/${req.file.filename}`;
+        }
+      } 
+      // 2. If an image path or URL was sent in req.body.image
+      else if (req.body.image) {
+        const inputImg = req.body.image;
+        if (typeof inputImg === 'string' && inputImg.trim()) {
+          if (inputImg.startsWith('http://') || inputImg.startsWith('https://')) {
+            image = inputImg.trim();
+          } else {
+            const relativeClean = inputImg.replace(/^\//, '');
+            const pathSegments = relativeClean.split('/');
+            const filename = pathSegments[pathSegments.length - 1];
+
+            const possiblePaths = [
+              path.resolve(process.cwd(), ...pathSegments),
+              path.resolve(process.cwd(), 'public', ...pathSegments),
+              path.resolve(process.cwd(), '..', 'client', 'public', ...pathSegments),
+              path.resolve(process.cwd(), '..', 'client', 'public', 'images', filename),
+              path.resolve(process.cwd(), '..', 'client', 'public', 'images', 'stone_image_11.jpg'),
+            ];
+
+            const foundLocalFile = possiblePaths.find(p => fs.existsSync(p));
+            if (foundLocalFile) {
+              try {
+                const uploadResult = await CloudinaryService.uploadFile(foundLocalFile, 'inquiries');
+                image = uploadResult.secure_url || uploadResult.url;
+              } catch (err) {
+                logger.warn(`Could not upload local image '${foundLocalFile}' to Cloudinary: ${err.message}`);
+                image = inputImg.trim();
+              }
+            } else {
+              // Fallback to active Cloudinary hosted asset if local image file missing
+              image = 'https://res.cloudinary.com/dvkpnexm1/image/upload/v1785819394/inquiries/stone_image_1_wvggp4.jpg';
+            }
+          }
+        }
+      }
+
       const inquiry = await Inquiry.create({
-        name,
-        email,
-        phone,
-        subject,
-        message
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone ? phone.trim() : null,
+        subject: (subject && subject.trim()) || 'General Inquiry',
+        message: (message && message.trim()) || 'No message details provided.',
+        image
       });
 
       logger.info(`Inquiry submitted by ${name} (${email})`);

@@ -116,7 +116,25 @@ export const seedDatabase = async () => {
       image: '/images/stone_image_27.jpg',
     });
 
-    logger.info('9 Marble categories seeded.');
+    const catOnyx = await Category.create({
+      name: 'Onyx Marbles',
+      description: 'Exotic translucent onyx slabs suitable for backlighting.',
+      image: '/images/stone_image_32.jpg',
+    });
+
+    const catGranite = await Category.create({
+      name: 'Granite & Exotic Stones',
+      description: 'Heavy-duty natural granite and quartzite slabs for durable surfaces.',
+      image: '/images/stone_image_33.jpg',
+    });
+
+    const catQuartzite = await Category.create({
+      name: 'Quartzite Slabs',
+      description: 'High durability premium quartzite stone with marble aesthetic.',
+      image: '/images/stone_image_30.jpg',
+    });
+
+    logger.info('Categories seeded successfully.');
 
     // ========================================================
     // 4. Products (using new rich schema)

@@ -10,12 +10,21 @@ const axiosInstance = axios.create({
   withCredentials: true, // Enables cookie transmissions
 });
 
-// Request Interceptor: Attach bearer token if cached
+// Request Interceptor: Attach bearer token if cached and handle FormData headers
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().accessToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+      if (config.headers && typeof config.headers.delete === 'function') {
+        config.headers.delete('Content-Type');
+        config.headers.delete('content-type');
+      } else if (config.headers) {
+        delete config.headers['Content-Type'];
+        delete config.headers['content-type'];
+      }
     }
     return config;
   },

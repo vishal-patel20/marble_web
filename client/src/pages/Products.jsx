@@ -266,7 +266,7 @@ export default function Products() {
               <div className="flex items-center justify-between border-t border-slate-50 dark:border-slate-800 pt-4 mt-auto">
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block">Price Per Sqm</span>
-                  <span className="text-2xl font-black text-slate-900 dark:text-white">${parseFloat(selectedProduct.price).toFixed(2)}</span>
+                  <span className="text-2xl font-black text-slate-900 dark:text-white">${parseFloat(selectedProduct.pricePerSqft || selectedProduct.price || 0).toFixed(2)}</span>
                 </div>
                 
                 <a

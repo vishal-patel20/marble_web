@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Diamond, Moon, Sun, Search, Menu, X, User, LogOut, Shield } from 'lucide-react';
+import { Diamond, Moon, Sun, Search, Menu, X, User, LogOut, Shield, Rotate3d, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore.js';
+import { getAllCollectionItems } from '../../data/collections.js';
 
 const NAV_LINKS = [
   { label: 'Home',        to: '/'           },
@@ -18,15 +19,52 @@ export default function Navbar() {
   const [scrolled,     setScrolled]     = useState(false);
   const [mobileOpen,   setMobileOpen]   = useState(false);
   const [searchOpen,   setSearchOpen]   = useState(false);
+  const [searchQuery,  setSearchQuery]  = useState('');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { theme, toggleTheme, user, accessToken, clearAuth } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Filter collections for live search autocomplete
+  const collectionItems = getAllCollectionItems();
+  const searchSuggestions = searchQuery.trim().length >= 1
+    ? collectionItems.filter((item) => {
+        const q = searchQuery.toLowerCase();
+        return (
+          item.name.toLowerCase().includes(q) ||
+          (item.category && item.category.toLowerCase().includes(q)) ||
+          (item.origin && item.origin.toLowerCase().includes(q)) ||
+          (item.color && item.color.toLowerCase().includes(q)) ||
+          (item.description && item.description.toLowerCase().includes(q))
+        );
+      }).slice(0, 6)
+    : [];
+
+  const handleSelectSuggestion = (item) => {
+    setSearchOpen(false);
+    setSearchQuery('');
+    const cat = (item.category || 'marble').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const slug = (item.id || item.name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    navigate(`/collection/${cat}/${slug}`);
+  };
+
+  const handleSearchSubmit = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      if (searchSuggestions.length > 0) {
+        handleSelectSuggestion(searchSuggestions[0]);
+      } else {
+        setSearchOpen(false);
+        navigate(`/collection?search=${encodeURIComponent(searchQuery)}`);
+        setSearchQuery('');
+      }
+    }
+  };
+
   // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
     setSearchOpen(false);
+    setSearchQuery('');
     setUserMenuOpen(false);
   }, [location.pathname]);
 
@@ -175,7 +213,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ── Search bar ── */}
+        {/* ── Interactive Search bar & Live Autocomplete ── */}
         <AnimatePresence>
           {searchOpen && (
             <motion.div
@@ -183,16 +221,92 @@ export default function Navbar() {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden border-t border-outline-variant/30"
+              className="border-t border-outline-variant/30 bg-surface/95 backdrop-blur-2xl shadow-2xl"
             >
-              <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-4">
-                <input
-                  type="text"
-                  placeholder="Search collections, stone types…"
-                  autoFocus
-                  className="w-full bg-transparent border-b border-surface-tint focus:border-gold-accent outline-none py-2 font-body-lg text-primary placeholder-on-surface-variant transition-colors duration-[400ms]"
-                  style={{ fontFamily: 'Inter' }}
-                />
+              <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] py-4 relative">
+                <div className="relative flex items-center">
+                  <Search size={20} className="absolute left-0 text-primary/60" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleSearchSubmit}
+                    placeholder="Search collections, Italian Statuario, Calacatta, Onyx..."
+                    autoFocus
+                    className="w-full bg-transparent border-b border-surface-tint focus:border-gold-accent outline-none py-2.5 pl-8 pr-10 font-body-lg text-primary placeholder-on-surface-variant transition-colors duration-[400ms]"
+                    style={{ fontFamily: 'Inter' }}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-0 p-1 text-primary/50 hover:text-primary transition-colors"
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
+                </div>
+
+                {/* ── Live Autocomplete Suggestions Dropdown Card ── */}
+                <AnimatePresence>
+                  {searchQuery.trim().length >= 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="mt-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden max-h-[380px] overflow-y-auto"
+                    >
+                      {searchSuggestions.length > 0 ? (
+                        <div className="p-2 space-y-1">
+                          <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                            <span>Matching Marble Slabs ({searchSuggestions.length})</span>
+                            <span className="text-gold-accent">Click to View Product</span>
+                          </div>
+                          {searchSuggestions.map((item, index) => (
+                            <div
+                              key={index}
+                              onClick={() => handleSelectSuggestion(item)}
+                              className="flex items-center gap-4 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 cursor-pointer transition-all duration-200 group"
+                            >
+                              <img
+                                src={item.image}
+                                alt={item.name}
+                                onError={(e) => { e.currentTarget.src = '/images/showroom_3d_marble.png'; }}
+                                className="w-12 h-12 rounded-lg object-cover border border-slate-200 dark:border-slate-700 group-hover:scale-105 transition-transform shrink-0"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-gold-accent transition-colors truncate">
+                                  {item.name}
+                                </h4>
+                                <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                                  {item.category} • <span className="text-slate-400">{item.origin || 'Italy'}</span>
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gold-accent/15 text-gold-accent border border-gold-accent/30 flex items-center gap-1">
+                                  View Product <ArrowRight className="w-3 h-3" />
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="p-6 text-center text-xs text-slate-400 space-y-2">
+                          <p>No matching marble products found for "<span className="text-slate-700 dark:text-slate-200 font-semibold">{searchQuery}</span>"</p>
+                          <button
+                            onClick={() => {
+                              setSearchOpen(false);
+                              navigate('/collection');
+                              setSearchQuery('');
+                            }}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-gold-accent hover:text-white font-bold transition-all text-[11px]"
+                          >
+                            Explore All Collections <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           )}

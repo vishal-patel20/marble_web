@@ -96,8 +96,8 @@ export default function App() {
             <Route path="/collection"                        element={<Collection />}     />
             <Route path="/colours"                           element={<Colours />}        />
             <Route path="/colors"                            element={<Colours />}        />
-            <Route path="/collection/:category"              element={<ProductListing />} />
             <Route path="/collection/:category/:slug"        element={<ProductDetail />}  />
+            <Route path="/collection/:slug"                  element={<ProductDetail />}  />
             <Route path="/about"                             element={<About />}          />
             <Route path="/gallery"                           element={<Gallery />}        />
             <Route path="/projects"                          element={<Projects />}       />

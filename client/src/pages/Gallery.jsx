@@ -11,6 +11,51 @@ export default function Gallery() {
 
   const tags = ['', 'Kitchen', 'Bathroom', 'Living Room', 'Commercial'];
 
+  const FALLBACK_GALLERY = [
+    {
+      id: 'g-1',
+      title: 'Calacatta Gold Luxury Kitchen Island',
+      description: 'Bespoke waterfall kitchen island clad in polished Calacatta Gold Supreme marble veining.',
+      tag: 'Kitchen',
+      image: '/images/stone_image_1.jpg'
+    },
+    {
+      id: 'g-2',
+      title: 'Nero Marquina Executive Master Bath',
+      description: 'Deep black Spanish Nero Marquina marble with crisp white geometric calcite veining.',
+      tag: 'Bathroom',
+      image: '/images/stone_image_2.jpg'
+    },
+    {
+      id: 'g-3',
+      title: 'Royal Blue Onyx Backlit Wall Feature',
+      description: 'Dramatic translucent backlit Royal Blue Onyx statement wall in modern penthouse foyer.',
+      tag: 'Living Room',
+      image: '/images/stone_image_3.jpg'
+    },
+    {
+      id: 'g-4',
+      title: 'Statuario Extra White Grand Lobby Floor',
+      description: 'Italian Statuario marble flooring with broad graphite veining for commercial headquarters.',
+      tag: 'Commercial',
+      image: '/images/stone_image_4.jpg'
+    },
+    {
+      id: 'g-5',
+      title: 'Verde Guatemala Emerald Dining Nook',
+      description: 'Deep rainforest green serpentine marble table top with honed antique patina finish.',
+      tag: 'Kitchen',
+      image: '/images/stone_image_5.jpg'
+    },
+    {
+      id: 'g-6',
+      title: 'Pietra Grey Minimalist Vanity Basin',
+      description: 'Seamless charcoal grey Persian marble vanity integrated with brushed bronze brassware.',
+      tag: 'Bathroom',
+      image: '/images/stone_image_6.jpg'
+    }
+  ];
+
   useEffect(() => {
     const fetchGallery = async () => {
       setLoading(true);
@@ -18,9 +63,21 @@ export default function Gallery() {
         const params = {};
         if (selectedTag) params.tag = selectedTag;
         const res = await axiosInstance.get('/misc/gallery', { params });
-        setItems(res.data.data);
+        const data = Array.isArray(res.data?.data) ? res.data.data : [];
+        if (data.length > 0) {
+          setItems(data);
+        } else {
+          const filteredFallback = selectedTag
+            ? FALLBACK_GALLERY.filter((i) => i.tag.toLowerCase() === selectedTag.toLowerCase())
+            : FALLBACK_GALLERY;
+          setItems(filteredFallback);
+        }
       } catch (err) {
         console.error('Gallery loading failed', err);
+        const filteredFallback = selectedTag
+          ? FALLBACK_GALLERY.filter((i) => i.tag.toLowerCase() === selectedTag.toLowerCase())
+          : FALLBACK_GALLERY;
+        setItems(filteredFallback);
       } finally {
         setLoading(false);
       }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   Gem,
@@ -13,7 +14,16 @@ import {
   Upload,
   Globe,
   DollarSign,
-  Layers
+  Layers,
+  Rotate3d,
+  Sparkles,
+  ChevronRight,
+  Eye,
+  X,
+  Mail,
+  Phone,
+  ExternalLink,
+  ArrowLeft
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import axiosInstance from '../api/axiosInstance.js';
@@ -34,6 +44,7 @@ export default function AdminDashboard() {
   const [projects, setProjects] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [selectedInquiry, setSelectedInquiry] = useState(null);
 
   // Collection Items List (Loaded from collections.js + localStorage)
   const [collectionItemsList, setCollectionItemsList] = useState([]);
@@ -64,28 +75,59 @@ export default function AdminDashboard() {
 
   // Fetch data utilities
   const fetchProducts = async () => {
-    const res = await axiosInstance.get('/inventory/products?limit=100');
-    setProducts(res.data.data.products);
+    try {
+      const res = await axiosInstance.get('/inventory/products?limit=100');
+      const data = res.data?.data;
+      setProducts(Array.isArray(data) ? data : (data?.products || []));
+    } catch (err) {
+      console.error('Failed to fetch products', err);
+      setProducts([]);
+    }
   };
   const fetchCategories = async () => {
-    const res = await axiosInstance.get('/inventory/categories');
-    setCategories(res.data.data);
+    try {
+      const res = await axiosInstance.get('/inventory/categories');
+      setCategories(Array.isArray(res.data?.data) ? res.data.data : []);
+    } catch (err) {
+      console.error('Failed to fetch categories', err);
+      setCategories([]);
+    }
   };
   const fetchInquiries = async () => {
-    const res = await axiosInstance.get('/leads/inquiries');
-    setInquiries(res.data.data);
+    try {
+      const res = await axiosInstance.get('/leads/inquiries');
+      setInquiries(Array.isArray(res.data?.data) ? res.data.data : []);
+    } catch (err) {
+      console.error('Failed to fetch inquiries', err);
+      setInquiries([]);
+    }
   };
   const fetchProjects = async () => {
-    const res = await axiosInstance.get('/misc/projects');
-    setProjects(res.data.data);
+    try {
+      const res = await axiosInstance.get('/misc/projects');
+      setProjects(Array.isArray(res.data?.data) ? res.data.data : []);
+    } catch (err) {
+      console.error('Failed to fetch projects', err);
+      setProjects([]);
+    }
   };
   const fetchGallery = async () => {
-    const res = await axiosInstance.get('/misc/gallery');
-    setGallery(res.data.data);
+    try {
+      const res = await axiosInstance.get('/misc/gallery');
+      setGallery(Array.isArray(res.data?.data) ? res.data.data : []);
+    } catch (err) {
+      console.error('Failed to fetch gallery', err);
+      setGallery([]);
+    }
   };
   const fetchBlogs = async () => {
-    const res = await axiosInstance.get('/misc/blogs?status=');
-    setBlogs(res.data.data);
+    try {
+      const res = await axiosInstance.get('/misc/blogs?status=');
+      setBlogs(Array.isArray(res.data?.data) ? res.data.data : []);
+    } catch (err) {
+      console.error('Failed to fetch blogs', err);
+      setBlogs([]);
+    }
   };
 
   useEffect(() => {
@@ -410,35 +452,165 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-slate-50 dark:bg-luxury-950 flex flex-col md:flex-row transition-colors duration-300">
       
       {/* Sidebar Control Panel */}
-      <aside className="w-full md:w-64 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 p-6 flex flex-col justify-between">
-        <div className="space-y-8">
-          <div className="text-xs font-semibold tracking-widest text-slate-400 uppercase">Backoffice Admin</div>
+      <aside className="w-full md:w-72 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800/80 p-5 flex flex-col justify-between shrink-0 shadow-sm">
+        <div className="space-y-6">
           
-          <nav className="space-y-1.5">
-            {[
-              { id: 'collections', name: 'Add to Collection', icon: Layers },
-              { id: 'dashboard', name: 'Dashboard Analytics', icon: LayoutDashboard },
-              { id: 'products', name: 'Products Slabs', icon: Gem },
-              { id: 'categories', name: 'Categories', icon: FolderOpen },
-              { id: 'inquiries', name: 'Inquiries leads', icon: MessageSquare },
-              { id: 'projects', name: 'Portfolio Projects', icon: FolderOpen },
-              { id: 'gallery', name: 'Gallery Showroom', icon: Image },
-              { id: 'blogs', name: 'Blogs', icon: BookOpen },
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setSelectedFile(null); }}
-                className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
-                  activeTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/25 font-semibold'
-                    : 'text-slate-600 hover:bg-slate-100/80 dark:text-slate-400 dark:hover:bg-slate-800/60'
-                }`}
-              >
-                <tab.icon className={`h-4.5 w-4.5 mr-3 shrink-0 ${activeTab === tab.id ? 'text-white' : 'text-slate-400'}`} />
-                {tab.name}
-              </button>
-            ))}
-          </nav>
+          {/* Admin Brand Header */}
+          <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-600/25">
+                M
+              </div>
+              <div>
+                <h1 className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
+                  Marble<span className="text-blue-600 dark:text-blue-400">Craft</span>
+                </h1>
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                  Backoffice Admin
+                </p>
+              </div>
+            </div>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20 animate-pulse" title="System Live" />
+          </div>
+
+          {/* Navigation Sections */}
+          <div className="space-y-6">
+            
+            {/* Group 1: Catalog & Showcase */}
+            <div>
+              <div className="text-[10px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase px-3 mb-2 flex items-center justify-between">
+                <span>Catalog & Showcase</span>
+                <Sparkles className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+              </div>
+
+              <nav className="space-y-1">
+                {[
+                  { id: 'collections', name: 'Add to Collection', icon: Layers, badge: collectionItemsList.length },
+                  { id: 'products', name: 'Products Slabs', icon: Gem, badge: products.length },
+                  { id: 'categories', name: 'Categories', icon: FolderOpen, badge: categories.length },
+                  { id: 'gallery', name: 'Gallery Showroom', icon: Image, badge: gallery.length },
+                ].map(tab => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => { setActiveTab(tab.id); setSelectedFile(null); }}
+                      className={`w-full group flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 ${
+                        isActive
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30 font-bold translate-x-1'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white hover:translate-x-1'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`p-1.5 rounded-lg transition-colors ${
+                          isActive
+                            ? 'bg-white/20 text-white shadow-sm'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/40'
+                        }`}>
+                          <tab.icon className="h-4 w-4" />
+                        </div>
+                        <span>{tab.name}</span>
+                      </div>
+                      {tab.badge !== undefined && (
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border transition-colors ${
+                          isActive
+                            ? 'bg-white/20 text-white border-white/30'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700'
+                        }`}>
+                          {tab.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Group 2: Management & Leads */}
+            <div>
+              <div className="text-[10px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase px-3 mb-2">
+                Management & Leads
+              </div>
+
+              <nav className="space-y-1">
+                {[
+                  { id: 'dashboard', name: 'Dashboard Analytics', icon: LayoutDashboard },
+                  { id: 'inquiries', name: 'Inquiries & Leads', icon: MessageSquare, badge: inquiries.length },
+                  { id: 'projects', name: 'Portfolio Projects', icon: FolderOpen, badge: projects.length },
+                  { id: 'blogs', name: 'Blogs & Articles', icon: BookOpen, badge: blogs.length },
+                ].map(tab => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => { setActiveTab(tab.id); setSelectedFile(null); }}
+                      className={`w-full group flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 ${
+                        isActive
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30 font-bold translate-x-1'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white hover:translate-x-1'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`p-1.5 rounded-lg transition-colors ${
+                          isActive
+                            ? 'bg-white/20 text-white shadow-sm'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/40'
+                        }`}>
+                          <tab.icon className="h-4 w-4" />
+                        </div>
+                        <span>{tab.name}</span>
+                      </div>
+                      {tab.badge !== undefined && (
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border transition-colors ${
+                          isActive
+                            ? 'bg-white/20 text-white border-white/30'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700'
+                        }`}>
+                          {tab.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Links Footer: Back to Website & 3D Showroom */}
+        <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          <Link
+            to="/"
+            className="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-200/70 dark:hover:bg-slate-700/80 transition-all group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white flex items-center justify-center font-bold shadow-sm group-hover:-translate-x-0.5 transition-transform">
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-bold leading-tight">Back to Website</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">Return to Homepage</p>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+
+          <Link
+            to="/showroom"
+            target="_blank"
+            className="w-full p-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-blue-500/5 to-transparent border border-blue-500/20 flex items-center justify-between text-blue-600 dark:text-blue-400 hover:border-blue-500/50 transition-all group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-600/25 group-hover:scale-105 transition-transform">
+                <Rotate3d className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-bold leading-tight">Launch 3D Showroom</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">Live Virtual Vision</p>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
         </div>
       </aside>
 
@@ -712,13 +884,24 @@ export default function AdminDashboard() {
                               <div>{item.waterAbsorption || '0.12 %'}</div>
                             </td>
                             <td className="py-3 text-right">
-                              <button
-                                onClick={() => handleDeleteCollectionItem(item.id)}
-                                className="text-red-500 hover:text-red-650 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                                title="Delete Marble"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </button>
+                              <div className="flex items-center justify-end gap-2">
+                                <a
+                                  href={`/showroom?stoneId=${encodeURIComponent(item.name || item.id)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-accent/15 hover:bg-gold-accent/25 text-amber-700 dark:text-amber-300 border border-gold-accent/30 text-[11px] font-bold transition-all shadow-sm"
+                                  title="Preview in 3D Showroom"
+                                >
+                                  <Rotate3d className="h-3.5 w-3.5" /> 3D View
+                                </a>
+                                <button
+                                  onClick={() => handleDeleteCollectionItem(item.id)}
+                                  className="text-red-500 hover:text-red-650 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                                  title="Delete Marble"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -741,19 +924,19 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
               <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">Total Products</span>
-                <span className="text-3xl font-black text-slate-800 dark:text-white">{products.length}</span>
+                <span className="text-3xl font-black text-slate-800 dark:text-white">{(products || []).length}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">Categories</span>
-                <span className="text-3xl font-black text-slate-800 dark:text-white">{categories.length}</span>
+                <span className="text-3xl font-black text-slate-800 dark:text-white">{(categories || []).length}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">Inquiries</span>
-                <span className="text-3xl font-black text-slate-800 dark:text-white">{inquiries.length}</span>
+                <span className="text-3xl font-black text-slate-800 dark:text-white">{(inquiries || []).length}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">Portfolio installs</span>
-                <span className="text-3xl font-black text-slate-800 dark:text-white">{projects.length}</span>
+                <span className="text-3xl font-black text-slate-800 dark:text-white">{(projects || []).length}</span>
               </div>
             </div>
 
@@ -761,20 +944,51 @@ export default function AdminDashboard() {
             <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-8">
               <h3 className="text-lg font-bold font-serif text-slate-800 dark:text-white mb-6">Recent Customer Leads</h3>
               <div className="space-y-4">
-                {inquiries.slice(0, 5).map(inq => (
-                  <div key={inq.id} className="flex justify-between items-start border-b border-slate-50 dark:border-slate-800 pb-4">
-                    <div>
-                      <span className="text-xs font-bold text-slate-700 dark:text-slate-350">{inq.name} ({inq.email})</span>
-                      <p className="text-xs text-slate-400 mt-1">{inq.subject}</p>
-                      <p className="text-xs text-slate-500 italic mt-0.5">"{inq.message}"</p>
+                {(inquiries || []).length === 0 ? (
+                  <p className="text-xs text-slate-400">No customer inquiries found.</p>
+                ) : (
+                  (inquiries || []).slice(0, 5).map(inq => (
+                    <div key={inq.id} className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4">
+                      <div className="flex items-center gap-3">
+                        {inq.image ? (
+                          <a href={inq.image} target="_blank" rel="noopener noreferrer" className="shrink-0" title="View Cloudinary attachment/image">
+                            <img
+                              src={inq.image}
+                              alt="Inquiry attachment preview"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = 'https://res.cloudinary.com/dvkpnexm1/image/upload/v1785819394/inquiries/stone_image_1_wvggp4.jpg';
+                              }}
+                              className="w-10 h-10 object-cover rounded-lg border border-slate-200 dark:border-slate-700 hover:scale-105 transition-transform"
+                            />
+                          </a>
+                        ) : (
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[10px] text-slate-400 font-semibold">
+                            No Img
+                          </div>
+                        )}
+                        <div>
+                          <span className="text-xs font-bold text-slate-700 dark:text-slate-350">{inq.name} ({inq.email})</span>
+                          <p className="text-xs text-slate-400 mt-0.5">{inq.subject}</p>
+                          <p className="text-xs text-slate-500 italic mt-0.5 max-w-sm truncate">"{inq.message}"</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className={`text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full ${
+                          inq.status === 'Resolved' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'
+                        }`}>
+                          {inq.status}
+                        </span>
+                        <button
+                          onClick={() => setSelectedInquiry(inq)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/60 font-semibold text-xs border border-blue-200 dark:border-blue-800 transition-colors shadow-sm"
+                        >
+                          <Eye className="w-3.5 h-3.5" /> View
+                        </button>
+                      </div>
                     </div>
-                    <span className={`text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full ${
-                      inq.status === 'Resolved' ? 'bg-green-150/10 text-green-600' : 'bg-yellow-150/10 text-yellow-600'
-                    }`}>
-                      {inq.status}
-                    </span>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
 
@@ -903,12 +1117,23 @@ export default function AdminDashboard() {
                   {products.map(prod => (
                     <tr key={prod.id} className="border-b border-slate-50 dark:border-slate-800">
                       <td className="py-3.5 font-bold text-slate-700 dark:text-slate-300">{prod.name}</td>
-                      <td className="py-3.5 font-semibold">${parseFloat(prod.price).toFixed(2)}</td>
-                      <td className="py-3.5 text-slate-400">{prod.stock} slabs</td>
+                      <td className="py-3.5 font-semibold">${parseFloat(prod.pricePerSqft || prod.price || 0).toFixed(2)}</td>
+                      <td className="py-3.5 text-slate-400">{prod.stockQuantity ?? prod.stock ?? 0} slabs</td>
                       <td className="py-3.5 text-right">
-                        <button onClick={() => handleDeleteProduct(prod.id)} className="text-red-500 hover:text-red-600">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+                        <div className="flex items-center justify-end gap-2">
+                          <a
+                            href={`/showroom?stoneId=${encodeURIComponent(prod.name || prod.slug || prod.id)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-accent/15 hover:bg-gold-accent/25 text-amber-700 dark:text-amber-300 border border-gold-accent/30 text-[11px] font-bold transition-all shadow-sm"
+                            title="Preview in 3D Showroom"
+                          >
+                            <Rotate3d className="h-3.5 w-3.5" /> 3D View
+                          </a>
+                          <button onClick={() => handleDeleteProduct(prod.id)} className="text-red-500 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -989,6 +1214,7 @@ export default function AdminDashboard() {
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-slate-50 dark:border-slate-800 pb-3 text-slate-400">
+                  <th className="py-3 font-semibold">Attachment / Image</th>
                   <th className="py-3 font-semibold">Customer</th>
                   <th className="py-3 font-semibold">Subject</th>
                   <th className="py-3 font-semibold">Message</th>
@@ -999,6 +1225,29 @@ export default function AdminDashboard() {
               <tbody>
                 {inquiries.map(inq => (
                   <tr key={inq.id} className="border-b border-slate-50 dark:border-slate-800">
+                    <td className="py-4">
+                      {inq.image ? (
+                        <a
+                          href={inq.image}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block shrink-0 group relative"
+                          title="Click to open Cloudinary image in new tab"
+                        >
+                          <img
+                            src={inq.image}
+                            alt="Attachment / Product Preview"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'https://res.cloudinary.com/dvkpnexm1/image/upload/v1785819394/inquiries/stone_image_1_wvggp4.jpg';
+                            }}
+                            className="w-12 h-12 object-cover rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm group-hover:scale-105 transition-transform"
+                          />
+                        </a>
+                      ) : (
+                        <span className="text-slate-400 text-xs italic">No image</span>
+                      )}
+                    </td>
                     <td className="py-4">
                       <div className="font-bold text-slate-800 dark:text-slate-200">{inq.name}</div>
                       <div className="text-slate-400">{inq.email} | {inq.phone || 'No phone'}</div>
@@ -1016,14 +1265,157 @@ export default function AdminDashboard() {
                       </button>
                     </td>
                     <td className="py-4 text-right">
-                      <button onClick={() => handleDeleteInquiry(inq.id)} className="text-red-500 hover:text-red-600">
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => setSelectedInquiry(inq)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/60 font-semibold text-xs border border-blue-200 dark:border-blue-800 transition-colors shadow-sm"
+                          title="View full inquiry card"
+                        >
+                          <Eye className="w-3.5 h-3.5" /> View
+                        </button>
+                        <button
+                          onClick={() => handleDeleteInquiry(inq.id)}
+                          className="text-red-500 hover:text-red-600 p-2 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                          title="Delete Lead"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Inquiry Detail View Modal Overlay */}
+        {selectedInquiry && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm transition-opacity"
+            onClick={() => setSelectedInquiry(null)}
+          >
+            <div 
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 overflow-hidden relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Close Button */}
+              <button
+                onClick={() => setSelectedInquiry(null)}
+                className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Modal Header */}
+              <div className="flex items-center gap-3 pr-8">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white font-serif">Customer Inquiry Details</h3>
+                  <p className="text-xs text-slate-400">Received via MarbleCraft Portal</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-start">
+                {/* Attached Image Preview */}
+                <div className="sm:col-span-5 flex flex-col gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Attached Image / Product</span>
+                  {selectedInquiry.image ? (
+                    <div className="relative group aspect-square rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md">
+                      <img
+                        src={selectedInquiry.image}
+                        alt="Inquiry Attachment"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = 'https://res.cloudinary.com/dvkpnexm1/image/upload/v1785819394/inquiries/stone_image_1_wvggp4.jpg';
+                        }}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <a
+                        href={selectedInquiry.image}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold gap-1.5"
+                      >
+                        <ExternalLink className="w-4 h-4" /> Open Full Image
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="aspect-square rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-xs text-slate-400 font-semibold">
+                      No image attached
+                    </div>
+                  )}
+                </div>
+
+                {/* Inquiry Information Details */}
+                <div className="sm:col-span-7 space-y-4 text-xs">
+                  {/* Customer Info Card */}
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-sm text-slate-900 dark:text-white">{selectedInquiry.name}</span>
+                      <button
+                        onClick={() => {
+                          handleResolveInquiry(selectedInquiry.id, selectedInquiry.status);
+                          setSelectedInquiry(prev => ({ ...prev, status: prev.status === 'Pending' ? 'Resolved' : 'Pending' }));
+                        }}
+                        className={`text-[10px] font-bold px-3 py-1 rounded-full border transition-colors ${
+                          selectedInquiry.status === 'Resolved' ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' : 'bg-amber-500/10 text-amber-600 border-amber-500/20'
+                        }`}
+                      >
+                        {selectedInquiry.status} (Toggle)
+                      </button>
+                    </div>
+                    
+                    <div className="space-y-1 text-slate-500 dark:text-slate-400">
+                      <p className="flex items-center gap-2">
+                        <Mail className="w-3.5 h-3.5 text-blue-500" />
+                        <a href={`mailto:${selectedInquiry.email}`} className="hover:underline font-medium text-slate-700 dark:text-slate-300">{selectedInquiry.email}</a>
+                      </p>
+                      {selectedInquiry.phone && (
+                        <p className="flex items-center gap-2">
+                          <Phone className="w-3.5 h-3.5 text-emerald-500" />
+                          <a href={`tel:${selectedInquiry.phone}`} className="hover:underline font-medium text-slate-700 dark:text-slate-300">{selectedInquiry.phone}</a>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Subject */}
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Subject</span>
+                    <p className="font-bold text-slate-800 dark:text-slate-200 text-sm leading-snug">{selectedInquiry.subject}</p>
+                  </div>
+
+                  {/* Message Detail */}
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Full Message</span>
+                    <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/80 text-slate-700 dark:text-slate-300 leading-relaxed font-normal italic">
+                      "{selectedInquiry.message}"
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-2 pt-2">
+                    <a
+                      href={`mailto:${selectedInquiry.email}?subject=RE: ${encodeURIComponent(selectedInquiry.subject || 'MarbleCraft Inquiry')}`}
+                      className="flex-1 py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-colors"
+                    >
+                      <Mail className="w-4 h-4" /> Reply Email
+                    </a>
+                    {selectedInquiry.phone && (
+                      <a
+                        href={`tel:${selectedInquiry.phone}`}
+                        className="py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-colors"
+                      >
+                        <Phone className="w-4 h-4" /> Call Lead
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

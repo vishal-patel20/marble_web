@@ -28,7 +28,8 @@ export default function Wishlist() {
         } else {
           // Fetch products page 1 and filter locally for guest demo ease
           const res = await axiosInstance.get('/inventory/products?limit=100');
-          const allProds = res.data.data.products;
+          const data = res.data?.data;
+          const allProds = Array.isArray(data) ? data : (data?.products || []);
           const filtered = allProds.filter(p => guestWishlist.includes(p.id));
           setProducts(filtered);
           setWishlistCount(filtered.length);

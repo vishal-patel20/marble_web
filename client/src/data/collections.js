@@ -586,14 +586,32 @@ export function getCollectionDetail(slug, category) {
 
   // 2. Search all collectionItems (including custom admin added items)
   const allItems = getAllCollectionItems();
-  const foundItem = allItems.find(
-    (item) => item.id.toLowerCase() === normalizedSlug || item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === normalizedSlug
-  );
+  const foundItem = allItems.find((item) => {
+    const idLower = (item.id || '').toLowerCase();
+    const slugLower = (item.slug || '').toLowerCase();
+    const nameSlug = (item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return (
+      idLower === normalizedSlug ||
+      slugLower === normalizedSlug ||
+      nameSlug === normalizedSlug ||
+      idLower.startsWith(normalizedSlug) ||
+      normalizedSlug.startsWith(idLower)
+    );
+  });
 
   // 3. Search italianMarbleProducts
-  const foundProduct = italianMarbleProducts.find(
-    (prod) => (prod.slug && prod.slug.toLowerCase() === normalizedSlug) || prod.id.toLowerCase() === normalizedSlug
-  );
+  const foundProduct = italianMarbleProducts.find((prod) => {
+    const idLower = (prod.id || '').toLowerCase();
+    const slugLower = (prod.slug || '').toLowerCase();
+    const nameSlug = (prod.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return (
+      idLower === normalizedSlug ||
+      slugLower === normalizedSlug ||
+      nameSlug === normalizedSlug ||
+      idLower.startsWith(normalizedSlug) ||
+      normalizedSlug.startsWith(idLower)
+    );
+  });
 
   const baseItem = foundItem || foundProduct;
 

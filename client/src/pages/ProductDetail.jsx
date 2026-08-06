@@ -1,94 +1,169 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileText, MessageSquare } from 'lucide-react';
+import { ArrowLeft, FileText, MessageSquare, ChevronRight, Maximize2, Rotate3d, X } from 'lucide-react';
 import ScrollReveal from '../components/ui/ScrollReveal.jsx';
 import { getCollectionDetail } from '../data/collections.js';
+import axiosInstance from '../api/axiosInstance.js';
+import { toast } from 'react-toastify';
 
 export default function ProductDetail() {
   const { category, slug } = useParams();
   const navigate = useNavigate();
-  // Support routes like /collection/:category/:slug or /products/:slug or /collection/:slug
   const activeSlug = slug || category;
   const activeCat  = slug ? category : undefined;
   
   const product = getCollectionDetail(activeSlug, activeCat);
 
   const [selectedFinish, setSelectedFinish] = useState(product.finishes[0] || 'Polished');
-  const [projectName, setProjectName] = useState('');
-  const [email,       setEmail]       = useState('');
+  const [projectName, setProjectName]       = useState('');
+  const [email, setEmail]                   = useState('');
+  const [loading, setLoading]               = useState(false);
+  const [lightboxOpen, setLightboxOpen]     = useState(false);
 
-  // Sync selected finish if product changes
+  const [activeImage, setActiveImage] = useState('');
+
   useEffect(() => {
-    if (product?.finishes?.length) {
-      setSelectedFinish(product.finishes[0]);
+    if (product) {
+      setActiveImage(product.images?.main || product.image || '/images/showroom_3d_marble.png');
     }
-  }, [activeSlug]);
+  }, [product]);
+
+  const galleryImages = useMemo(() => {
+    const main = product.images?.main || product.image || '/images/showroom_3d_marble.png';
+    const t1   = product.images?.thumb1;
+    const t2   = product.images?.thumb2;
+    const set  = new Set([main]);
+    if (t1) set.add(t1);
+    if (t2) set.add(t2);
+
+    const arr = Array.from(set);
+    if (arr.length < 3) {
+      arr.push('/images/stone_image_1.jpg', '/images/stone_image_23.jpg');
+    }
+    return arr.slice(0, 4);
+  }, [product]);
+
+  const handleInquirySubmit = async (e) => {
+    e.preventDefault();
+    if (!projectName.trim() || !email.trim()) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+    setLoading(true);
+    try {
+      await axiosInstance.post('/misc/inquiry', {
+        projectName,
+        email,
+        productName: product.name,
+        finish: selectedFinish,
+      });
+      toast.success('Inquiry submitted successfully! We will contact you shortly.');
+      setProjectName('');
+      setEmail('');
+    } catch (err) {
+      console.error('Product inquiry submission failed:', err);
+      toast.error(err.response?.data?.message || 'Failed to submit inquiry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      <title>{product.name} — MarbleCraft</title>
+      <title>{product.name} — MarbleCraft Studio</title>
 
-      <main className="flex-grow pt-[80px]">
+      <main className="flex-grow pt-20 bg-stone-50/50 dark:bg-stone-950/40">
 
-        {/* ── Hero Gallery Section ── */}
-        <section className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pt-12 pb-[160px]">
-
-          {/* Back Button + Breadcrumb + Title */}
-          <div className="mb-8">
-            <button
-              onClick={() => navigate(-1)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors mb-6 group cursor-pointer bg-surface-tint/10 hover:bg-surface-tint/20 px-4 py-2 rounded-full"
-            >
-              <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
-              <span>Back</span>
-            </button>
-
-            <p className="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4">
-              {product.categoryLabel}
-            </p>
-            <h1
-              className="text-[40px] md:text-[72px] font-[600] leading-[1.2] md:leading-[1.1] tracking-[-0.02em] md:tracking-[-0.04em] text-primary mb-6"
-              style={{ fontFamily: 'Inter' }}
-            >
-              {product.name}
-            </h1>
+        {/* ── Top Navigation Bar ── */}
+        <div className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pt-8 pb-4 flex items-center justify-between">
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors cursor-pointer bg-stone-200/70 dark:bg-stone-800/70 hover:bg-stone-300 dark:hover:bg-stone-700 px-3.5 py-1.5 rounded-full shadow-sm"
+          >
+            <ArrowLeft size={14} />
+            <span>Back</span>
+          </button>
+          <div className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest flex items-center gap-2">
+            <Link to="/collection" className="hover:text-stone-700 dark:hover:text-stone-300">Collections</Link>
           </div>
+        </div>
 
-          {/* Bento Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-[32px] h-auto md:h-[70vh]">
+        {/* ── Top Title & Category Header ── */}
+        <section className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pt-4 pb-6">
+          <p className="font-label-caps text-xs text-amber-500 uppercase tracking-widest font-bold mb-2">
+            {product.categoryLabel}
+          </p>
+          <h1
+            className="text-[38px] md:text-[64px] font-[600] leading-[1.1] tracking-[-0.03em] text-stone-900 dark:text-white font-serif mb-3"
+          >
+            {product.name}
+          </h1>
+          <p className="text-sm md:text-base text-stone-600 dark:text-stone-400 max-w-3xl leading-relaxed">
+            {product.description}
+          </p>
+        </section>
 
-            {/* Main Image */}
-            <div className="md:col-span-8 rounded-lg overflow-hidden relative group soft-shadow h-[400px] md:h-full">
-              <img
-                src={product.images.main}
-                alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
-                loading="eager"
-              />
-            </div>
-
-            {/* Thumbnails Stack */}
-            <div className="md:col-span-4 flex flex-col gap-[32px] h-[400px] md:h-full">
-              <div className="flex-1 rounded-lg overflow-hidden relative group soft-shadow">
+        {/* ── Hero Single Image Section ── */}
+        <section className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            {/* Full Width Single Product Hero Image */}
+            <div className="lg:col-span-12">
+              <div className="relative aspect-[16/9] max-h-[650px] rounded-3xl overflow-hidden shadow-2xl bg-stone-900 border border-stone-200/80 dark:border-stone-800 group">
                 <img
-                  src={product.images.thumb1}
-                  alt={`${product.name} detail`}
-                  className="w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
-                  loading="lazy"
+                  src={activeImage}
+                  alt={product.name}
+                  onError={(e) => { e.currentTarget.src = '/images/showroom_3d_marble.png'; }}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-              </div>
-              <div className="flex-1 rounded-lg overflow-hidden relative group soft-shadow">
-                <img
-                  src={product.images.thumb2}
-                  alt={`${product.name} application`}
-                  className="w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
-                  loading="lazy"
-                />
+                
+                {/* Top Badges */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+                  <span className="bg-black/60 backdrop-blur-md border border-white/20 text-amber-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm">
+                    {product.origin || 'Italy'}
+                  </span>
+                  <span className="bg-amber-400/90 text-stone-950 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm">
+                    Available in Stock
+                  </span>
+                </div>
+
+                {/* Bottom Action Controls Overlay */}
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 z-10">
+                  <button
+                    onClick={() => setLightboxOpen(true)}
+                    className="p-3 rounded-full bg-black/70 hover:bg-black/90 text-white backdrop-blur-md border border-white/20 transition-all hover:scale-105 shadow-lg"
+                    title="Fullscreen Preview"
+                  >
+                    <Maximize2 size={16} />
+                  </button>
+                  <Link
+                    to="/showroom"
+                    className="px-4 py-2 rounded-full bg-gold-accent hover:bg-amber-400 text-stone-950 font-bold text-xs flex items-center gap-1.5 shadow-lg transition-all hover:scale-105"
+                  >
+                    <Rotate3d size={16} />
+                    <span>3D Studio</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
           </div>
         </section>
+
+        {/* Fullscreen Lightbox Modal */}
+        {lightboxOpen && (
+          <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+            <button
+              onClick={() => setLightboxOpen(false)}
+              className="absolute top-6 right-6 p-3 rounded-full bg-stone-800 text-white hover:bg-stone-700 transition-colors z-20"
+            >
+              <X size={20} />
+            </button>
+            <div className="max-w-5xl w-full max-h-[85vh] rounded-3xl overflow-hidden shadow-2xl border border-stone-800 bg-stone-950 flex flex-col items-center justify-center p-2">
+              <img src={activeImage} alt={product.name} className="w-full max-h-[80vh] object-contain rounded-2xl" />
+            </div>
+          </div>
+        )}
 
         {/* ── Details & Specs Section ── */}
         <section className="max-w-[1440px] mx-auto px-[20px] md:px-[80px] pb-[160px]">
@@ -159,7 +234,7 @@ export default function ProductDetail() {
                   >
                     Inquire
                   </h3>
-                  <form className="space-y-6 mb-8" onSubmit={(e) => e.preventDefault()}>
+                  <form className="space-y-6 mb-8" onSubmit={handleInquirySubmit}>
                     <div>
                       <input
                         type="text"
@@ -176,15 +251,16 @@ export default function ProductDetail() {
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="input-glass font-body-md text-primary placeholder-on-surface-variant"
+                        className="input-glass font-body-md text-primary placeholder-on-surface-variant font-sans"
                         style={{ fontFamily: 'Inter' }}
                       />
                     </div>
                     <button
                       type="submit"
-                      className="w-full py-4 bg-[#111111] text-white font-body-lg text-center rounded transition-all duration-[400ms] hover:bg-[#C9A227]"
+                      disabled={loading}
+                      className="w-full py-4 bg-[#111111] text-white font-body-lg text-center rounded transition-all duration-[400ms] hover:bg-[#C9A227] disabled:opacity-50"
                     >
-                      Request Quote
+                      {loading ? 'Submitting...' : 'Request Quote'}
                     </button>
                   </form>
 
@@ -223,7 +299,6 @@ export default function ProductDetail() {
 
           </div>
         </section>
-
 
       </main>
     </>

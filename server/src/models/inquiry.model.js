@@ -33,6 +33,10 @@ Inquiry.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    image: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     status: {
       type: DataTypes.ENUM('Pending', 'Read', 'Resolved'),
       defaultValue: 'Pending',
@@ -45,6 +49,9 @@ Inquiry.init(
     timestamps: true,
   }
 );
+
+sequelize.query('ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS image TEXT;').catch(() => {});
+sequelize.query('ALTER TABLE inquiries ALTER COLUMN image TYPE TEXT;').catch(() => {});
 
 export default Inquiry;
 export { Inquiry };
