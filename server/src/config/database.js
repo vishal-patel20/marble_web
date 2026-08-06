@@ -89,11 +89,11 @@ export const connectDB = async () => {
     await sequelize.authenticate();
     logger.info('PostgreSQL connected successfully via Sequelize.');
     
-    // Sync models in development/test
+    // Sync models
+    await sequelize.sync({ alter: true });
+    logger.info('Database models synced.');
+    
     if (NODE_ENV !== 'production') {
-      await sequelize.sync({ alter: true });
-      logger.info('Database models synced.');
-      
       const { seedDatabase } = await import('../database/seed.js');
       await seedDatabase();
     } else {

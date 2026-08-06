@@ -1,9 +1,14 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore.js';
 
+const API_BASE = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app') 
+    ? 'https://marble-web-smoky.vercel.app/api/v1' 
+    : '/api/v1');
+
 // Create base instance
 const axiosInstance = axios.create({
-  baseURL: '/api/v1',
+  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },

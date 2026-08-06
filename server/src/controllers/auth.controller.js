@@ -34,10 +34,11 @@ class AuthController {
       await user.save();
 
       // Set cookie options
+      const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL;
       const cookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 Days
       };
 
@@ -83,10 +84,11 @@ class AuthController {
       await user.save();
 
       // Cookie options
+      const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL;
       const cookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000
       };
 
