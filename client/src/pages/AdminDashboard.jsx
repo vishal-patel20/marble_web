@@ -73,6 +73,23 @@ export default function AdminDashboard() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Custom Delete Confirmation Popup State
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    onConfirm: null,
+  });
+
+  const askConfirmation = (title, message, onConfirmCallback) => {
+    setConfirmModal({
+      isOpen: true,
+      title,
+      message,
+      onConfirm: onConfirmCallback,
+    });
+  };
+
   // Search Filter States for Tables
   const [productSearch, setProductSearch] = useState('');
   const [collectionSearch, setCollectionSearch] = useState('');
@@ -261,10 +278,15 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteCollectionItem = (id) => {
-    if (!window.confirm('Delete this marble from collection?')) return;
-    deleteCustomCollectionItem(id);
-    toast.success('Collection item removed');
-    setCollectionItemsList(getAllCollectionItems());
+    askConfirmation(
+      'Delete Collection Entry',
+      'Are you sure you want to remove this marble slab entry from your custom collection?',
+      () => {
+        deleteCustomCollectionItem(id);
+        toast.success('Collection item removed');
+        setCollectionItemsList(getAllCollectionItems());
+      }
+    );
   };
 
   // ==========================================
@@ -294,15 +316,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteProduct = async (id) => {
-    if (!window.confirm('Delete this product?')) return;
-    try {
-      await axiosInstance.delete(`/inventory/products/${id}`);
-      toast.success('Product deleted');
-      fetchProducts();
-    } catch (err) {
-      toast.error('Deletion failed');
-    }
+  const handleDeleteProduct = (id) => {
+    askConfirmation(
+      'Delete Product Slab',
+      'Are you sure you want to permanently delete this product slab from the active catalog?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/inventory/products/${id}`);
+          toast.success('Product deleted');
+          fetchProducts();
+        } catch (err) {
+          toast.error('Deletion failed');
+        }
+      }
+    );
   };
 
   // ==========================================
@@ -329,15 +356,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteCategory = async (id) => {
-    if (!window.confirm('Deleting category will detach associated products. Continue?')) return;
-    try {
-      await axiosInstance.delete(`/inventory/categories/${id}`);
-      toast.success('Category deleted');
-      fetchCategories();
-    } catch (err) {
-      toast.error('Deletion failed');
-    }
+  const handleDeleteCategory = (id) => {
+    askConfirmation(
+      'Delete Category',
+      'Deleting this category will detach associated products. Are you sure you want to continue?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/inventory/categories/${id}`);
+          toast.success('Category deleted');
+          fetchCategories();
+        } catch (err) {
+          toast.error('Deletion failed');
+        }
+      }
+    );
   };
 
   // ==========================================
@@ -354,15 +386,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteInquiry = async (id) => {
-    if (!window.confirm('Remove this lead log?')) return;
-    try {
-      await axiosInstance.delete(`/leads/inquiries/${id}`);
-      toast.success('Lead removed');
-      fetchInquiries();
-    } catch (err) {
-      toast.error('Delete failed');
-    }
+  const handleDeleteInquiry = (id) => {
+    askConfirmation(
+      'Remove Customer Lead',
+      'Are you sure you want to remove this lead inquiry log from your registry?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/leads/inquiries/${id}`);
+          toast.success('Lead removed');
+          fetchInquiries();
+        } catch (err) {
+          toast.error('Delete failed');
+        }
+      }
+    );
   };
 
   // ==========================================
@@ -392,15 +429,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteProject = async (id) => {
-    if (!window.confirm('Delete this project?')) return;
-    try {
-      await axiosInstance.delete(`/misc/projects/${id}`);
-      toast.success('Project deleted');
-      fetchProjects();
-    } catch (err) {
-      toast.error('Deletion failed');
-    }
+  const handleDeleteProject = (id) => {
+    askConfirmation(
+      'Delete Portfolio Project',
+      'Are you sure you want to delete this portfolio project installation?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/misc/projects/${id}`);
+          toast.success('Project deleted');
+          fetchProjects();
+        } catch (err) {
+          toast.error('Deletion failed');
+        }
+      }
+    );
   };
 
   // ==========================================
@@ -430,15 +472,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteGalleryItem = async (id) => {
-    if (!window.confirm('Delete this showroom image?')) return;
-    try {
-      await axiosInstance.delete(`/misc/gallery/${id}`);
-      toast.success('Gallery item deleted');
-      fetchGallery();
-    } catch (err) {
-      toast.error('Deletion failed');
-    }
+  const handleDeleteGalleryItem = (id) => {
+    askConfirmation(
+      'Delete Showroom Visual',
+      'Are you sure you want to delete this 3D showroom visual image?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/misc/gallery/${id}`);
+          toast.success('Gallery item deleted');
+          fetchGallery();
+        } catch (err) {
+          toast.error('Deletion failed');
+        }
+      }
+    );
   };
 
   // ==========================================
@@ -464,15 +511,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteBlog = async (id) => {
-    if (!window.confirm('Delete this article?')) return;
-    try {
-      await axiosInstance.delete(`/misc/blogs/${id}`);
-      toast.success('Article deleted');
-      fetchBlogs();
-    } catch (err) {
-      toast.error('Deletion failed');
-    }
+  const handleDeleteBlog = (id) => {
+    askConfirmation(
+      'Delete Article',
+      'Are you sure you want to delete this blog article post?',
+      async () => {
+        try {
+          await axiosInstance.delete(`/misc/blogs/${id}`);
+          toast.success('Article deleted');
+          fetchBlogs();
+        } catch (err) {
+          toast.error('Deletion failed');
+        }
+      }
+    );
   };
 
   return (
@@ -1748,6 +1800,50 @@ export default function AdminDashboard() {
         )}
 
       </main>
+
+      {/* Custom Delete Confirmation Popup Modal */}
+      {confirmModal.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative animate-scaleUp">
+            <button
+              onClick={() => setConfirmModal({ isOpen: false, title: '', message: '', onConfirm: null })}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-xl transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-14 h-14 rounded-2xl bg-red-500/10 text-red-500 border border-red-500/20 flex items-center justify-center mx-auto mb-5 shadow-sm">
+              <Trash2 className="w-7 h-7" />
+            </div>
+
+            <h3 className="text-xl font-bold font-serif text-center text-slate-800 dark:text-white mb-2">
+              {confirmModal.title || 'Confirm Action'}
+            </h3>
+
+            <p className="text-xs text-center text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+              {confirmModal.message || 'Are you sure you want to proceed with this deletion?'}
+            </p>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setConfirmModal({ isOpen: false, title: '', message: '', onConfirm: null })}
+                className="flex-1 py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (confirmModal.onConfirm) confirmModal.onConfirm();
+                  setConfirmModal({ isOpen: false, title: '', message: '', onConfirm: null });
+                }}
+                className="flex-1 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md shadow-red-600/30 transition-all flex items-center justify-center gap-1.5"
+              >
+                <Trash2 className="w-4 h-4" /> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
