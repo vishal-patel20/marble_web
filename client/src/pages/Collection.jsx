@@ -3,6 +3,7 @@ import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { ChevronRight, ArrowLeft } from 'lucide-react';
 import StoneCard from '../components/ui/StoneCard.jsx';
 import { getAllCollectionItems } from '../data/collections.js';
+import axiosInstance from '../api/axiosInstance.js';
 
 // Sidebar filter config matching reference UI
 const CATEGORIES = [
@@ -38,6 +39,7 @@ export default function Collection() {
   const [checkedFinishes, setCheckedFinishes] = useState([]);
   const [activeColor, setActiveColor]         = useState('');
   const [sortBy, setSortBy]                   = useState('featured');
+  const [apiProducts, setApiProducts]         = useState([]);
 
   useEffect(() => {
     if (matchedCategory) {
@@ -45,13 +47,53 @@ export default function Collection() {
     }
   }, [matchedCategory]);
 
+  useEffect(() => {
+    axiosInstance.get('/inventory/products')
+      .then((res) => {
+        const prods = Array.isArray(res.data?.data?.products) 
+          ? res.data.data.products 
+          : Array.isArray(res.data?.data) 
+            ? res.data.data 
+            : Array.isArray(res.data) 
+              ? res.data 
+              : [];
+        setApiProducts(prods);
+      })
+      .catch(() => {});
+  }, []);
+
   const toggleCheck = (list, setList, val) => {
     setList((prev) =>
       prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
     );
   };
 
-  const allItems = useMemo(() => getAllCollectionItems(), []);
+  const allItems = useMemo(() => {
+    const base = getAllCollectionItems();
+    const formattedApi = apiProducts.map((p) => {
+      const slug = (p.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const catName = p.category?.name || p.categoryName || p.category || 'Brown Marbles';
+      const colorVal = p.color || (catName.toLowerCase().includes('brown') ? 'Brown' : catName.toLowerCase().includes('green') ? 'Green' : 'White');
+      return {
+        id: p.id || slug,
+        slug,
+        name: p.name,
+        category: catName,
+        origin: p.origins || p.origin || 'International Reserve',
+        color: colorVal,
+        finish: p.finish || 'Polished',
+        finishes: ['Polished', 'Honed'],
+        description: p.description || `${p.name} is a luxury natural marble slab curated for high-end interior spaces.`,
+        density: p.density || '2710 kg/m³',
+        waterAbsorption: p.waterAbsorption || '0.12 %',
+        compressiveStrength: p.compressiveStrength || '135 MPa',
+        image: p.imageUrl || p.image || '/images/stone_image_1.jpg',
+      };
+    });
+    const baseSlugs = new Set(base.map((i) => i.slug));
+    const newFromApi = formattedApi.filter((i) => !baseSlugs.has(i.slug));
+    return [...newFromApi, ...base];
+  }, [apiProducts]);
 
   // Filtered and sorted products
   const filteredProducts = useMemo(() => {

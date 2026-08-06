@@ -113,12 +113,34 @@ export const deleteCustomCollectionItem = (id) => {
   }
 };
 
-// Default seed collection items array (Empty — only admin-created items are shown)
-export const defaultCollectionItems = [];
+// Default collection items derived from MARBLE_CATEGORIES_DATA
+export const defaultCollectionItems = Object.entries(MARBLE_CATEGORIES_DATA).flatMap(([catName, items]) => {
+  return items.map((item) => {
+    const slug = item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return {
+      id: slug,
+      slug,
+      name: item.name,
+      category: catName,
+      origin: item.origin || 'International Reserve',
+      color: item.color || 'White',
+      finish: item.finish || 'Polished',
+      finishes: [item.finish || 'Polished', 'Honed', 'Leathered'],
+      description: item.description || `${item.name} is a luxury natural marble slab curated for high-end interior spaces.`,
+      density: '2710 kg/m³',
+      waterAbsorption: '0.12 %',
+      compressiveStrength: '135 MPa',
+      image: item.image || '/images/stone_image_1.jpg',
+    };
+  });
+});
 
-// Combined collection items (Returns only admin-added custom collection items)
+// Combined collection items (Returns admin-added custom items merged with default collection items)
 export const getAllCollectionItems = () => {
-  return getCustomCollectionItems();
+  const custom = getCustomCollectionItems();
+  const customSlugs = new Set(custom.map((i) => i.slug));
+  const filteredDefaults = defaultCollectionItems.filter((i) => !customSlugs.has(i.slug));
+  return [...custom, ...filteredDefaults];
 };
 
 export const collectionItems = getAllCollectionItems();
