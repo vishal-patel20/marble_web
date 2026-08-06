@@ -1,8 +1,4 @@
-import Blog from '../models/blog.model.js';
-import Testimonial from '../models/testimonial.model.js';
-import FAQ from '../models/faq.model.js';
-import Wishlist from '../models/wishlist.model.js';
-import Product from '../models/product.model.js';
+import { Blog, Testimonial, FAQ, Wishlist, Product, Project, GalleryItem } from '../models/index.js';
 import ApiResponse from '../utils/apiResponse.js';
 import CloudinaryService from '../services/cloudinary.service.js';
 import logger from '../config/logger.js';

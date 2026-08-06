@@ -76,12 +76,14 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Attempt token refresh call using the base axiosInstance (which has baseURL set)
-        const response = await axiosInstance.post('/auth/refresh-token');
-        const { accessToken } = response.data.data;
+        const storedRefreshToken = useAuthStore.getState().refreshToken || (typeof window !== 'undefined' ? localStorage.getItem('refreshToken') : null);
 
-        // Cache new token in store
-        useAuthStore.getState().setAuth(useAuthStore.getState().user, accessToken);
+        // Attempt token refresh call sending refreshToken in body as fallback for cross-domain cookie restrictions
+        const response = await axiosInstance.post('/auth/refresh-token', { refreshToken: storedRefreshToken });
+        const { accessToken, refreshToken: newRefreshToken } = response.data?.data || {};
+
+        // Cache new tokens in store
+        useAuthStore.getState().setAuth(useAuthStore.getState().user, accessToken, newRefreshToken || storedRefreshToken);
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
         processQueue(null, accessToken);

@@ -14,6 +14,7 @@ import swaggerSpec from './docs/swagger.js';
 import router from './routes/index.js';
 import errorHandler from './middlewares/error.middleware.js';
 import logger from './config/logger.js';
+import './models/index.js';
 
 const app = express();
 

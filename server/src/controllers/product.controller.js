@@ -1,6 +1,5 @@
 import { Op } from 'sequelize';
-import Product from '../models/product.model.js';
-import Category from '../models/category.model.js';
+import { Product, Category, sequelize } from '../models/index.js';
 import ApiResponse from '../utils/apiResponse.js';
 import CloudinaryService from '../services/cloudinary.service.js';
 import logger from '../config/logger.js';

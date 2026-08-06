@@ -1,5 +1,4 @@
-import Project from '../models/project.model.js';
-import Category from '../models/category.model.js';
+import { Project, Category } from '../models/index.js';
 import ApiResponse from '../utils/apiResponse.js';
 import CloudinaryService from '../services/cloudinary.service.js';
 import logger from '../config/logger.js';

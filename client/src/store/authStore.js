@@ -13,24 +13,29 @@ const getInitialUser = () => {
 export const useAuthStore = create((set, get) => ({
   user: getInitialUser(),
   accessToken: typeof window !== 'undefined' ? localStorage.getItem('accessToken') || null : null,
+  refreshToken: typeof window !== 'undefined' ? localStorage.getItem('refreshToken') || null : null,
   theme: typeof window !== 'undefined' ? localStorage.getItem('theme') || 'light' : 'light',
   wishlistCount: 0,
 
   // Auth Operations
-  setAuth: (user, accessToken) => {
+  setAuth: (user, accessToken, refreshToken) => {
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken);
+    }
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken);
     }
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
     }
-    set({ user, accessToken });
+    set({ user, accessToken, refreshToken: refreshToken || get().refreshToken });
   },
 
   clearAuth: () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
-    set({ user: null, accessToken: null, wishlistCount: 0 });
+    set({ user: null, accessToken: null, refreshToken: null, wishlistCount: 0 });
   },
 
   // Theme Operations

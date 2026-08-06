@@ -49,7 +49,8 @@ class AuthController {
 
       return ApiResponse.success(res, 'Registration successful', {
         user: user.toJSON(),
-        accessToken
+        accessToken,
+        refreshToken
       }, 201);
     } catch (error) {
       next(error);
@@ -99,7 +100,8 @@ class AuthController {
 
       return ApiResponse.success(res, 'Login successful', {
         user: user.toJSON(),
-        accessToken
+        accessToken,
+        refreshToken
       }, 200);
     } catch (error) {
       next(error);
@@ -111,7 +113,7 @@ class AuthController {
    */
   static async refreshToken(req, res, next) {
     try {
-      let refreshToken = req.cookies?.refreshToken || req.body.refreshToken;
+      let refreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
 
       if (!refreshToken) {
         return ApiResponse.error(res, 'Refresh token is required', null, 400);
@@ -134,16 +136,20 @@ class AuthController {
       // Generate new access token
       const newAccessToken = TokenUtil.generateAccessToken(user);
 
-      // Set access token cookie
-      res.cookie('accessToken', newAccessToken, {
+      const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL;
+      const cookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
         maxAge: 15 * 60 * 1000
-      });
+      };
+
+      // Set access token cookie
+      res.cookie('accessToken', newAccessToken, cookieOptions);
 
       return ApiResponse.success(res, 'Token refreshed successfully', {
-        accessToken: newAccessToken
+        accessToken: newAccessToken,
+        refreshToken
       }, 200);
     } catch (error) {
       next(error);
