@@ -1,80 +1,7 @@
 // ── MarbleCraft Collection Data ─────────────────────────────────────
-// Complete Marble Collection Registry organized by Categories
+// Only real products created in the Admin / Database are shown.
 
-export const MARBLE_CATEGORIES_DATA = {
-  'Premium Italian Marbles': [
-    { name: 'Calacatta Gold', description: 'White background with bold gray veins and gold highlights.', origin: 'Carrara, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
-    { name: 'Statuario', description: 'Bright white with dramatic gray veining.', origin: 'Tuscany, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_2.jpg' },
-    { name: 'Carrara', description: 'Soft white with light gray veins; classic and timeless.', origin: 'Carrara, Italy', finish: 'Honed', color: 'white', image: '/images/stone_image_27.jpg' },
-    { name: 'Arabescato', description: 'White marble with intricate flowing gray veins.', origin: 'Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_11.jpg' },
-    { name: 'Bianco Lasa', description: 'Pure white with elegant gray veining.', origin: 'Lasa, Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_17.jpg' },
-    { name: 'Botticino Classico', description: 'Warm beige marble with delicate veinings.', origin: 'Brescia, Italy', finish: 'Honed', color: 'yellow', image: '/images/stone_image_5.jpg' },
-  ],
-  'Black Marbles': [
-    { name: 'Nero Marquina', description: 'Deep black with striking white veins.', origin: 'Spain', finish: 'Polished', color: 'black', image: '/images/stone_image_3.jpg' },
-    { name: 'Black Portoro', description: 'Black with luxurious gold veining.', origin: 'Italy', finish: 'Polished', color: 'black', image: '/images/stone_image_9.jpg' },
-    { name: 'Saint Laurent Black', description: 'Dark brown-black with golden veins.', origin: 'France', finish: 'Polished', color: 'black', image: '/images/stone_image_12.jpg' },
-    { name: 'Black Marquina Premium', description: 'High-gloss luxury black marble.', origin: 'Spain', finish: 'Polished', color: 'black', image: '/images/stone_image_19.jpg' },
-  ],
-  'Beige & Cream Marbles': [
-    { name: 'Crema Marfil', description: 'Elegant cream marble with subtle yellow and gold undertones.', origin: 'Spain', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
-    { name: 'Botticino', description: 'Classic beige marble with gentle golden veins.', origin: 'Italy', finish: 'Honed', color: 'yellow', image: '/images/stone_image_10.jpg' },
-    { name: 'Perlato Sicilia', description: 'Rich ivory beige marble with crystalline fossils.', origin: 'Italy', finish: 'Polished', color: 'yellow', image: '/images/stone_image_29.jpg' },
-    { name: 'Daino Reale', description: 'Layered cream and tan marble with river-stone veining.', origin: 'Italy', finish: 'Polished', color: 'yellow', image: '/images/stone_image_30.jpg' },
-    { name: 'Sunny Beige Marble', description: 'Bright sunlit beige marble with soft golden veining.', origin: 'Egypt', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
-    { name: 'Crema Nova', description: 'Soft cream marble with delicate tan and hazelnut swirls.', origin: 'Turkey', finish: 'Polished', color: 'yellow', image: '/images/stone_image_29.jpg' },
-  ],
-  'Green Marbles': [
-    { name: 'Rainforest Green', description: 'Striking dark green marble with web-like brown and white veins.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
-    { name: 'Forest Green', description: 'Deep emerald green marble with dark linear veining.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_11.jpg' },
-    { name: 'Verde Alpi', description: 'Dark Alpine green marble with white calcite veins.', origin: 'Italy', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
-    { name: 'Verde Guatemala', description: 'Rich forest green marble with intricate dark veining.', origin: 'Guatemala', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
-    { name: 'Indian Green Marble', description: 'Classic vibrant green marble with dark veins.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
-    { name: 'Ming Green', description: 'Soft mint green marble with gentle seafoam waves.', origin: 'Asia', finish: 'Honed', color: 'green', image: '/images/stone_image_11.jpg' },
-  ],
-  'White Marbles': [
-    { name: 'Makrana White (India)', description: 'World famous pure white marble from Rajasthan.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
-    { name: 'Michelangelo White', description: 'Premium white marble with subtle silver veining.', origin: 'Italy', finish: 'Polished', color: 'white', image: '/images/stone_image_13.jpg' },
-    { name: 'Volakas White', description: 'Soft white marble with diagonal grey and violet veins.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_18.jpg' },
-    { name: 'Thassos White', description: 'Crystal-clear pure snow-white marble.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_33.jpg' },
-    { name: 'Vietnam White', description: 'Luminous ultra-white marble slab.', origin: 'Vietnam', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
-    { name: 'Polar White', description: 'Pure white pristine marble with ice-like clarity.', origin: 'Greece', finish: 'Polished', color: 'white', image: '/images/stone_image_17.jpg' },
-  ],
-  'Brown Marbles': [
-    { name: 'Emperador Dark', description: 'Deep chocolate brown marble with spiderweb white veins.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_28.jpg' },
-    { name: 'Emperador Light', description: 'Warm hazelnut brown marble with light cream veins.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_29.jpg' },
-    { name: 'Coffee Brown', description: 'Rich coffee-toned marble with warm bronze flecks.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_30.jpg' },
-    { name: 'Fantasy Brown', description: 'Sweeping waves of brown, cream, and grey marble.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_31.jpg' },
-    { name: 'Bronze Armani', description: 'Dark bronze marble with fine copper veining.', origin: 'Spain', finish: 'Polished', color: 'brown', image: '/images/stone_image_28.jpg' },
-    { name: 'Chocolate Brown Marble', description: 'Deep mocha marble with smooth milk-chocolate undertones.', origin: 'Turkey', finish: 'Polished', color: 'brown', image: '/images/stone_image_32.jpg' },
-  ],
-  'Red & Pink Marbles': [
-    { name: 'Rosso Levanto', description: 'Rich cherry red marble accented by intense white calcite veining.', origin: 'Italy', finish: 'Polished', color: 'red', image: '/images/stone_image_6.jpg' },
-    { name: 'Rojo Alicante', description: 'Warm terracotta red marble with pale white veins.', origin: 'Spain', finish: 'Polished', color: 'red', image: '/images/stone_image_12.jpg' },
-    { name: 'Rosa Portugalo', description: 'Elegant blush pink marble with delicate rose veining.', origin: 'Portugal', finish: 'Polished', color: 'pink', image: '/images/stone_image_8.jpg' },
-    { name: 'Pink Onyx Marble', description: 'Translucent pink marble with soft pastel rose layers.', origin: 'Iran', finish: 'Polished', color: 'pink', image: '/images/stone_image_8.jpg' },
-    { name: 'Bidasar Pink', description: 'Rainforest pink marble with dramatic earthy veins.', origin: 'India', finish: 'Polished', color: 'pink', image: '/images/stone_image_6.jpg' },
-  ],
-  'Grey Marbles': [
-    { name: 'Pietra Grey', description: 'Charcoal grey marble with sharp white linear veins.', origin: 'Iran', finish: 'Honed', color: 'grey', image: '/images/stone_image_7.jpg' },
-    { name: 'Grigio Carnico', description: 'Dark charcoal grey marble with dramatic white veining.', origin: 'Italy', finish: 'Polished', color: 'grey', image: '/images/stone_image_14.jpg' },
-    { name: 'Tundra Grey', description: 'Cool silvery grey marble with cloud-like veining.', origin: 'Turkey', finish: 'Honed', color: 'grey', image: '/images/stone_image_7.jpg' },
-    { name: 'Silver Shadow', description: 'Light silver grey marble with fine pewter veining.', origin: 'Turkey', finish: 'Polished', color: 'grey', image: '/images/stone_image_14.jpg' },
-    { name: 'Bardiglio Grey', description: 'Classic dark grey Italian marble with fine linear veining.', origin: 'Italy', finish: 'Polished', color: 'grey', image: '/images/stone_image_7.jpg' },
-  ],
-  'Indian Marbles': [
-    { name: 'Makrana White', description: 'World-famous pure white marble from Makrana quarries.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
-    { name: 'Katni Marble', description: 'Elegant cream and beige Indian marble.', origin: 'India', finish: 'Polished', color: 'yellow', image: '/images/stone_image_5.jpg' },
-    { name: 'Morwad White', description: 'Lustrous white marble with grey and purple veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_18.jpg' },
-    { name: 'Ambaji White', description: 'Pristine white marble with subtle green veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_2.jpg' },
-    { name: 'Banswara White', description: 'High-luster white marble with soft grey veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_33.jpg' },
-    { name: 'Agaria White', description: 'Translucent white marble with subtle yellow highlights.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_13.jpg' },
-    { name: 'Udaipur Green', description: 'Famous deep green marble from Rajasthan quarries.', origin: 'India', finish: 'Polished', color: 'green', image: '/images/stone_image_4.jpg' },
-    { name: 'Rainforest Brown', description: 'Exotic golden-brown marble with dense root-like veining.', origin: 'India', finish: 'Polished', color: 'brown', image: '/images/stone_image_31.jpg' },
-    { name: 'Albeta Marble', description: 'Supreme quality Makrana white marble with golden veining.', origin: 'India', finish: 'Polished', color: 'white', image: '/images/stone_image_1.jpg' },
-    { name: 'Dungri Marble', description: 'Durable white marble with distinctive grey lines.', origin: 'India', finish: 'Honed', color: 'white', image: '/images/stone_image_27.jpg' },
-  ],
-};
+export const MARBLE_CATEGORIES_DATA = {};
 
 // LocalStorage key for custom admin added collection items
 const LOCAL_STORAGE_KEY = 'marblecraft_custom_collections';
@@ -113,34 +40,12 @@ export const deleteCustomCollectionItem = (id) => {
   }
 };
 
-// Default collection items derived from MARBLE_CATEGORIES_DATA
-export const defaultCollectionItems = Object.entries(MARBLE_CATEGORIES_DATA).flatMap(([catName, items]) => {
-  return items.map((item) => {
-    const slug = item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    return {
-      id: slug,
-      slug,
-      name: item.name,
-      category: catName,
-      origin: item.origin || 'International Reserve',
-      color: item.color || 'White',
-      finish: item.finish || 'Polished',
-      finishes: [item.finish || 'Polished', 'Honed', 'Leathered'],
-      description: item.description || `${item.name} is a luxury natural marble slab curated for high-end interior spaces.`,
-      density: '2710 kg/m³',
-      waterAbsorption: '0.12 %',
-      compressiveStrength: '135 MPa',
-      image: item.image || '/images/stone_image_1.jpg',
-    };
-  });
-});
+// Default seed collection items array (Empty — only real database/admin products are shown)
+export const defaultCollectionItems = [];
 
-// Combined collection items (Returns admin-added custom items merged with default collection items)
+// Combined collection items (Returns admin-added custom items)
 export const getAllCollectionItems = () => {
-  const custom = getCustomCollectionItems();
-  const customSlugs = new Set(custom.map((i) => i.slug));
-  const filteredDefaults = defaultCollectionItems.filter((i) => !customSlugs.has(i.slug));
-  return [...custom, ...filteredDefaults];
+  return getCustomCollectionItems();
 };
 
 export const collectionItems = getAllCollectionItems();
