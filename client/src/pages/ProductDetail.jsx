@@ -13,9 +13,59 @@ export default function ProductDetail() {
   const activeSlug = slug || category;
   const activeCat  = slug ? category : undefined;
   
-  const product = getCollectionDetail(activeSlug, activeCat);
+  const [apiProduct, setApiProduct] = useState(null);
 
-  const [selectedFinish, setSelectedFinish] = useState(product.finishes[0] || 'Polished');
+  useEffect(() => {
+    if (activeSlug) {
+      axiosInstance.get('/inventory/products')
+        .then((res) => {
+          const prods = Array.isArray(res.data?.data?.products) 
+            ? res.data.data.products 
+            : Array.isArray(res.data?.data) 
+              ? res.data.data 
+              : Array.isArray(res.data) 
+                ? res.data 
+                : [];
+          const found = prods.find(
+            (p) =>
+              String(p.id).toLowerCase() === String(activeSlug).toLowerCase() ||
+              (p.slug && String(p.slug).toLowerCase() === String(activeSlug).toLowerCase()) ||
+              (p.name && p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === String(activeSlug).toLowerCase())
+          );
+          if (found) {
+            setApiProduct(found);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [activeSlug]);
+
+  const baseProduct = getCollectionDetail(activeSlug, activeCat);
+
+  const product = useMemo(() => {
+    if (!apiProduct) return baseProduct;
+    const catName = apiProduct.category?.name || apiProduct.categoryName || apiProduct.category || activeCat || 'Marble';
+    const mainImg = apiProduct.imageUrl || apiProduct.image || baseProduct.images?.main || baseProduct.image;
+    return {
+      ...baseProduct,
+      id: apiProduct.id,
+      name: apiProduct.name,
+      categoryLabel: `Collections / ${catName}`,
+      breadcrumb: ['Collections', catName, apiProduct.name],
+      origin: apiProduct.origins || apiProduct.origin || baseProduct.origin || 'International Reserve',
+      primaryColor: apiProduct.colorFamily || apiProduct.color || baseProduct.primaryColor || 'Natural Stone',
+      description: apiProduct.description || baseProduct.description,
+      image: mainImg,
+      images: {
+        main: mainImg,
+        thumb1: mainImg,
+        thumb2: mainImg,
+        application: mainImg,
+      }
+    };
+  }, [apiProduct, baseProduct, activeCat]);
+
+  const [selectedFinish, setSelectedFinish] = useState('Polished');
   const [fullName, setFullName]             = useState('');
   const [email, setEmail]                   = useState('');
   const [loading, setLoading]               = useState(false);
@@ -26,6 +76,9 @@ export default function ProductDetail() {
   useEffect(() => {
     if (product) {
       setActiveImage(product.images?.main || product.image || '/images/showroom_3d_marble.png');
+      if (product.finishes && product.finishes.length > 0) {
+        setSelectedFinish(product.finishes[0]);
+      }
     }
   }, [product]);
 

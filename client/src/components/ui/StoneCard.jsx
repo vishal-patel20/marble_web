@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
  */
 export default function StoneCard({ item, to }) {
   const catSlug = (item?.category || 'marble').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const itemSlug = (item?.id || item?.slug || item?.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const itemSlug = (item?.slug || item?.name || item?.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const targetUrl = `/collection/${catSlug}/${itemSlug}`;
 
   return (
