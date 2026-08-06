@@ -171,7 +171,7 @@ export default function Gallery() {
                 <p className="text-xs text-slate-400 mt-1 leading-relaxed">{selectedImage.description}</p>
               </div>
               <a
-                href={`https://wa.me/15558904422?text=Hello,%20I%20like%20your%20design%20installation%20reference:%20${selectedImage.title}`}
+                href={`https://wa.me/919057283248?text=Hello,%20I%20like%20your%20design%20installation%20reference:%20${selectedImage.title}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gold-400 hover:bg-gold-500 text-slate-950 text-xs tracking-wider uppercase font-semibold px-5 py-3 rounded-full transition-colors flex items-center shrink-0"

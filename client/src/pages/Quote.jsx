@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, X, Home, Building2, Briefcase, UploadCloud } from 'lucide-react';
 import axiosInstance from '../api/axiosInstance.js';
@@ -284,11 +284,25 @@ function Step4({ data, goTo, onSubmit, loading }) {
 
 // ── Quote Page ────────────────────────────────────────────────────────
 export default function Quote() {
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const initialName  = location.state?.name || location.state?.projectName || searchParams.get('name') || searchParams.get('projectName') || '';
+  const initialEmail = location.state?.email || searchParams.get('email') || '';
+  const initialStone = location.state?.stone || searchParams.get('stone') || '';
+
   const [formData, setFormData] = useState({
-    name: '', email: '', category: '', stone: '', sqft: '', projectType: '', file: null,
+    name: initialName,
+    email: initialEmail,
+    category: '',
+    stone: initialStone,
+    sqft: '',
+    projectType: '',
+    file: null,
   });
 
   const updateField = (field, value) => setFormData((prev) => ({ ...prev, [field]: value }));

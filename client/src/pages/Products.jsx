@@ -270,7 +270,7 @@ export default function Products() {
                 </div>
                 
                 <a
-                  href={`https://wa.me/15558904422?text=Hello,%20I'm%20interested%20in%20obtaining%20a%20price%20quote%20for%20slab:%20${selectedProduct.name}`}
+                  href={`https://wa.me/919057283248?text=Hello,%20I'm%20interested%20in%20obtaining%20a%20price%20quote%20for%20slab:%20${selectedProduct.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gold-400 hover:bg-gold-500 text-slate-950 text-xs tracking-wider uppercase font-semibold px-6 py-3.5 rounded-full transition-colors flex items-center"

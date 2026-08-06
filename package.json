@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd client && npm install && npm run build"
+    "build": "node -e \"const fs=require('fs'); const cp=require('child_process'); if(fs.existsSync('./client')){ cp.execSync('cd client && npm install --legacy-peer-deps && npm run build', {stdio:'inherit'}); } else { cp.execSync('npm run build', {stdio:'inherit'}); }\""
   }
 }

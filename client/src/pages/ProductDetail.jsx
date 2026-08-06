@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, MessageSquare, ChevronRight, Maximize2, Rotate3d, X } from 'lucide-react';
+import { jsPDF } from 'jspdf';
 import ScrollReveal from '../components/ui/ScrollReveal.jsx';
 import { getCollectionDetail } from '../data/collections.js';
 import axiosInstance from '../api/axiosInstance.js';
@@ -15,7 +16,7 @@ export default function ProductDetail() {
   const product = getCollectionDetail(activeSlug, activeCat);
 
   const [selectedFinish, setSelectedFinish] = useState(product.finishes[0] || 'Polished');
-  const [projectName, setProjectName]       = useState('');
+  const [fullName, setFullName]             = useState('');
   const [email, setEmail]                   = useState('');
   const [loading, setLoading]               = useState(false);
   const [lightboxOpen, setLightboxOpen]     = useState(false);
@@ -43,28 +44,167 @@ export default function ProductDetail() {
     return arr.slice(0, 4);
   }, [product]);
 
+  const handleDownloadPDF = () => {
+    try {
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      // Dark Header Banner
+      doc.setFillColor(17, 17, 17);
+      doc.rect(0, 0, 210, 45, 'F');
+
+      // Title & Branding
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.text('MARBLECRAFT STUDIO', 15, 20);
+
+      doc.setTextColor(201, 162, 39);
+      doc.setFontSize(10);
+      doc.text('TECHNICAL DATA SHEET & SPECIFICATION', 15, 28);
+
+      doc.setTextColor(180, 180, 180);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.text(`Date: ${new Date().toLocaleDateString()}`, 145, 20);
+      doc.text(`WhatsApp: +91 9057283248`, 145, 28);
+
+      // Product Title Block
+      let y = 58;
+      doc.setTextColor(17, 17, 17);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(20);
+      doc.text((product.name || 'NATURAL MARBLE').toUpperCase(), 15, y);
+
+      y += 7;
+      doc.setFontSize(10);
+      doc.setTextColor(201, 162, 39);
+      doc.text(`CATEGORY: ${(product.categoryLabel || 'COLLECTION').toUpperCase()}`, 15, y);
+
+      // Divider Line
+      y += 6;
+      doc.setDrawColor(220, 220, 220);
+      doc.setLineWidth(0.5);
+      doc.line(15, y, 195, y);
+
+      // Description Section
+      y += 10;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(17, 17, 17);
+      doc.text('Product Description', 15, y);
+
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(60, 60, 60);
+      const splitDesc = doc.splitTextToSize(product.description || 'High quality natural stone slab.', 180);
+      doc.text(splitDesc, 15, y);
+
+      y += (splitDesc.length * 5) + 6;
+
+      // Specification Table Header
+      doc.setFillColor(245, 245, 245);
+      doc.rect(15, y, 180, 8, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(17, 17, 17);
+      doc.text('Specification Parameter', 20, y + 5.5);
+      doc.text('Detail / Value', 110, y + 5.5);
+
+      y += 8;
+
+      const specsData = [
+        { label: 'Stone Material', value: product.name },
+        { label: 'Country of Origin', value: product.origin || 'Italy' },
+        { label: 'Primary Color', value: product.primaryColor || 'Natural' },
+        { label: 'Active Finish', value: selectedFinish },
+        { label: 'Available Finishes', value: (product.finishes || []).join(', ') },
+        ...(product.specs || []).map(s => ({ label: s.label, value: s.value }))
+      ];
+
+      specsData.forEach((item, idx) => {
+        if (idx % 2 === 1) {
+          doc.setFillColor(250, 250, 250);
+          doc.rect(15, y, 180, 8, 'F');
+        }
+        doc.setDrawColor(235, 235, 235);
+        doc.line(15, y + 8, 195, y + 8);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(50, 50, 50);
+        doc.text(String(item.label), 20, y + 5.5);
+
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(80, 80, 80);
+        doc.text(String(item.value), 110, y + 5.5);
+
+        y += 8;
+      });
+
+      // Care & Maintenance Notes
+      y += 12;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(17, 17, 17);
+      doc.text('Care & Fabrication Guidelines', 15, y);
+
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(90, 90, 90);
+      const careText = 'Natural marble slabs require professional sealing prior to installation. Clean only with neutral pH marble cleaners. Avoid acidic chemicals and abrasive scrubbers to preserve polished finish clarity.';
+      const splitCare = doc.splitTextToSize(careText, 180);
+      doc.text(splitCare, 15, y);
+
+      // Footer Banner
+      doc.setFillColor(17, 17, 17);
+      doc.rect(0, 277, 210, 20, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(8.5);
+      doc.text('MarbleCraft Studio — Architectural Natural Stone Specialists', 15, 287);
+      doc.text('WhatsApp: +91 9057283248', 145, 287);
+
+      const fileName = `${product.name.toLowerCase().replace(/\s+/g, '_')}_technical_sheet.pdf`;
+      doc.save(fileName);
+      toast.success(`Downloaded ${product.name} Technical Sheet PDF`);
+    } catch (err) {
+      console.error('PDF Generation Error:', err);
+      toast.error('Failed to generate technical PDF sheet.');
+    }
+  };
+
   const handleInquirySubmit = async (e) => {
     e.preventDefault();
-    if (!projectName.trim() || !email.trim()) {
+    if (!fullName.trim() || !email.trim()) {
       toast.error('Please fill in all required fields');
       return;
     }
     setLoading(true);
     try {
-      await axiosInstance.post('/misc/inquiry', {
-        projectName,
-        email,
-        productName: product.name,
-        finish: selectedFinish,
-      });
-      toast.success('Inquiry submitted successfully! We will contact you shortly.');
-      setProjectName('');
-      setEmail('');
+      axiosInstance.post('/leads/inquiry', {
+        name: fullName.trim(),
+        email: email.trim(),
+        subject: `Product Inquiry: ${product.name}`,
+        message: `Name: ${fullName.trim()} | Finish: ${selectedFinish} | Product: ${product.name}`,
+        image: product.images?.main || product.image || ''
+      }).catch(() => {});
     } catch (err) {
-      console.error('Product inquiry submission failed:', err);
-      toast.error(err.response?.data?.message || 'Failed to submit inquiry. Please try again.');
+      console.error('Product inquiry log error:', err);
     } finally {
       setLoading(false);
+      navigate(`/quote?name=${encodeURIComponent(fullName.trim())}&email=${encodeURIComponent(email.trim())}&stone=${encodeURIComponent(product.name)}`, {
+        state: {
+          name: fullName.trim(),
+          email: email.trim(),
+          stone: product.name,
+          finish: selectedFinish
+        }
+      });
     }
   };
 
@@ -238,9 +378,9 @@ export default function ProductDetail() {
                     <div>
                       <input
                         type="text"
-                        placeholder="Project Name"
-                        value={projectName}
-                        onChange={(e) => setProjectName(e.target.value)}
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         className="input-glass font-body-md text-primary placeholder-on-surface-variant"
                         style={{ fontFamily: 'Inter' }}
                       />
@@ -265,14 +405,23 @@ export default function ProductDetail() {
                   </form>
 
                   <div className="flex flex-col gap-4">
-                    <button className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleDownloadPDF}
+                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                    >
                       <FileText size={20} />
                       Download Technical Sheet
                     </button>
-                    <button className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2">
+                    <a
+                      href={`https://wa.me/919057283248?text=Hello,%20I%20am%20interested%20in%20obtaining%20information%20for%20${encodeURIComponent(product.name)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2"
+                    >
                       <MessageSquare size={20} />
                       WhatsApp Inquiry
-                    </button>
+                    </a>
                   </div>
                 </div>
               </ScrollReveal>
