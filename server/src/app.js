@@ -17,24 +17,16 @@ import logger from './config/logger.js';
 
 const app = express();
 
-// 1. HTTP request logging via morgan piped to winston
-const morganStream = {
-  write: (message) => logger.info(message.trim()),
-};
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: morganStream }));
-
-// 2. Security Middlewares
-app.use(helmet({
-  crossOriginResourcePolicy: false, // Allows browser loading of static file attachments
-}));
-
+// 1. CORS Configuration (placed first to handle all origins and preflight requests)
 const allowedOrigins = [
   'http://localhost:5173', // Vite local development
   'http://localhost:80',   // Docker nginx frontend
-  'http://localhost'
+  'http://localhost',
+  'https://marble-en.vercel.app',
+  'https://marble-web-smoky.vercel.app'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
       callback(null, true);
@@ -43,8 +35,35 @@ app.use(cors({
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'Access-Control-Allow-Headers',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers',
+    'x-refresh-token',
+    'Cache-Control',
+    'Pragma'
+  ],
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// 2. HTTP request logging via morgan piped to winston
+const morganStream = {
+  write: (message) => logger.info(message.trim()),
+};
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: morganStream }));
+
+// 3. Security Middlewares
+app.use(helmet({
+  crossOriginResourcePolicy: false, // Allows browser loading of static file attachments
 }));
 
 app.use(express.json({ limit: '10mb' }));

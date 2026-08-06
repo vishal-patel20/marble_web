@@ -3,80 +3,6 @@ import { BookOpen, User, Calendar, ArrowLeft, ArrowRight } from 'lucide-react';
 import axiosInstance from '../api/axiosInstance.js';
 import Skeleton from '../components/ui/Skeleton.jsx';
 
-const MOCK_BLOGS = [
-  {
-    id: 'b1',
-    title: 'How to Care for and Protect Your Italian Marble Slabs',
-    author: 'Marco Rossi (Senior Stone Specialist)',
-    createdAt: '2025-02-15',
-    image: '/images/stone_image_1.jpg',
-    tags: ['Marble Care', 'Maintenance', 'Italian Marble'],
-    content: `Italian marble is a timeless investment for any luxury property. However, preserving its brilliant luster requires proper care and protection.
-
-1. Sealing: Apply a high-grade impregnating sealer every 6 to 12 months to prevent oils and liquids from penetrating the porous surface.
-2. pH-Neutral Cleaning: Never use harsh acidic cleaners such as vinegar, lemon juice, or bleach. Clean daily using warm water and a specialized pH-neutral marble soap.
-3. Spills & Etching: Wipe up wine, coffee, or citrus juices immediately using a soft microfiber cloth.
-4. Scratch Prevention: Place felt pads beneath heavy decorative objects and cookware.`
-  },
-  {
-    id: 'b2',
-    title: 'Italian Statuario vs Calacatta Gold: The Ultimate Comparison',
-    author: 'Elena Vance (Lead Interior Architect)',
-    createdAt: '2025-01-28',
-    image: '/images/stone_image_2.jpg',
-    tags: ['Buying Guide', 'Design Trends', 'Italian Marble'],
-    content: `Quarried exclusively in Tuscany, Italy, both Statuario and Calacatta Gold are world-renowned white marbles, but they offer distinct aesthetics:
-
-- Statuario Extra White: Defined by a crisp, cold white canvas crossed by bold graphite grey veining. Ideal for dramatic, modern contrast.
-- Calacatta Gold Supreme: Features a warmer cream-white background infused with soft grey and rich golden-honey veining. Perfect for opulent, warm interior palettes.`
-  },
-  {
-    id: 'b3',
-    title: 'The Rise of Backlit Translucent Onyx in Luxury Architecture',
-    author: 'Rajesh Sharma (Lighting & Stone Designer)',
-    createdAt: '2025-01-10',
-    image: '/images/stone_image_3.jpg',
-    tags: ['Translucent Onyx', 'Architecture', 'Commercial Design'],
-    content: `Translucent Onyx stone slabs create mesmerizing visual focal points when illuminated from behind using diffuse LED light panels.
-
-- Applications: Popular in 5-star hotel reception desks, luxury cocktail bars, VIP lounges, and bathroom feature walls.
-- Lighting Tip: Use 3000K to 4000K dimmable LED arrays mounted 2 inches behind the stone slab for uniform warmth.`
-  },
-  {
-    id: 'b4',
-    title: 'Quartzite vs Marble Countertops: Which Stone Fits Your Kitchen?',
-    author: 'Samantha Vance (Material Scientist)',
-    createdAt: '2024-12-18',
-    image: '/images/stone_image_4.jpg',
-    tags: ['Quartzite', 'Kitchen Design', 'Comparison'],
-    content: `Choosing between Quartzite and Marble depends on your daily lifestyle and maintenance preference:
-
-- Natural Quartzite: Rated 7 on Mohs scale (harder than granite). Exceptional resistance to scratches, thermal shock, and acid etching.
-- Italian Marble: Soft stone rated 3 to 4 on Mohs scale. Unmatched elegance and cool surface ideal for baking, but requires dedicated care.`
-  },
-  {
-    id: 'b5',
-    title: 'How to Book-Match Marble Slabs for Wall Feature Panels',
-    author: 'Vikramaditya Singh (Master Mason)',
-    createdAt: '2024-11-30',
-    image: '/images/stone_image_5.jpg',
-    tags: ['Installation', 'Book-Matching', 'Luxury Interiors'],
-    content: `Book-matching involves slicing consecutive marble slabs from the same block and mirroring their veining patterns side-by-side.
-
-- Butterfly Symmetry: Creates diamond or geometric mirror patterns across large feature walls.
-- Precision Fabrication: Requires digital slab layout mapping prior to waterjet cutting.`
-  },
-  {
-    id: 'b6',
-    title: 'Restoring Heritage Indian Marble Flooring to Mirror Polish',
-    author: 'Ananya Patel (Restoration Expert)',
-    createdAt: '2024-11-12',
-    image: '/images/stone_image_6.jpg',
-    tags: ['Restoration', 'Indian Marble', 'Flooring'],
-    content: `Restoring aged Makrana white or emerald green marble floors involves sequential diamond grit grinding followed by crystallization polishing to reactivate natural calcium luster.`
-  }
-];
-
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -87,14 +13,11 @@ export default function Blogs() {
       setLoading(true);
       try {
         const res = await axiosInstance.get('/misc/blogs');
-        if (res.data?.data?.length) {
-          setBlogs(res.data.data);
-        } else {
-          setBlogs(MOCK_BLOGS);
-        }
+        const list = Array.isArray(res.data?.data) ? res.data.data : Array.isArray(res.data) ? res.data : [];
+        setBlogs(list);
       } catch (err) {
         console.error('Failed to load blog posts', err);
-        setBlogs(MOCK_BLOGS);
+        setBlogs([]);
       } finally {
         setLoading(false);
       }

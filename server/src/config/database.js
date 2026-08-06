@@ -83,26 +83,33 @@ export const ensureDatabaseExists = async () => {
   }
 };
 
+let isConnected = false;
+
 export const connectDB = async () => {
+  if (isConnected) return;
   try {
     await ensureDatabaseExists();
     await sequelize.authenticate();
     logger.info('PostgreSQL connected successfully via Sequelize.');
     
     // Sync models
-    await sequelize.sync({ alter: true });
-    logger.info('Database models synced.');
-    
     if (NODE_ENV !== 'production') {
+      await sequelize.sync({ alter: true });
+      logger.info('Database models synced.');
       const { seedDatabase } = await import('../database/seed.js');
       await seedDatabase();
     } else {
+      await sequelize.sync();
       const { seedMasterAdmin } = await import('../database/seed.js');
       await seedMasterAdmin();
     }
+    isConnected = true;
   } catch (error) {
     logger.error(`PostgreSQL connection failure: ${error.message}`);
-    // If not in production, we could allow fallback to SQLite for local development without DB running
+    if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+      // Avoid calling process.exit(1) in serverless execution context
+      return;
+    }
     if (process.env.DB_FALLBACK_SQLITE === 'true') {
       logger.warn('Attempting SQLite fallback for database connection...');
     } else {

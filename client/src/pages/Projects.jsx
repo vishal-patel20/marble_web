@@ -3,69 +3,6 @@ import { Award, MapPin, Calendar, User } from 'lucide-react';
 import axiosInstance from '../api/axiosInstance.js';
 import Skeleton from '../components/ui/Skeleton.jsx';
 
-const MOCK_PROJECTS = [
-  {
-    id: 'p1',
-    name: 'The St. Regis Sky Residence',
-    description: 'Ultra-luxury penthouse living room and master suite featuring seamless Italian Calacatta Gold marble flooring with mirror-finish polishing.',
-    location: 'Mumbai, Maharashtra',
-    year: 2025,
-    client: 'St. Regis Residences',
-    image: '/images/stone_image_11.jpg',
-    category: { name: 'Italian Marble' }
-  },
-  {
-    id: 'p2',
-    name: 'DLF Cybercity Executive Lounge',
-    description: 'Corporate headquarters atrium featuring high-lustre Nero Marquina marble floor tiling with brass borders and backlit onyx reception panels.',
-    location: 'Gurugram, Delhi NCR',
-    year: 2024,
-    client: 'DLF Commercial Group',
-    image: '/images/stone_image_12.jpg',
-    category: { name: 'Translucent Onyx' }
-  },
-  {
-    id: 'p3',
-    name: 'Taj Palace Heritage Pavilion',
-    description: 'Bespoke courtyard and grand hallway paved with pure Makrana white marble flooring and hand-carved stone inlay borders.',
-    location: 'Udaipur, Rajasthan',
-    year: 2024,
-    client: 'Taj Hotels & Resorts',
-    image: '/images/stone_image_27.jpg',
-    category: { name: 'Italian Marble' }
-  },
-  {
-    id: 'p4',
-    name: 'Jubilee Hills Private Estate',
-    description: 'Sprawling 12,000 sq ft private estate featuring high-gloss Super White Quartzite floor slabs and outdoor granite landscape paving.',
-    location: 'Hyderabad, Telangana',
-    year: 2025,
-    client: 'Jubilee Luxury Living',
-    image: '/images/stone_image_33.jpg',
-    category: { name: 'Premium Quartzite' }
-  },
-  {
-    id: 'p5',
-    name: 'The Oberoi Horizon Lobby',
-    description: '5-star hotel grand lobby featuring customized Honey Onyx marble floor medallions and polished Statuario wall cladding.',
-    location: 'Bengaluru, Karnataka',
-    year: 2024,
-    client: 'Oberoi Hotels Group',
-    image: '/images/stone_image_1.jpg',
-    category: { name: 'Translucent Onyx' }
-  },
-  {
-    id: 'p6',
-    name: 'Jaipur Royal Heritage Resort',
-    description: 'Luxury heritage resort ballroom displaying traditional Indian emerald green marble flooring with gold-veined Calacatta borders.',
-    location: 'Jaipur, Rajasthan',
-    year: 2025,
-    client: 'Royal Palace Hotels',
-    image: '/images/stone_image_4.jpg',
-    category: { name: 'Exotic Granite' }
-  }
-];
-
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -93,15 +30,11 @@ export default function Projects() {
         const params = {};
         if (selectedCat) params.category = selectedCat;
         const res = await axiosInstance.get('/misc/projects', { params });
-        if (res.data?.data?.length) {
-          setProjects(res.data.data);
-        } else {
-          // Fallback if DB not seeded or returned empty
-          setProjects(MOCK_PROJECTS);
-        }
+        const list = Array.isArray(res.data?.data) ? res.data.data : Array.isArray(res.data) ? res.data : [];
+        setProjects(list);
       } catch (err) {
-        console.error(err);
-        setProjects(MOCK_PROJECTS);
+        console.error('Failed to load projects', err);
+        setProjects([]);
       } finally {
         setLoading(false);
       }
@@ -120,32 +53,7 @@ export default function Projects() {
         </p>
       </div>
 
-      {/* Categories filter */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12">
-        <button
-          onClick={() => setSelectedCat('')}
-          className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors border ${
-            selectedCat === ''
-              ? 'bg-gold-400 border-gold-400 text-slate-950 shadow-sm'
-              : 'bg-white border-slate-100 hover:border-gold-400 text-slate-600 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300'
-          }`}
-        >
-          All Collections
-        </button>
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setSelectedCat(cat.id)}
-            className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors border ${
-              selectedCat === cat.id
-                ? 'bg-gold-400 border-gold-400 text-slate-950 shadow-sm'
-                : 'bg-white border-slate-100 hover:border-gold-400 text-slate-600 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300'
-            }`}
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
+
 
       {/* Grid listing */}
       {loading ? (

@@ -73,6 +73,33 @@ export default function AdminDashboard() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Search Filter States for Tables
+  const [productSearch, setProductSearch] = useState('');
+  const [collectionSearch, setCollectionSearch] = useState('');
+
+  // Filtered Computed Lists
+  const filteredProducts = (products || []).filter((p) => {
+    if (!productSearch.trim()) return true;
+    const q = productSearch.toLowerCase();
+    return (
+      (p.name && p.name.toLowerCase().includes(q)) ||
+      (p.description && p.description.toLowerCase().includes(q)) ||
+      (p.origins && p.origins.toLowerCase().includes(q))
+    );
+  });
+
+  const filteredCollections = (collectionItemsList || []).filter((c) => {
+    if (!collectionSearch.trim()) return true;
+    const q = collectionSearch.toLowerCase();
+    return (
+      (c.name && c.name.toLowerCase().includes(q)) ||
+      (c.category && c.category.toLowerCase().includes(q)) ||
+      (c.origin && c.origin.toLowerCase().includes(q)) ||
+      (c.color && c.color.toLowerCase().includes(q)) ||
+      (c.finish && c.finish.toLowerCase().includes(q))
+    );
+  });
+
   // Fetch data utilities
   const fetchProducts = async () => {
     try {
@@ -837,16 +864,39 @@ export default function AdminDashboard() {
               </div>
 
               {/* Collection Items Table */}
-              <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 rounded-3xl shadow-sm">
-                <h3 className="text-xl font-bold font-serif mb-6 text-slate-800 dark:text-white">
-                  Active Collection Registry ({collectionItemsList.length} Slabs)
-                </h3>
+              <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 rounded-3xl shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <h3 className="text-xl font-bold font-serif text-slate-800 dark:text-white">
+                    Active Collection Registry ({filteredCollections.length} of {collectionItemsList.length})
+                  </h3>
+                  <div className="relative w-full sm:w-64">
+                    <input
+                      type="text"
+                      placeholder="Type to filter marbles..."
+                      value={collectionSearch}
+                      onChange={(e) => setCollectionSearch(e.target.value)}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs px-3 py-2 rounded-xl focus:outline-none focus:border-blue-600 text-slate-800 dark:text-white"
+                    />
+                    {collectionSearch && (
+                      <button
+                        onClick={() => setCollectionSearch('')}
+                        className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 text-xs"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
                 
-                {collectionItemsList.length === 0 ? (
+                {filteredCollections.length === 0 ? (
                   <div className="py-16 text-center text-slate-400">
                     <Layers className="h-10 w-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
-                    <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">No marble slabs in collection</p>
-                    <p className="text-xs text-slate-400 mt-1">Use the form on the left to add your first marble entry to the collection!</p>
+                    <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                      {collectionSearch ? 'No matching marble slabs found' : 'No marble slabs in collection'}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {collectionSearch ? 'Try a different search term.' : 'Use the form on the left to add your first marble entry to the collection!'}
+                    </p>
                   </div>
                 ) : (
                   <div className="overflow-x-auto">
@@ -862,7 +912,7 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody>
-                        {collectionItemsList.map((item) => (
+                        {filteredCollections.map((item) => (
                           <tr key={item.id} className="border-b border-slate-50 dark:border-slate-800/60 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                             <td className="py-3">
                               <div className="h-10 w-12 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
@@ -1102,45 +1152,78 @@ export default function AdminDashboard() {
             </div>
 
             {/* Product table grids (7 cols) */}
-            <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 rounded-3xl overflow-x-auto">
-              <h3 className="text-lg font-bold font-serif mb-6 text-slate-850 dark:text-white">Active Catalog ({products.length})</h3>
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-slate-50 dark:border-slate-800 pb-4 text-slate-400">
-                    <th className="py-3 font-semibold uppercase">Product</th>
-                    <th className="py-3 font-semibold uppercase">Price/Sqm</th>
-                    <th className="py-3 font-semibold uppercase">Stock</th>
-                    <th className="py-3 font-semibold uppercase text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map(prod => (
-                    <tr key={prod.id} className="border-b border-slate-50 dark:border-slate-800">
-                      <td className="py-3.5 font-bold text-slate-700 dark:text-slate-300">{prod.name}</td>
-                      <td className="py-3.5 font-semibold">${parseFloat(prod.pricePerSqft || prod.price || 0).toFixed(2)}</td>
-                      <td className="py-3.5 text-slate-400">{prod.stockQuantity ?? prod.stock ?? 0} slabs</td>
-                      <td className="py-3.5 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <a
-                            href={`/showroom?stoneId=${encodeURIComponent(prod.name || prod.slug || prod.id)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-accent/15 hover:bg-gold-accent/25 text-amber-700 dark:text-amber-300 border border-gold-accent/30 text-[11px] font-bold transition-all shadow-sm"
-                            title="Preview in 3D Showroom"
-                          >
-                            <Rotate3d className="h-3.5 w-3.5" /> 3D View
-                          </a>
-                          <button onClick={() => handleDeleteProduct(prod.id)} className="text-red-500 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 rounded-3xl overflow-x-auto space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <h3 className="text-lg font-bold font-serif text-slate-800 dark:text-white">
+                  Active Catalog ({filteredProducts.length} of {products.length})
+                </h3>
+                <div className="relative w-full sm:w-64">
+                  <input
+                    type="text"
+                    placeholder="Type to filter products..."
+                    value={productSearch}
+                    onChange={(e) => setProductSearch(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs px-3 py-2 rounded-xl focus:outline-none focus:border-gold-400 text-slate-800 dark:text-white"
+                  />
+                  {productSearch && (
+                    <button
+                      onClick={() => setProductSearch('')}
+                      className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 text-xs"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
 
+              {filteredProducts.length === 0 ? (
+                <div className="py-12 text-center text-slate-400">
+                  <Gem className="h-8 w-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                  <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    {productSearch ? 'No matching products found' : 'No products in database'}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    {productSearch ? 'Try typing a different search query.' : 'Use the form on the left to create your first stone slab product!'}
+                  </p>
+                </div>
+              ) : (
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-slate-50 dark:border-slate-800 pb-4 text-slate-400">
+                      <th className="py-3 font-semibold uppercase">Product</th>
+                      <th className="py-3 font-semibold uppercase">Price/Sqm</th>
+                      <th className="py-3 font-semibold uppercase">Stock</th>
+                      <th className="py-3 font-semibold uppercase text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredProducts.map(prod => (
+                      <tr key={prod.id} className="border-b border-slate-50 dark:border-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="py-3.5 font-bold text-slate-700 dark:text-slate-300">{prod.name}</td>
+                        <td className="py-3.5 font-semibold">${parseFloat(prod.pricePerSqft || prod.price || 0).toFixed(2)}</td>
+                        <td className="py-3.5 text-slate-400">{prod.stockQuantity ?? prod.stock ?? 0} slabs</td>
+                        <td className="py-3.5 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <a
+                              href={`/showroom?stoneId=${encodeURIComponent(prod.name || prod.slug || prod.id)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-accent/15 hover:bg-gold-accent/25 text-amber-700 dark:text-amber-300 border border-gold-accent/30 text-[11px] font-bold transition-all shadow-sm"
+                              title="Preview in 3D Showroom"
+                            >
+                              <Rotate3d className="h-3.5 w-3.5" /> 3D View
+                            </a>
+                            <button onClick={() => handleDeleteProduct(prod.id)} className="text-red-500 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
           </div>
         )}
 
