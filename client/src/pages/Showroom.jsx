@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getAllCollectionItems } from '../data/collections.js';
+import { getAllCollectionItems, getCollectionDetail } from '../data/collections.js';
 import axiosInstance from '../api/axiosInstance.js';
 import { 
   Rotate3d, 
@@ -233,23 +233,60 @@ export default function Showroom() {
   const findMatchingSlab = (targetId, list) => {
     if (!targetId || !list || list.length === 0) return null;
     const lowerTarget = String(targetId).toLowerCase().trim();
-    return list.find((s) => {
+    const targetSlug = lowerTarget.replace(/[^a-z0-9]+/g, '-');
+
+    const found = list.find((s) => {
       if (!s) return false;
       const sId = String(s.id || '').toLowerCase();
       const sRawId = String(s.rawId || '').toLowerCase();
       const sSlug = String(s.slug || '').toLowerCase();
       const sName = String(s.name || '').toLowerCase();
+      const sNameSlug = sName.replace(/[^a-z0-9]+/g, '-');
       return (
         sId === lowerTarget ||
         sRawId === lowerTarget ||
         sSlug === lowerTarget ||
         sName === lowerTarget ||
+        sNameSlug === targetSlug ||
+        sId === targetSlug ||
         sId.includes(lowerTarget) ||
         lowerTarget.includes(sId) ||
         sName.includes(lowerTarget) ||
         lowerTarget.includes(sName)
       );
     });
+
+    if (found) return found;
+
+    // Dynamic fallback for any catalog product detail slug
+    const detail = getCollectionDetail(targetId);
+    if (detail && detail.name) {
+      const img = detail.images?.main || detail.image || '/images/showroom_3d_marble.png';
+      return {
+        id: detail.id || targetSlug,
+        name: detail.name,
+        origin: detail.origin || 'International Reserve',
+        type: detail.categoryLabel ? detail.categoryLabel.replace('Collections / ', '') : 'Natural Stone',
+        finish: (detail.finishes && detail.finishes[0]) || 'Polished',
+        price: '$45 / sq ft',
+        image: img,
+        backlitImage: img,
+        bookmatchImage: img,
+        description: detail.description || `${detail.name} is a luxury natural marble slab.`,
+        specifications: {
+          hardness: '3.5 Mohs',
+          waterAbs: '0.12%',
+          density: '2,710 kg/m³',
+          thicknessAvailable: ['16mm', '20mm', '30mm'],
+        },
+        hotspots: [
+          { x: 45, y: 40, label: 'Natural Vein Pattern', detail: 'High-density mineral formation.' },
+          { x: 65, y: 60, label: 'Reflective Surface', detail: 'Diamond-grit polished finish.' },
+        ]
+      };
+    }
+
+    return null;
   };
 
   const initialSlab = useMemo(() => {
@@ -512,7 +549,7 @@ export default function Showroom() {
 
           {/* 3D Perspective Slab Representation (Unified Solid Cuboid) */}
           <motion.div
-            className="relative w-[280px] h-[390px] sm:w-[380px] sm:h-[520px] transition-transform duration-100 ease-out"
+            className="relative w-[340px] h-[360px] sm:w-[560px] sm:h-[440px] md:w-[640px] md:h-[460px] lg:w-[720px] lg:h-[480px] transition-transform duration-100 ease-out"
             style={{
               transform: `perspective(1200px) rotateX(${rotationX}deg) rotateY(${rotationY}deg) scale(${zoom})`,
               transformStyle: 'preserve-3d',

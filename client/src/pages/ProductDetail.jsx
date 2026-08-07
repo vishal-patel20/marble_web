@@ -330,7 +330,7 @@ export default function ProductDetail() {
                     <Maximize2 size={16} />
                   </button>
                   <Link
-                    to="/showroom"
+                    to={`/showroom?stoneId=${encodeURIComponent(activeSlug || product.id || product.slug || product.name)}`}
                     className="px-4 py-2 rounded-full bg-gold-accent hover:bg-amber-400 text-stone-950 font-bold text-xs flex items-center gap-1.5 shadow-lg transition-all hover:scale-105"
                   >
                     <Rotate3d size={16} />
@@ -457,22 +457,29 @@ export default function ProductDetail() {
                     </button>
                   </form>
 
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-3">
+                    <Link
+                      to={`/showroom?stoneId=${encodeURIComponent(activeSlug || product.id || product.slug || product.name)}`}
+                      className="w-full py-3 bg-[#111111] dark:bg-stone-800 text-gold-400 font-bold text-xs rounded transition-all duration-[300ms] hover:bg-[#C9A227] hover:text-stone-950 flex items-center justify-center gap-2 shadow-sm"
+                    >
+                      <Rotate3d size={18} />
+                      <span>Interactive 3D Showroom</span>
+                    </Link>
                     <button
                       type="button"
                       onClick={handleDownloadPDF}
-                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-xs font-semibold"
                     >
-                      <FileText size={20} />
+                      <FileText size={18} />
                       Download Technical Sheet
                     </button>
                     <a
                       href={`https://wa.me/919057283248?text=Hello,%20I%20am%20interested%20in%20obtaining%20information%20for%20${encodeURIComponent(product.name)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2"
+                      className="w-full py-3 border border-[#111111] text-primary font-body-md rounded transition-all duration-[400ms] hover:bg-surface-variant flex items-center justify-center gap-2 text-xs font-semibold"
                     >
-                      <MessageSquare size={20} />
+                      <MessageSquare size={18} />
                       WhatsApp Inquiry
                     </a>
                   </div>
