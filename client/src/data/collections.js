@@ -495,6 +495,48 @@ export const collectionDetailsMap = {
       application: '/images/stone_image_27.jpg',
     },
   },
+  'banswara-pink-marble': {
+    id: 'banswara-pink-marble',
+    name: 'Banswara Pink Marble',
+    categoryLabel: 'Collections / Red & Pink Marbles',
+    breadcrumb: ['Collections', 'Red & Pink Marbles', 'Banswara Pink Marble'],
+    origin: 'Banswara, Rajasthan, India',
+    primaryColor: 'Soft Pink / Delicate White & Grey Veining',
+    description: 'Quarried in the historic Banswara district of Rajasthan, Banswara Pink Marble is celebrated for its soft pink background, delicate white & grey veining, and smooth texture. Brings warmth and sophistication to luxury interiors, hotels, and architectural spaces.',
+    finishes: ['Polished', 'Honed', 'Leathered'],
+    specs: [
+      { label: 'Density',             value: '2710 kg/m³' },
+      { label: 'Water Absorption',    value: '0.12 %'     },
+      { label: 'Compressive Strength',value: '135 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_28.jpg',
+      thumb1: '/images/stone_image_8.jpg',
+      thumb2: '/images/stone_image_5.jpg',
+      application: '/images/stone_image_27.jpg',
+    },
+  },
+  'banswara-white-marble': {
+    id: 'banswara-white-marble',
+    name: 'Banswara White Marble',
+    categoryLabel: 'Collections / White Marbles',
+    breadcrumb: ['Collections', 'White Marbles', 'Banswara White Marble'],
+    origin: 'Banswara, Rajasthan, India',
+    primaryColor: 'Luminous White / Soft Purple Veins',
+    description: 'Banswara White Marble features a pristine white base with subtle purple and grey streaks. Highly regarded for heritage flooring and royal interior accents.',
+    finishes: ['Polished', 'Honed'],
+    specs: [
+      { label: 'Density',             value: '2705 kg/m³' },
+      { label: 'Water Absorption',    value: '0.11 %'     },
+      { label: 'Compressive Strength',value: '132 MPa'    },
+    ],
+    images: {
+      main: '/images/stone_image_23.jpg',
+      thumb1: '/images/stone_image_27.jpg',
+      thumb2: '/images/stone_image_25.jpg',
+      application: '/images/stone_image_26.jpg',
+    },
+  },
 };
 
 /**

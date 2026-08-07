@@ -14,8 +14,12 @@ export default function ProductDetail() {
   const activeCat  = slug ? category : undefined;
   
   const [apiProduct, setApiProduct] = useState(null);
+  const [isFetchingProduct, setIsFetchingProduct] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    setImageLoaded(false);
+    setIsFetchingProduct(true);
     if (activeSlug) {
       axiosInstance.get('/inventory/products')
         .then((res) => {
@@ -36,7 +40,12 @@ export default function ProductDetail() {
             setApiProduct(found);
           }
         })
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => {
+          setIsFetchingProduct(false);
+        });
+    } else {
+      setIsFetchingProduct(false);
     }
   }, [activeSlug]);
 
@@ -302,12 +311,32 @@ export default function ProductDetail() {
             
             {/* Full Width Single Product Hero Image */}
             <div className="lg:col-span-12">
-              <div className="relative aspect-[16/9] max-h-[650px] rounded-3xl overflow-hidden shadow-2xl bg-stone-900 border border-stone-200/80 dark:border-stone-800 group">
+              <div className="relative aspect-[16/9] max-h-[650px] rounded-3xl overflow-hidden shadow-2xl bg-stone-950 border border-stone-200/80 dark:border-stone-800 group flex items-center justify-center">
+                
+                {/* Loading Symbol & Spinner overlay */}
+                {(!imageLoaded || isFetchingProduct) && (
+                  <div className="absolute inset-0 z-20 bg-stone-950/95 backdrop-blur-md flex flex-col items-center justify-center gap-3">
+                    <div className="relative w-12 h-12 flex items-center justify-center">
+                      <div className="absolute inset-0 rounded-full border-2 border-amber-400/30 animate-ping" />
+                      <div className="w-10 h-10 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
+                    </div>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-amber-400 animate-pulse">
+                      Loading Product Details...
+                    </span>
+                  </div>
+                )}
+
                 <img
                   src={activeImage}
                   alt={product.name}
-                  onError={(e) => { e.currentTarget.src = '/images/showroom_3d_marble.png'; }}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  onLoad={() => setImageLoaded(true)}
+                  onError={(e) => { 
+                    e.currentTarget.src = '/images/showroom_3d_marble.png'; 
+                    setImageLoaded(true); 
+                  }}
+                  className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+                    imageLoaded && !isFetchingProduct ? 'opacity-100' : 'opacity-0'
+                  }`}
                 />
                 
                 {/* Top Badges */}

@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Diamond, Moon, Sun, Search, Menu, X, User, LogOut, Shield, Rotate3d, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore.js';
-import { getAllCollectionItems } from '../../data/collections.js';
+import { getAllCollectionItems, collectionDetailsMap } from '../../data/collections.js';
+import axiosInstance from '../../api/axiosInstance.js';
 
 const NAV_LINKS = [
   { label: 'Home',        to: '/'           },
@@ -21,31 +22,92 @@ export default function Navbar() {
   const [searchOpen,   setSearchOpen]   = useState(false);
   const [searchQuery,  setSearchQuery]  = useState('');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [dbProducts,   setDbProducts]   = useState([]);
   const { theme, toggleTheme, user, accessToken, clearAuth } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Filter collections for live search autocomplete
-  const collectionItems = getAllCollectionItems();
+  // Load database products on mount
+  useEffect(() => {
+    axiosInstance.get('/inventory/products?limit=100')
+      .then((res) => {
+        const data = res.data?.data;
+        const list = Array.isArray(data) ? data : (data?.products || []);
+        setDbProducts(list);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Comprehensive Product Search Index (DB + collectionDetailsMap + Custom Items)
+  const allSearchProducts = useMemo(() => {
+    const customItems = getAllCollectionItems();
+    const mapItems = Object.values(collectionDetailsMap || {}).map((item) => ({
+      id: item.id,
+      slug: item.id,
+      name: item.name,
+      category: item.categoryLabel ? item.categoryLabel.replace('Collections / ', '') : 'Marble',
+      origin: item.origin || 'Italy',
+      color: item.primaryColor || 'Natural Stone',
+      description: item.description || '',
+      image: item.images?.main || '/images/stone_image_28.jpg',
+    }));
+
+    const formattedDb = dbProducts.map((item) => ({
+      id: item.id,
+      slug: item.slug || String(item.id),
+      name: item.name,
+      category: item.category?.name || item.categoryName || item.category || 'Marble',
+      origin: item.origins || item.origin || 'Italy',
+      color: item.colorFamily || item.color || 'Natural Stone',
+      description: item.description || '',
+      image: item.imageUrl || item.image || '/images/showroom_3d_marble.png',
+    }));
+
+    const formattedCustom = customItems.map((item) => ({
+      id: item.id,
+      slug: item.slug || String(item.id),
+      name: item.name,
+      category: item.category || 'Marble',
+      origin: item.origin || 'International Reserve',
+      color: item.color || 'Natural Stone',
+      description: item.description || '',
+      image: item.image || '/images/showroom_3d_marble.png',
+    }));
+
+    const mapIds = new Set(mapItems.map((m) => m.id.toLowerCase()));
+    const uniqueDb = formattedDb.filter((d) => !mapIds.has(String(d.slug || d.id).toLowerCase()));
+    const uniqueCustom = formattedCustom.filter((c) => !mapIds.has(String(c.slug || c.id).toLowerCase()) && !uniqueDb.some((d) => String(d.slug || d.id).toLowerCase() === String(c.slug || c.id).toLowerCase()));
+
+    return [...mapItems, ...uniqueDb, ...uniqueCustom];
+  }, [dbProducts]);
+
+  // Filter products dynamically for live autocomplete
   const searchSuggestions = searchQuery.trim().length >= 1
-    ? collectionItems.filter((item) => {
-        const q = searchQuery.toLowerCase();
+    ? allSearchProducts.filter((item) => {
+        const q = searchQuery.toLowerCase().trim();
+        const name = (item.name || '').toLowerCase();
+        const cat = (item.category || '').toLowerCase();
+        const origin = (item.origin || '').toLowerCase();
+        const color = (item.color || '').toLowerCase();
+        const desc = (item.description || '').toLowerCase();
+        const slug = (item.slug || '').toLowerCase();
         return (
-          item.name.toLowerCase().includes(q) ||
-          (item.category && item.category.toLowerCase().includes(q)) ||
-          (item.origin && item.origin.toLowerCase().includes(q)) ||
-          (item.color && item.color.toLowerCase().includes(q)) ||
-          (item.description && item.description.toLowerCase().includes(q))
+          name.includes(q) ||
+          cat.includes(q) ||
+          origin.includes(q) ||
+          color.includes(q) ||
+          desc.includes(q) ||
+          slug.includes(q)
         );
-      }).slice(0, 6)
+      }).slice(0, 8)
     : [];
 
   const handleSelectSuggestion = (item) => {
     setSearchOpen(false);
     setSearchQuery('');
-    const cat = (item.category || 'marble').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const slug = (item.id || item.name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    navigate(`/collection/${cat}/${slug}`);
+    const rawCat = (item.category || 'marble').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const slug = (item.slug || item.id || item.name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    navigate(`/collection/${rawCat}/${slug}`);
   };
 
   const handleSearchSubmit = (e) => {
