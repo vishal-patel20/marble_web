@@ -9,7 +9,6 @@ const NAV_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: 'Sustainability', to: '/about#sustainability' },
   { label: 'Contact Us',     to: '/contact'              },
   { label: 'Privacy Policy', to: '/privacy'              },
 ];
